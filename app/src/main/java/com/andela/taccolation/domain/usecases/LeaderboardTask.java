@@ -1,4 +1,4 @@
 package com.andela.taccolation.domain.usecases;
 
-class LeaderboardTask {
+public class LeaderboardTask {
 }
