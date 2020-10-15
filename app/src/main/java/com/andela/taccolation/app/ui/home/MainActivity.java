@@ -1,21 +1,19 @@
 package com.andela.taccolation.app.ui.home;
 
 import android.os.Bundle;
-
-import com.andela.taccolation.R;
-import com.andela.taccolation.databinding.ActivityMainBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
-import android.view.View;
+import com.andela.taccolation.R;
+import com.andela.taccolation.databinding.ActivityMainBinding;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding mBinding;
