@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 ~ Copyright (C) 2019 The Android Open Source Project
 ~
 ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,5 +60,16 @@
     <!--Color on secondary (light), color on background (light),-->
     <!--color on surface (light)-->
     <color name="black_900">#000000</color>
+
+    <!--color resources for dashboard items-->
+    <color name="yellow">#FAB002</color>
+    <color name="magenta">#C2185B</color>
+    <color name="orange">#F57F17</color>
+    <color name="torque">#00796B</color>
+    <color name="green">#388E3C</color>
+    <color name="dark_blue">#6200ee</color>
+    <color name="dark_brown">#701D04</color>
+    <color name="black">#1B1818</color>
+    <color name="purple">#bb86fc</color>
 
 </resources>

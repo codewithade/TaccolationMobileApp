@@ -1,0 +1,20 @@
+package com.andela.taccolation.data.localdata;
+
+import androidx.lifecycle.LiveData;
+
+import com.andela.taccolation.app.utils.TaskStatus;
+import com.andela.taccolation.presentation.model.Course;
+import com.andela.taccolation.presentation.model.Student;
+
+import java.util.List;
+import java.util.Map;
+
+public interface LocalProfileDataSource {
+    void sendCourseList(List<Course> courses);
+
+    void sendStudentList(List<Student> students);
+
+    LiveData<Map<String, List<Student>>> getStudentList(List<String> courseCodeList);
+
+    LiveData<TaskStatus> addStudent(Student student);
+}

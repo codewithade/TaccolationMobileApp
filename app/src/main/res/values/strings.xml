@@ -2,13 +2,89 @@
     <string name="app_name">Taccolation</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label">Welcome</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Main App Dashboard</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button_text">Log In</string>
+    <string name="register_button_text">Register</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="empty_input_text_error">field cannot be empty</string>
+    <string name="password_mismatch">password do not match</string>
+    <string name="resend_email">Kindly check your mailbox to verify your email</string>
+    <string name="failed_authentication">An error occurred. please try again</string>
+    <string name="unauthenticated_user">Login with your credentials or register if you haven\'t</string>
+    <string name="email_confirmed">Email confirmed. Login to proceed</string>
+    <string name="register_route_button_text">Don\'t have an account? Register</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="send_password_recovery">Send Link</string>
+    <string name="cancel_password_recovery">Cancel</string>
+    <string name="reset_info_text">A password reset link would be sent to your registered email address</string>
+    <string name="reset_password_title">Reset Password</string>
+    <string name="invalid_credentials">Invalid login credentials</string>
+    <string name="internet_error">Check your internet connection and try again.</string>
+
+
+    <string name="teacher_profile">Teacher Profile</string>
+    <string name="student_profile"> Student Profile</string>
+    <string name="assessment">Assessment</string>
+    <string name="slides">Lecture Aids</string>
+    <string name="add_student">Add Student</string>
+    <string name="attendance">Attendance</string>
+    <string name="report">Report sheet</string>
+    <string name="performance">Student Statistics</string>
+    <string name="dashboard_icon_desc">dashboard icon</string>
+    <string name="update_profile">update profile</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="icon_description">Icon Description</string>
+    <string name="attendance_percentage">Attendance Percentage</string>
+    <string name="quiz_completed">Quiz Completed</string>
+    <string name="test_mark">Test Mark</string>
+    <string name="exam_mark">Exam Mark</string>
+    <string name="bonus_mark">Bonus Mark</string>
+    <string name="rewards_received">Rewards Received</string>
+    <string name="snack_bar_email_confirmed_msg">Email confirmed</string>
+    <string name="reg_success">Registration successful!</string>
+    <string name="app_sub_title">Become the best as a teacher</string>
+    <string name="let_s_go">Tap to Proceed</string>
+    <string name="app_summary_text">Taccolation offers
+teachers the platform to manage students records in an efficient manner. It increases Teacher’s
+productivity as usual manual work such as attendance, lecture notes, assessments, reports are now
+digitized and automated. It offers a platform where student’s information can better be managed
+thereby giving the teacher an idea on aspects to improve and also aspects to impact more in the
+student’s life.</string>
+    <string name="hero_image">Hero image</string>
+    <string name="have_an_account_log_in">Have an account? Log In</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="line_separator">line separator</string>
+    <string name="activities">Activities</string>
+    <string name="change_teacher_image_button">Change Teacher Image button</string>
+    <string name="toolbar_title">Add Student</string>
+    <string name="select_courses">Select Courses</string>
+    <string name="sex">Sex</string>
+    <string name="rewards_title">Rewards</string>
+    <string name="reward">Reward</string>
+    <string name="select_reward">Select Reward:</string>
+    <string name="student_add_task_success">Student added successfully</string>
+    <string name="student_add_task_failed">An error occurred. please try again</string>
+    <string name="reward_student">Reward Student</string>
+    <string name="rating_comment">Successfully completed all assignments with a rating of %d stars</string>
+    <string name="rating">%d stars</string>
+    <string name="task_title">Tasks</string>
 </resources>

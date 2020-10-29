@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_padding">32dp</dimen>
+    <dimen name="view_margin">8dp</dimen>
+    <dimen name="margin_top">16dp</dimen>
+    <dimen name="item_recyclerview_margin_bottom">18dp</dimen>
+    <dimen name="button_padding">24dp</dimen>
+    <dimen name="on_margin_top">24dp</dimen>
+    <dimen name="til_margin_top">16dp</dimen>
+    <dimen name="item_dashboard_margin">18dp</dimen>
+    <dimen name="hero_image_height">250dp</dimen>
+</resources>

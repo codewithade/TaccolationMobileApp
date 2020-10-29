@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".app.ui.studentprofile.AddStudent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MyApp.AppBarOverlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/add_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
+                app:popupTheme="@style/Theme.MyApp.PopupOverlay"
+                app:title="@string/toolbar_title" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/hero_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/student_profile"
+            android:src="@drawable/students"
+            app:layout_constraintBottom_toTopOf="@id/first_name_til"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+            app:layout_constraintVertical_weight="1" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/first_name_til"
+            style="@style/Widget.MyApp.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/view_margin"
+            android:hint="@string/first_name_hint"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="0dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true"
+            app:layout_constraintBottom_toTopOf="@id/sex_tv"
+            app:layout_constraintEnd_toStartOf="@id/last_name_til"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hero_image">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/last_name_til"
+            style="@style/Widget.MyApp.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/view_margin"
+            android:hint="@string/last_name_hint"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/app_padding"
+            app:errorEnabled="true"
+            app:hintEnabled="true"
+            app:layout_constraintBottom_toBottomOf="@id/first_name_til"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/first_name_til"
+            app:layout_constraintTop_toTopOf="@id/first_name_til">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/sex_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_margin"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:text="@string/sex"
+            android:textAppearance="?textAppearanceSubtitle1"
+            app:layout_constraintBottom_toTopOf="@id/sex_spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_name_til" />
+
+        <Spinner
+            android:id="@+id/sex_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/app_padding"
+            app:layout_constraintBottom_toTopOf="@id/courses_tv"
+            app:layout_constraintEnd_toEndOf="@id/sex_tv"
+            app:layout_constraintStart_toStartOf="@id/sex_tv"
+            app:layout_constraintTop_toBottomOf="@id/sex_tv"
+            app:layout_constraintVertical_weight="0.2"
+            app:spinner_adapter="@{@stringArray/sex}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/courses_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_margin"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:text="@string/select_courses"
+            android:textAppearance="?textAppearanceSubtitle1"
+            app:layout_constraintBottom_toTopOf="@id/chip_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sex_spinner" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/app_padding"
+            android:layout_marginEnd="@dimen/app_padding"
+            app:layout_constraintBottom_toTopOf="@id/add_student_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/courses_tv"
+            app:layout_constraintVertical_weight="0.5">
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_student_button"
+            style="@style/Widget.MyApp.AuthButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_padding"
+            android:layout_marginTop="@dimen/app_padding"
+            android:layout_marginEnd="@dimen/app_padding"
+            android:text="@string/toolbar_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
