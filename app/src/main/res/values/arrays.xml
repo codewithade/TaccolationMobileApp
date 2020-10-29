@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="designation">
+        <item>Mr</item>
+        <item>Mrs</item>
+        <item>Miss</item>
+        <item>Dr</item>
+        <item>Prof</item>
+    </string-array>
+
+    <string-array name="course_code_list">
+        <item>MAT 111</item>
+        <item>MAT 231</item>
+        <item>CHE 256</item>
+        <item>TCS 421</item>
+        <item>TCS 201</item>
+        <item>MEC 243</item>
+        <item>PHY 145</item>
+        <item>STA 231</item>
+    </string-array>
+
+    <string-array name="sex">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="rewards">
+        <item>Take a game at recess</item>
+        <item>Sit with a friend</item>
+        <item>Teach the class a favourite game</item>
+        <item>Take a homework pass</item>
+        <item>Draw on the chalkboard</item>
+        <item>Get a bonus of 5 marks</item>
+    </string-array>
+</resources>

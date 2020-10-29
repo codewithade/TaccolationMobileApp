@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.andela.taccolation.presentation.model.DashboardItem" />
+
+        <import type="com.andela.taccolation.app.utils.OnItemClickListener" />
+
+        <variable
+            name="dashboardItem"
+            type="DashboardItem" />
+
+        <variable
+            name="itemClick"
+            type="OnItemClickListener" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+        style="@style/ShapeAppearance.MyApp.DashboardItem"
+        android:layout_width="@dimen/item_dashboard_width"
+        android:layout_height="@dimen/item_dashboard_height"
+        android:layout_margin="@dimen/item_dashboard_margin"
+        app:card_background_color="@{dashboardItem.backgroundColor}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dashboard_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{v -> itemClick.onItemClick(dashboardItem)}"
+            android:padding="@dimen/app_padding">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/dashboard_icon_desc"
+                app:image_resource="@{dashboardItem.icon}"
+                app:layout_constraintBottom_toTopOf="@id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_baseline_school_24" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
+                style="@style/Widget.MyApp.DashboardTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/icon"
+                app:layout_constraintStart_toStartOf="@id/icon"
+                app:layout_constraintTop_toBottomOf="@id/icon"
+                app:title_resource="@{dashboardItem.itemTitle}"
+                tools:text="Student Profile" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

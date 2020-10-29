@@ -36,6 +36,7 @@
     <!--Shape Appearance for small components like chips, buttons, text fields and FABs-->
     <style name="ShapeAppearance.MyTheme.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <!--Your custom shape here-->
+        <item name="cornerFamily">rounded</item>
     </style>
 
     <!--Shape Appearance for medium components like cards, alert dialogs-->
@@ -46,6 +47,12 @@
     <!--Shape Appearance for large components like side and bottom navigation drawers-->
     <style name="ShapeAppearance.MyTheme.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <!--Your custom shape here-->
+    </style>
+
+    <style name="ShapeAppearance.MyApp.DashboardItem" parent="ShapeAppearance.MyTheme.MediumComponent">
+        <item name="cardBackgroundColor">?attr/colorPrimary</item>
+        <item name="cardCornerRadius">@dimen/box_corner_radius</item>
+        <item name="cardElevation">5dp</item>
     </style>
 
 </resources>

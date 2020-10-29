@@ -9,4 +9,5 @@ public abstract class ObservableUseCase<O, I> {
     public LiveData<O> buildUseCase(I input) {
         return generateObservable(input);
     }
+
 }

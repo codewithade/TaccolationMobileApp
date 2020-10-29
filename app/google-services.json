@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "661012602486",
+    "firebase_url": "https://taccolation.firebaseio.com",
+    "project_id": "taccolation",
+    "storage_bucket": "taccolation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661012602486:android:7cc883d4a7757f5e8ac957",
+        "android_client_info": {
+          "package_name": "com.andela.taccolation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661012602486-bkuhfnh9acfojeae8ek5vd2cppudhi6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.andela.taccolation",
+            "certificate_hash": "5ab455b5f9594caa535d54cadfec6ee323da0951"
+          }
+        },
+        {
+          "client_id": "661012602486-eml6nonukqgd2qa7qijiejcg01gpbg02.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD9nh0hgiYevAbUpqSoe1Z_CZvpD3FFC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661012602486-eml6nonukqgd2qa7qijiejcg01gpbg02.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

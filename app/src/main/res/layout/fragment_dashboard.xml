@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.andela.taccolation.presentation.model.Teacher" />
+
+        <variable
+            name="teacher"
+            type="Teacher" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/purple"
+        tools:context=".app.ui.home.DashboardFragment">
+
+        <View
+            android:id="@+id/white_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/view_margin_top"
+            android:background="@drawable/white_curved_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/profile_image"
+            style="@style/CircleImageStyle"
+            android:layout_width="@dimen/teacher_image_width"
+            android:layout_height="@dimen/teacher_image_height"
+            android:contentDescription="@string/dashboard_icon_desc"
+            android:src="@drawable/teacher"
+            app:layout_constraintBottom_toTopOf="@id/white_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/white_bg" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/teacher_image_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/change_teacher_image_button"
+            android:src="@drawable/ic_edit"
+            app:fabCustomSize="@dimen/fab_custom_size"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintCircle="@id/profile_image"
+            app:layout_constraintCircleAngle="120"
+            app:layout_constraintCircleRadius="@dimen/teacher_image_fab_radius"
+            app:layout_constraintStart_toEndOf="@id/profile_image" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/welcome_user_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceButton"
+            app:layout_constraintBottom_toTopOf="@id/dash_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            app:teacher_name="@{teacher}"
+            tools:text="Ms. Julie Doe" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/course_codes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:course_codes="@{teacher}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome_user_tv"
+            tools:text="Maths, English, French" />
+
+        <ImageView
+            android:id="@+id/dash_line"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/line_separator"
+            android:src="@drawable/dashed_line"
+            app:layout_constraintBottom_toTopOf="@id/activities"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/course_codes"
+            app:layout_constraintVertical_weight="0.3" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/activities"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/item_dashboard_margin"
+            android:layout_marginEnd="@dimen/item_dashboard_margin"
+            android:text="@string/activities"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dash_line"
+            app:layout_constraintVertical_weight="0.2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingStart="@dimen/item_dashboard_margin"
+            android:paddingEnd="@dimen/item_dashboard_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activities"
+            app:layout_constraintVertical_weight="5"
+            tools:listitem="@layout/item_dashboard" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

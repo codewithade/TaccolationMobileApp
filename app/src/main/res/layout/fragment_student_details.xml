@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.andela.taccolation.presentation.model.Student" />
+
+        <import type="com.andela.taccolation.presentation.model.StudentStatistics" />
+
+        <variable
+            name="student"
+            type="Student" />
+
+        <variable
+            name="statistics"
+            type="StudentStatistics" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".app.ui.studentprofile.StudentDetails">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.MyApp.AppBarOverlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/details_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
+                app:popupTheme="@style/Theme.MyApp.PopupOverlay"
+                app:title="Adebisi Yusuf" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/student_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAppearance="?textAppearanceHeadline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+            app:student_name="@{student}"
+            tools:text="Adebisi Yusuf" />
+
+
+        <ImageView
+            android:id="@+id/item_icon_attendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:contentDescription="@string/icon_description"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/item_padding"
+            android:src="@drawable/ic_baseline_history_edu_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/student_name" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_title_attendance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/attendance_percentage"
+            android:textAppearance="?textAppearanceButton"
+            app:layout_constraintBottom_toBottomOf="@id/item_icon_attendance"
+            app:layout_constraintStart_toEndOf="@id/item_icon_attendance"
+            app:layout_constraintTop_toTopOf="@id/item_icon_attendance" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_value_attendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/item_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:text="@{String.valueOf(statistics.attendance)}"
+            android:textAppearance="?textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@id/item_title_attendance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_title_attendance"
+            tools:text="36%" />
+
+        <ImageView
+            android:id="@+id/item_icon_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:contentDescription="@string/icon_description"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/item_padding"
+            android:src="@drawable/ic_baseline_home_work_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_icon_attendance" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_title_quiz"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/quiz_completed"
+            android:textAppearance="?textAppearanceButton"
+            app:layout_constraintBottom_toBottomOf="@id/item_icon_quiz"
+            app:layout_constraintStart_toEndOf="@id/item_icon_quiz"
+            app:layout_constraintTop_toTopOf="@id/item_icon_quiz" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_stats_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/item_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:text="@{String.valueOf(statistics.quiz)}"
+            android:textAppearance="?textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@id/item_title_quiz"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_title_quiz"
+            tools:text="3/5" />
+
+
+        <ImageView
+            android:id="@+id/item_icon_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:contentDescription="@string/icon_description"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/item_padding"
+            android:src="@drawable/ic_baseline_leaderboard_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_icon_quiz" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_title_test"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/test_mark"
+            android:textAppearance="?textAppearanceButton"
+            app:layout_constraintBottom_toBottomOf="@id/item_icon_test"
+            app:layout_constraintStart_toEndOf="@id/item_icon_test"
+            app:layout_constraintTop_toTopOf="@id/item_icon_test" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_value_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/item_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:text="@{String.valueOf(statistics.test)}"
+            android:textAppearance="?textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@id/item_title_test"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_title_test"
+            tools:text="12" />
+
+        <ImageView
+            android:id="@+id/item_icon_exam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:contentDescription="@string/icon_description"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/item_padding"
+            android:src="@drawable/ic_baseline_leaderboard_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_icon_test" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_title_exam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/exam_mark"
+            android:textAppearance="?textAppearanceButton"
+            app:layout_constraintBottom_toBottomOf="@id/item_icon_exam"
+            app:layout_constraintStart_toEndOf="@id/item_icon_exam"
+            app:layout_constraintTop_toTopOf="@id/item_icon_exam" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_value_exam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/item_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:text="@{String.valueOf(statistics.exam)}"
+            android:textAppearance="?textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@id/item_title_exam"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_title_exam"
+            tools:text="50%" />
+
+        <ImageView
+            android:id="@+id/item_icon_bonus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:contentDescription="@string/icon_description"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/item_padding"
+            android:src="@drawable/ic_baseline_emoji_events_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_icon_exam" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_title_bonus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/bonus_mark"
+            android:textAppearance="?textAppearanceButton"
+            app:layout_constraintBottom_toBottomOf="@id/item_icon_bonus"
+            app:layout_constraintStart_toEndOf="@id/item_icon_bonus"
+            app:layout_constraintTop_toTopOf="@id/item_icon_bonus" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_value_bonus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/item_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:text="@{String.valueOf(statistics.bonus)}"
+            android:textAppearance="?textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@id/item_title_bonus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_title_bonus"
+            tools:text="50%" />
+
+        <ImageView
+            android:id="@+id/item_icon_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:contentDescription="@string/icon_description"
+            android:paddingStart="@dimen/app_padding"
+            android:paddingEnd="@dimen/item_padding"
+            android:src="@drawable/ic_baseline_military_tech_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_icon_bonus" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_title_reward"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/rewards_received"
+            android:textAppearance="?textAppearanceButton"
+            app:layout_constraintBottom_toBottomOf="@id/item_icon_reward"
+            app:layout_constraintStart_toEndOf="@id/item_icon_reward"
+            app:layout_constraintTop_toTopOf="@id/item_icon_reward" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_value_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/item_padding"
+            android:paddingEnd="@dimen/app_padding"
+            android:text="@{String.valueOf(statistics.rewards)}"
+            android:textAppearance="?textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@id/item_title_reward"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/item_title_reward"
+            tools:text="50%" />
+
+        <ImageButton
+            android:id="@+id/rewards_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/reward_student"
+            android:src="@drawable/ic_baseline_redeem_24"
+            android:text="@string/reward_student"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_value_reward" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
