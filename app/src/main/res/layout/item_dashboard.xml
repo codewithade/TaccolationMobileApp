@@ -55,7 +55,7 @@
                 app:layout_constraintStart_toStartOf="@id/icon"
                 app:layout_constraintTop_toBottomOf="@id/icon"
                 app:title_resource="@{dashboardItem.itemTitle}"
-                tools:text="Student Profile" />
+                tools:text="Assessmendd Assignment" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

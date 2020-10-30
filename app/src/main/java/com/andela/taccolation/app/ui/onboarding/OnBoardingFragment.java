@@ -1,4 +1,4 @@
-package com.andela.taccolation.app.ui.home;
+package com.andela.taccolation.app.ui.onboarding;
 
 import android.content.Context;
 import android.content.SharedPreferences;

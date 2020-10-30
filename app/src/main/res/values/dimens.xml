@@ -26,7 +26,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_padding">16dp</dimen>
     <dimen name="view_margin">4dp</dimen>
-    <dimen name="spinner_padding">8dp</dimen>
+    <dimen name="spinner_padding">10dp</dimen>
     <dimen name="margin_top">8dp</dimen>
     <dimen name="item_recyclerview_margin_bottom">12dp</dimen>
     <dimen name="item_padding">8dp</dimen>
@@ -40,7 +40,7 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="item_dashboard_width">150dp</dimen>
-    <dimen name="item_dashboard_height">150dp</dimen>
+    <dimen name="item_dashboard_height">170dp</dimen>
     <dimen name="item_dashboard_margin">12dp</dimen>
     <dimen name="teacher_image_height">120dp</dimen>
     <dimen name="teacher_image_width">120dp</dimen>
