@@ -11,17 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andela.taccolation.R;
-import com.andela.taccolation.app.ui.home.ui.SpacesItemDecoration;
 import com.andela.taccolation.app.utils.Constants;
 import com.andela.taccolation.app.utils.DataHelper;
 import com.andela.taccolation.app.utils.OnItemClickListener;
@@ -42,7 +43,6 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
     private FragmentDashboardBinding mBinding;
     // FIXME: 25/10/2020 This is temporary. Transfer to ProfileFragment
     private ProfileViewModel mProfileViewModel;
-    //private NavController mNavController;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -51,12 +51,13 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mNavController = NavHostFragment.findNavController(this);
+        Log.i(TAG, "onCreate: DASHBOARD FRAGMENT");
         mProfileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: DASHBOARD FRAGMENT");
         mBinding = FragmentDashboardBinding.inflate(inflater);
         return mBinding.getRoot();
     }
@@ -64,7 +65,11 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        closeAppOnBackPressed();
+        mProfileViewModel.getIsDataDownloaded().observe(getViewLifecycleOwner(), isDataDownloaded -> {
+            if (!isDataDownloaded)
+                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_workerFragment);
+        });
+        setupAppBar(view);
         initRecyclerView();
         mProfileViewModel.getTeacher().observe(getViewLifecycleOwner(), teacher -> {
             if (teacher.getFirstName() != null) {
@@ -74,6 +79,14 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
         });
 
         mBinding.teacherImageFab.setOnClickListener(v -> startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY));
+    }
+
+    // TODO
+    private void setupAppBar(View view) {
+        NavController navController = Navigation.findNavController(view);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);*/
     }
 
     @Override
@@ -138,15 +151,6 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
                 Snackbar.make(requireView(), getString(item.getItemTitle()) + " under construction", Snackbar.LENGTH_LONG).show();
         }
 
-    }
-
-    private void closeAppOnBackPressed() {
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                requireActivity().finish();
-            }
-        });
     }
 
     @Override

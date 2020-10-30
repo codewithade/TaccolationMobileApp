@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+    <!--NavigationUI also provides helpers for tying destinations to menu-driven UI components.
+    NavigationUI contains a helper method, onNavDestinationSelected(),
+    which takes a MenuItem along with the NavController that hosts the associated destination.
+    If the id of the MenuItem matches the id of the destination,
+    the NavController can then navigate to that destination-->
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"

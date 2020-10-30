@@ -49,4 +49,5 @@
     <dimen name="view_margin_top">100dp</dimen>
     <dimen name="teacher_image_fab_radius">60dp</dimen>
     <dimen name="hero_image_height">200dp</dimen>
+    <dimen name="reward_app_bar_height">120dp</dimen>
 </resources>

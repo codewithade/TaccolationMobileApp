@@ -7,11 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.andela.taccolation.R;
 import com.andela.taccolation.databinding.FragmentTeacherNotesBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -40,17 +37,11 @@ public class TeacherNotes extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupToolbar();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
-    }
-
-    private void setupToolbar() {
-        final Toolbar toolbar = mBinding.teacherNotesToolbar;
-        toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack(R.id.dashboardFragment, false));
     }
 }

@@ -7,12 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.Constants;
 import com.andela.taccolation.databinding.FragmentRewardBinding;
 import com.andela.taccolation.presentation.viewmodel.ProfileViewModel;
@@ -46,7 +43,6 @@ public class Reward extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupToolbar();
         mProfileViewModel.getStudent().observe(getViewLifecycleOwner(), student -> mBinding.setStudent(student));
         if (getArguments() != null) mRating = RewardArgs.fromBundle(getArguments()).getRating();
         mBinding.rewardsButton.setOnClickListener(v -> mBinding.setRating(50));
@@ -56,14 +52,5 @@ public class Reward extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
-    }
-
-    private void setupToolbar() {
-        final Toolbar toolbar = mBinding.rewardsToolbar;
-        /*
-        NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);*/
-        toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack(R.id.dashboardFragment, false));
     }
 }

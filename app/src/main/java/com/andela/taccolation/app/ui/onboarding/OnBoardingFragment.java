@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.andela.taccolation.R;
@@ -24,22 +24,22 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class OnBoardingFragment extends Fragment {
 
     private static final String TAG = Constants.LOG.getConstant();
-    NavController mNavController;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: OnBoarding FRAGMENT CALLED");
-        mNavController = NavHostFragment.findNavController(this);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        closeAppOnBackPressed();
         Log.d(TAG, "onCreateView: OnBoarding FRAGMENT");
         // checks if its first time app was ran, navigates to onBoarding page
         // its weird. onCreateView gets called but not onCreate when popBackStack is invoked by LoginFragment
         boolean isFirstRun = requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(Constants.FIRST_RUN.getConstant(), true);
-        if (!isFirstRun) mNavController.navigate(R.id.action_OnBoardingFragment_to_workerFragment);
+        if (!isFirstRun)
+            NavHostFragment.findNavController(this).navigate(R.id.action_OnBoardingFragment_to_workerFragment);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_onboarding, container, false);
     }
@@ -52,7 +52,16 @@ public class OnBoardingFragment extends Fragment {
             editor.putBoolean(Constants.FIRST_RUN.getConstant(), false);
             editor.apply();
             //NavHostFragment.findNavController(OnBoardingFragment.this).popBackStack(R.id.action_OnBoardingFragment_to_workerFragment, false);
-            mNavController.navigate(R.id.action_OnBoardingFragment_to_workerFragment);
+            NavHostFragment.findNavController(this).navigate(R.id.action_OnBoardingFragment_to_workerFragment);
+        });
+    }
+
+    private void closeAppOnBackPressed() {
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish();
+            }
         });
     }
 

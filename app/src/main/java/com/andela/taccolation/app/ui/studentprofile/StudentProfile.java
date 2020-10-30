@@ -7,13 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.Constants;
 import com.andela.taccolation.databinding.FragmentStudentProfileBinding;
 import com.andela.taccolation.presentation.model.Student;
@@ -52,7 +49,6 @@ public class StudentProfile extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupToolbar();
         mProfileViewModel.getStudentListPerCourse().observe(getViewLifecycleOwner(), this::setUpTabLayout);
     }
 
@@ -73,14 +69,5 @@ public class StudentProfile extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
-    }
-
-    private void setupToolbar() {
-        final Toolbar toolbar = mBinding.profileToolbar;
-        /*
-        NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);*/
-        toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack(R.id.dashboardFragment, false));
     }
 }

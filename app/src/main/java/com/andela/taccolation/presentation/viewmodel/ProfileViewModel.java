@@ -19,11 +19,13 @@ public class ProfileViewModel extends ViewModel {
     private final ProfileTask mProfileTask;
     private final MutableLiveData<Teacher> mTeacherLiveData = new MutableLiveData<>();
     private final MutableLiveData<Student> mStudentLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> mIsDataDownloaded = new MutableLiveData<>();
     private final MutableLiveData<Map<String, List<Student>>> mStudentListPerCourse = new MutableLiveData<>();
 
     @ViewModelInject
     public ProfileViewModel(ProfileTask profileTask) {
         mProfileTask = profileTask;
+        mIsDataDownloaded.setValue(false);
     }
 
     public void sendCourseList(List<Course> courses) {
@@ -64,5 +66,13 @@ public class ProfileViewModel extends ViewModel {
 
     public void setStudent(Student student) {
         mStudentLiveData.setValue(student);
+    }
+
+    public LiveData<Boolean> getIsDataDownloaded() {
+        return mIsDataDownloaded;
+    }
+
+    public void setIsDataDownloaded(boolean isDataDownloaded) {
+        mIsDataDownloaded.setValue(isDataDownloaded);
     }
 }

@@ -85,6 +85,8 @@ public class WorkerFragment extends Fragment {
                         Log.i(TAG, "processAuthState: studentListPerCourse: " + studentListPerCourse.toString());
                         mProfileViewModel.setStudentListPerCourse(studentListPerCourse);
                         mProfileViewModel.setTeacher(teacher);
+                        // update the isDataDownloaded field
+                        mProfileViewModel.setIsDataDownloaded(true);
                         NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_dashboardFragment);
                     }
                 });
@@ -94,35 +96,14 @@ public class WorkerFragment extends Fragment {
 
     @Override
     public void onStop() {
-        Log.i(TAG, "onStop: ");
+        Log.i(TAG, "onStop: WORKER FRAGMENT");
         super.onStop();
         requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
-    /*private void processAuthState(AuthenticationState authenticationState) {
-        switch (authenticationState) {
-            case UNAUTHENTICATED:
-            case EMAIL_UNCONFIRMED:
-                // navigate user to login screen
-                mNavController.navigate(WorkerFragmentDirections.actionWorkerFragmentToLoginFragment(authenticationState));
-                break;
-            case AUTHENTICATED:
-                // welcome the teacher to the dashboard
-                mAuthViewModel.getTeacherDetails().observe(getViewLifecycleOwner(), teacher -> {
-                    if (teacher.getFirstName() != null) {
-                        Log.i(TAG, "processAuthState: Teacher: " + teacher.toString());
-                        final List<String> courseCodeList = teacher.getCourseCodeList();
-                        mProfileViewModel.getStudentList(courseCodeList).observe(getViewLifecycleOwner(), studentListPerCourse -> {
-                            if (!studentListPerCourse.isEmpty()) {
-                                Log.i(TAG, "processAuthState: studentListPerCourse: " + studentListPerCourse.toString());
-                                mProfileViewModel.setStudentListPerCourse(studentListPerCourse);
-                                mProfileViewModel.setTeacher(teacher);
-                                mNavController.navigate(R.id.action_workerFragment_to_dashboardFragment);
-                            }
-                        });
-                    }
-                });
-                break;
-        }
-    }*/
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i(TAG, "onDestroyView: WORKER FRAGMENT");
+    }
 }

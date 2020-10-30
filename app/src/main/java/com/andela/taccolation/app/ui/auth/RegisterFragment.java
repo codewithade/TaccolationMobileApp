@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -95,7 +94,7 @@ public class RegisterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNavController = NavHostFragment.findNavController(this);
-        // setUpNavGraphScopedViewModel();
+        // setUpNavGraphScopedViewModel();da
         mAuthViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
     }
 
@@ -106,7 +105,7 @@ public class RegisterFragment extends Fragment {
         setUpSpinner();
         addTextWatcher();
 
-        mBinding.loginRoute.setOnClickListener(v -> mNavController.navigate(R.id.action_registerFragment_to_loginFragment));
+        mBinding.loginRoute.setOnClickListener(v -> mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED)));
 
         mBinding.registerButton.setOnClickListener(v -> {
             addTextChangeListener();
@@ -195,10 +194,10 @@ public class RegisterFragment extends Fragment {
     // Since ViewModel is scoped to the navigation graph,
     // we use the defaultViewModelProviderFactory object that is
     // available to activities and fragments that are annotated with @AndroidEntryPoint.
-    private void setUpNavGraphScopedViewModel() {
+    /*private void setUpNavGraphScopedViewModel() {
         NavBackStackEntry backStackEntry = mNavController.getBackStackEntry(R.id.auth_graph);
         mAuthViewModel = new ViewModelProvider(backStackEntry, getDefaultViewModelProviderFactory()).get(AuthViewModel.class);
-    }
+    }*/
 
     private void sendSnackbar(String message) {
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show();

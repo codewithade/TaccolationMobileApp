@@ -12,10 +12,8 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.Constants;
@@ -104,7 +102,6 @@ public class AddStudent extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         bindViews();
         addTextWatcher();
-        setupToolbar();
         mProfileViewModel.getTeacher().observe(getViewLifecycleOwner(), this::createCourseCodeChips);
         mBinding.addStudentButton.setOnClickListener(v -> {
             addTextChangeListener();
@@ -178,15 +175,6 @@ public class AddStudent extends Fragment {
     private void addTextChangeListener() {
         mFirstName.addOnEditTextAttachedListener(mTextAttachedListener);
         mLastName.addOnEditTextAttachedListener(mTextAttachedListener);
-    }
-
-    private void setupToolbar() {
-        final Toolbar toolbar = mBinding.addToolbar;
-        /*
-        NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);*/
-        toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack(R.id.dashboardFragment, false));
     }
 
     private void resetViews() {

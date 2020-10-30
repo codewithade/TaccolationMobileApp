@@ -91,4 +91,6 @@ student’s life.</string>
     <string name="error_placeholder_image">error placeholder image</string>
     <string name="select_course">Select Courses</string>
     <string name="lecture_aids">Lecture Aids</string>
+    <string name="teacher">Teacher</string>
+    <string name="student_details">Student Details</string>
 </resources>
