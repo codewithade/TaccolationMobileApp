@@ -87,4 +87,8 @@ student’s life.</string>
     <string name="rating_comment">Successfully completed all assignments with a rating of %d stars</string>
     <string name="rating">%d stars</string>
     <string name="task_title">Tasks</string>
+    <string name="teacher_notes">Teacher Notes</string>
+    <string name="error_placeholder_image">error placeholder image</string>
+    <string name="select_course">Select Courses</string>
+    <string name="lecture_aids">Lecture Aids</string>
 </resources>

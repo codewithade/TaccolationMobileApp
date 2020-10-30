@@ -5,8 +5,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.BindingAdapter;
 
+import com.andela.taccolation.R;
 import com.andela.taccolation.presentation.model.Student;
 import com.andela.taccolation.presentation.model.TaskItem;
 import com.andela.taccolation.presentation.model.Teacher;
@@ -71,6 +73,13 @@ public class CustomBindingAdapters {
 
     }
 
+    @BindingAdapter(value = {"toolbar_title"})
+    public static void setToolBarTitle(Toolbar toolbar, Student student) {
+        if (student != null)
+            toolbar.setTitle(String.format("%s %s %s", student.getFirstName(), student.getLastName(), " Stats"));
+
+    }
+
     @BindingAdapter(value = {"spinner_adapter"})
     public static void setSpinnerAdapter(Spinner spinner, String[] resId) {
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -90,6 +99,13 @@ public class CustomBindingAdapters {
     @BindingAdapter(value = {"task_item_text"})
     public static void setTaskItemText(MaterialButton button, TaskItem taskItem) {
         button.setText(String.format(Locale.getDefault(), "%d\t\t%s", taskItem.getPosition(), taskItem.getTitle()));
+    }
+
+    @BindingAdapter(value = {"sex_image_selection"})
+    public static void setSexImageSelection(ImageView imageView, String sex) {
+        if (sex.toLowerCase().startsWith("m"))
+            imageView.setImageResource(R.drawable.pro1);
+        else imageView.setImageResource(R.drawable.pro2);
     }
 
 }

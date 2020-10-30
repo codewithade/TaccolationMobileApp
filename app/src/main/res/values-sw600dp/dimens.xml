@@ -8,5 +8,11 @@
     <dimen name="on_margin_top">24dp</dimen>
     <dimen name="til_margin_top">16dp</dimen>
     <dimen name="item_dashboard_margin">18dp</dimen>
+    <dimen name="teacher_image_height">150dp</dimen>
+    <dimen name="teacher_image_width">150dp</dimen>
+    <dimen name="teacher_image_fab_radius">75dp</dimen>
+    <dimen name="spinner_padding">16dp</dimen>
     <dimen name="hero_image_height">250dp</dimen>
+    <dimen name="item_dashboard_width">150dp</dimen>
+    <dimen name="item_dashboard_height">200dp</dimen>
 </resources>

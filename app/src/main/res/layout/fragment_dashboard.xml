@@ -29,13 +29,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/profile_image"
             style="@style/CircleImageStyle"
             android:layout_width="@dimen/teacher_image_width"
             android:layout_height="@dimen/teacher_image_height"
             android:contentDescription="@string/dashboard_icon_desc"
             android:src="@drawable/teacher"
+            app:layout_constraintBottom_toTopOf="@id/white_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/white_bg" />-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/teacher_image_width"
+            android:layout_height="@dimen/teacher_image_height"
+            android:contentDescription="@string/dashboard_icon_desc"
+            android:src="@drawable/teacher"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
             app:layout_constraintBottom_toTopOf="@id/white_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,13 +110,15 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/item_dashboard_margin"
             android:layout_marginEnd="@dimen/item_dashboard_margin"
+            android:paddingStart="@dimen/item_dashboard_margin"
+            android:paddingEnd="@dimen/item_dashboard_margin"
             android:text="@string/activities"
-            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintBottom_toTopOf="@id/recycler_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dash_line"
-            app:layout_constraintVertical_weight="0.2" />
+            app:layout_constraintVertical_weight="0.3" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

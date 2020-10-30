@@ -9,5 +9,6 @@ public enum DashboardMenu {
     STUDENT_STATISTICS,
     REPORT_SHEET,
     TASKS,
+    TEACHER_NOTES,
     ADD_STUDENT
 }

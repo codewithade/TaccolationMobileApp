@@ -6,12 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.andela.taccolation.R;
@@ -30,7 +30,6 @@ public class WorkerFragment extends Fragment {
     private static final String TAG = Constants.LOG.getConstant();
     private AuthViewModel mAuthViewModel;
     private ProfileViewModel mProfileViewModel;
-    private NavController mNavController;
 
     public WorkerFragment() {
         // Required empty public constructor
@@ -39,6 +38,8 @@ public class WorkerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        // requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Log.d(TAG, "onCreate: WORKER FRAGMENT CALLED");
         processSharedPreferences();
         initViewModel();
@@ -54,7 +55,6 @@ public class WorkerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // mAuthViewModel.getAuthState().observe(getViewLifecycleOwner(), this::processAuthState);
         populateData();
     }
 
@@ -63,10 +63,11 @@ public class WorkerFragment extends Fragment {
         boolean isFirstRun = requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(Constants.FIRST_RUN.getConstant(), true);
         // TODO: 27/10/2020 Reset this when user or Teacher decides to log out
         boolean isUserAuthenticated = requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(Constants.USER_AUTHENTICATED.getConstant(), false);
-        mNavController = NavHostFragment.findNavController(this);
-        if (isFirstRun) mNavController.navigate(R.id.action_workerFragment_to_OnBoardingFragment);
+
+        if (isFirstRun)
+            NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_OnBoardingFragment);
         else if (!isUserAuthenticated)
-            mNavController.navigate(WorkerFragmentDirections.actionWorkerFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED));
+            NavHostFragment.findNavController(this).navigate(WorkerFragmentDirections.actionWorkerFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED));
     }
 
     private void initViewModel() {
@@ -84,14 +85,21 @@ public class WorkerFragment extends Fragment {
                         Log.i(TAG, "processAuthState: studentListPerCourse: " + studentListPerCourse.toString());
                         mProfileViewModel.setStudentListPerCourse(studentListPerCourse);
                         mProfileViewModel.setTeacher(teacher);
-                        mNavController.navigate(R.id.action_workerFragment_to_dashboardFragment);
+                        NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_dashboardFragment);
                     }
                 });
             }
         });
     }
 
-    private void processAuthState(AuthenticationState authenticationState) {
+    @Override
+    public void onStop() {
+        Log.i(TAG, "onStop: ");
+        super.onStop();
+        requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /*private void processAuthState(AuthenticationState authenticationState) {
         switch (authenticationState) {
             case UNAUTHENTICATED:
             case EMAIL_UNCONFIRMED:
@@ -116,5 +124,5 @@ public class WorkerFragment extends Fragment {
                 });
                 break;
         }
-    }
+    }*/
 }

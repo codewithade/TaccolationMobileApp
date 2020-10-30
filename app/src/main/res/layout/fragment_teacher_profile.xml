@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg"
         tools:context=".app.ui.teacherprofile.TeacherProfile">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -47,18 +48,21 @@
         <ImageView
             android:id="@+id/profile_image"
             style="@style/CircleImageStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/teacher_image_width"
+            android:layout_height="@dimen/teacher_image_height"
             android:contentDescription="@string/dashboard_icon_desc"
-            android:src="@drawable/ic_baseline_face_24"
+            android:padding="@dimen/app_padding"
+            android:src="@drawable/teacher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/app_bar_layout" />
 
         <Spinner
             android:id="@+id/designation_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_padding"
+            android:layout_marginEnd="@dimen/app_padding"
             android:padding="@dimen/spinner_padding"
             app:layout_constraintBottom_toTopOf="@id/first_name_tv"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +73,10 @@
             android:id="@+id/first_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_padding"
+            android:layout_marginEnd="0dp"
             android:text="@string/first_name"
-            android:textAppearance="?textAppearanceHeadline5"
+            android:textAppearance="?textAppearanceHeadline6"
             app:layout_constraintEnd_toStartOf="@id/last_name_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/designation_spinner" />
@@ -89,8 +95,10 @@
             android:id="@+id/last_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="@dimen/app_padding"
             android:text="@string/last_name"
-            android:textAppearance="?textAppearanceHeadline5"
+            android:textAppearance="?textAppearanceHeadline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/first_name_tv"
             app:layout_constraintTop_toBottomOf="@id/designation_spinner" />
@@ -109,18 +117,36 @@
             android:id="@+id/update_profile_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_padding"
+            android:layout_marginEnd="@dimen/app_padding"
             android:text="@string/update_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/select_course_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_padding"
+            android:layout_marginTop="@dimen/til_margin_top"
+            android:layout_marginEnd="@dimen/app_padding"
+            android:text="@string/select_course"
+            android:textAppearance="?textAppearanceHeadline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_name_et" />
+
         <Spinner
             android:id="@+id/course_code_list_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/update_profile_button"
+            android:layout_marginStart="@dimen/app_padding"
+            android:layout_marginEnd="@dimen/app_padding"
+            android:padding="@dimen/spinner_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select_course_tv"
             app:spinner_adapter="@{@stringArray/course_code_list}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/OnBoardingFragment"
-        android:name="com.andela.taccolation.app.ui.home.OnBoardingFragment"
+        android:name="com.andela.taccolation.app.ui.onboarding.OnBoardingFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_onboarding">
         <action
@@ -32,6 +32,18 @@
         <action
             android:id="@+id/action_dashboardFragment_to_task"
             app:destination="@id/task" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_reportSheet"
+            app:destination="@id/reportSheet" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_teacherNotes"
+            app:destination="@id/teacherNotes" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_attendance"
+            app:destination="@id/attendance" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_lectureAids"
+            app:destination="@id/lectureAids" />
     </fragment>
     <fragment
         android:id="@+id/studentProfile"
@@ -113,12 +125,12 @@
     <fragment
         android:id="@+id/addStudent"
         android:name="com.andela.taccolation.app.ui.studentprofile.AddStudent"
-        android:label="AddStudent"
+        android:label="@string/add_student"
         tools:layout="@layout/fragment_add_student" />
     <fragment
         android:id="@+id/reward"
         android:name="com.andela.taccolation.app.ui.leaderboard.Reward"
-        android:label="Reward"
+        android:label="@string/reward"
         tools:layout="@layout/fragment_reward">
         <argument
             android:name="rating"
@@ -128,6 +140,26 @@
     <fragment
         android:id="@+id/task"
         android:name="com.andela.taccolation.app.ui.assessment.Task"
-        android:label="Task"
+        android:label="@string/task_title"
         tools:layout="@layout/fragment_task" />
+    <fragment
+        android:id="@+id/attendance"
+        android:name="com.andela.taccolation.app.ui.attendance.Attendance"
+        android:label="@string/attendance"
+        tools:layout="@layout/fragment_attendance" />
+    <fragment
+        android:id="@+id/reportSheet"
+        android:name="com.andela.taccolation.app.ui.reportsheet.ReportSheet"
+        android:label="@string/report"
+        tools:layout="@layout/fragment_report_sheet" />
+    <fragment
+        android:id="@+id/teacherNotes"
+        android:name="com.andela.taccolation.app.ui.teachernotes.TeacherNotes"
+        android:label="@string/teacher_notes"
+        tools:layout="@layout/fragment_teacher_notes" />
+    <fragment
+        android:id="@+id/lectureAids"
+        android:name="com.andela.taccolation.app.ui.teachernotes.LectureAids"
+        android:label="@string/lecture_aids"
+        tools:layout="@layout/fragment_lecture_aids" />
 </navigation>
