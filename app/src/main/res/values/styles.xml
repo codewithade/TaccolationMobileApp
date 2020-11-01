@@ -14,7 +14,7 @@
 ~ limitations under the License.
 -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <!--Components-->
 
@@ -52,6 +52,12 @@
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
+    <style name="Widget.MyApp.MaterialTextView.NavDrawer">
+        <item name="android:textColor">?attr/colorPrimaryDark</item>
+        <item name="android:textAppearance">?attr/textAppearanceButton</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
     <style name="Widget.MyApp.MaterialButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:padding">@dimen/button_padding</item>
         <item name="cornerRadius">20dp</item>
@@ -77,6 +83,14 @@
         <item name="android:textAppearance">?attr/textAppearanceBody1</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="Widget.MyApp.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="android:background">@drawable/bg</item>
+        <item name="itemIconTint">?attr/colorPrimaryDark</item>
+        <item name="itemShapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="itemTextAppearance">?attr/textAppearanceButton</item>
+        <item name="itemTextColor">?attr/colorPrimaryDark</item>
     </style>
 
 </resources>

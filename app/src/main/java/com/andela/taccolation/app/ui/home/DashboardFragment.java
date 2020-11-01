@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andela.taccolation.R;
-import com.andela.taccolation.app.ui.home.ui.SpacesItemDecoration;
 import com.andela.taccolation.app.utils.Constants;
 import com.andela.taccolation.app.utils.DataHelper;
 import com.andela.taccolation.app.utils.OnItemClickListener;
@@ -42,7 +40,6 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
     private FragmentDashboardBinding mBinding;
     // FIXME: 25/10/2020 This is temporary. Transfer to ProfileFragment
     private ProfileViewModel mProfileViewModel;
-    //private NavController mNavController;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -51,12 +48,13 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mNavController = NavHostFragment.findNavController(this);
+        Log.i(TAG, "onCreate: DASHBOARD FRAGMENT");
         mProfileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: DASHBOARD FRAGMENT");
         mBinding = FragmentDashboardBinding.inflate(inflater);
         return mBinding.getRoot();
     }
@@ -64,7 +62,10 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        closeAppOnBackPressed();
+        mProfileViewModel.getIsDataDownloaded().observe(getViewLifecycleOwner(), isDataDownloaded -> {
+            if (!isDataDownloaded)
+                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_workerFragment);
+        });
         initRecyclerView();
         mProfileViewModel.getTeacher().observe(getViewLifecycleOwner(), teacher -> {
             if (teacher.getFirstName() != null) {
@@ -138,15 +139,6 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
                 Snackbar.make(requireView(), getString(item.getItemTitle()) + " under construction", Snackbar.LENGTH_LONG).show();
         }
 
-    }
-
-    private void closeAppOnBackPressed() {
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                requireActivity().finish();
-            }
-        });
     }
 
     @Override

@@ -7,13 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.DataHelper;
 import com.andela.taccolation.app.utils.OnItemClickListener;
 import com.andela.taccolation.databinding.FragmentTaskBinding;
@@ -46,18 +43,12 @@ public class Task extends Fragment implements OnItemClickListener<TaskItem> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRecyclerView();
-        setupToolbar();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
-    }
-
-    private void setupToolbar() {
-        final Toolbar toolbar = mBinding.taskToolbar;
-        toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack(R.id.dashboardFragment, false));
     }
 
     @Override

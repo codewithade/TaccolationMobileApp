@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.andela.taccolation.R;
 import com.andela.taccolation.databinding.FragmentStudentDetailsBinding;
 import com.andela.taccolation.presentation.viewmodel.ProfileViewModel;
 
@@ -67,10 +66,7 @@ public class StudentDetails extends Fragment {
 
     private void setupToolbar() {
         final Toolbar toolbar = mBinding.detailsToolbar;
-        /*
-        NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);*/
-        toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack(R.id.studentProfile, false));
+        // calling popBackStack() navigates to the previous destination
+        toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack());
     }
 }

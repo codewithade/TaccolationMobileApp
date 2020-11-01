@@ -23,7 +23,8 @@
         android:layout_width="@dimen/item_dashboard_width"
         android:layout_height="@dimen/item_dashboard_height"
         android:layout_margin="@dimen/item_dashboard_margin"
-        app:card_background_color="@{dashboardItem.backgroundColor}">
+        app:card_background_color="@{dashboardItem.backgroundColor}"
+        tools:cardBackgroundColor="@color/purple">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dashboard_item_layout"

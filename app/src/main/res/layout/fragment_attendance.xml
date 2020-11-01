@@ -2,32 +2,12 @@
 <layout>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg"
         tools:context=".app.ui.attendance.Attendance">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Theme.MyApp.AppBarOverlay"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/attendance_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
-                app:popupTheme="@style/Theme.MyApp.PopupOverlay"
-                app:title="@string/attendance" />
-
-        </com.google.android.material.appbar.AppBarLayout>
 
         <ImageView
             android:layout_width="match_parent"

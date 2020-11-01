@@ -7,27 +7,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg"
         tools:context=".app.ui.studentprofile.StudentProfile">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Theme.MyApp.AppBarOverlay"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/profile_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
-                app:popupTheme="@style/Theme.MyApp.PopupOverlay"
-                app:title="@string/student_profile" />
-
-        </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -35,7 +17,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+            app:layout_constraintTop_toTopOf="parent"
             app:tabMode="fixed" />
 
         <androidx.viewpager2.widget.ViewPager2

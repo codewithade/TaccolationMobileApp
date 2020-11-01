@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/workerFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/OnBoardingFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.andela.taccolation.app.ui.home.DashboardFragment"
-        android:label="DashboardFragment"
+        android:label="@string/teacher"
         tools:layout="@layout/fragment_dashboard">
 
         <action
@@ -44,11 +44,14 @@
         <action
             android:id="@+id/action_dashboardFragment_to_lectureAids"
             app:destination="@id/lectureAids" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_workerFragment"
+            app:destination="@id/workerFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentProfile"
         android:name="com.andela.taccolation.app.ui.studentprofile.StudentProfile"
-        android:label="StudentProfile"
+        android:label="@string/student_profile"
         tools:layout="@layout/fragment_student_profile">
         <action
             android:id="@+id/action_studentProfile_to_studentCourse"
@@ -64,7 +67,9 @@
         tools:layout="@layout/fragment_worker">
         <action
             android:id="@+id/action_workerFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_workerFragment_to_OnBoardingFragment"
             app:destination="@id/OnBoardingFragment" />
@@ -75,12 +80,12 @@
     <fragment
         android:id="@+id/teacherProfile"
         android:name="com.andela.taccolation.app.ui.teacherprofile.TeacherProfile"
-        android:label="TeacherProfile"
+        android:label="@string/teacher_profile"
         tools:layout="@layout/fragment_teacher_profile" />
     <fragment
         android:id="@+id/studentDetails"
         android:name="com.andela.taccolation.app.ui.studentprofile.StudentDetails"
-        android:label="StudentDetails"
+        android:label="@string/student_details"
         tools:layout="@layout/fragment_student_details">
         <argument
             android:name="courseCode"
@@ -92,7 +97,7 @@
     <fragment
         android:id="@+id/studentCourse"
         android:name="com.andela.taccolation.app.ui.studentprofile.StudentCourse"
-        android:label="StudentCourse"
+        android:label="Student Course"
         tools:layout="@layout/fragment_student_course">
         <action
             android:id="@+id/action_studentCourse_to_studentDetails"
@@ -111,7 +116,9 @@
             app:argType="com.andela.taccolation.app.utils.AuthenticationState" />
         <action
             android:id="@+id/action_loginFragment_to_workerFragment"
-            app:destination="@id/workerFragment" />
+            app:destination="@id/workerFragment"
+            app:popUpTo="@id/workerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -162,4 +169,23 @@
         android:name="com.andela.taccolation.app.ui.teachernotes.LectureAids"
         android:label="@string/lecture_aids"
         tools:layout="@layout/fragment_lecture_aids" />
+
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.andela.taccolation.app.ui.home.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.andela.taccolation.app.ui.home.ui.gallery.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.andela.taccolation.app.ui.home.ui.slideshow.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

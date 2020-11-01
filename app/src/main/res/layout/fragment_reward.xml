@@ -20,58 +20,60 @@
         android:layout_height="match_parent"
         tools:context=".app.ui.leaderboard.Reward">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/app_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/Theme.MyApp.AppBarOverlay"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/reward_app_bar_height"
             android:background="@drawable/reward_app_bar_bg"
-            android:theme="@style/Theme.MyApp.AppBarOverlay"
             app:elevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/rewards_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
-                app:popupTheme="@style/Theme.MyApp.PopupOverlay"
-                app:title="@string/rewards_title" />
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/student_name"
+                style="@style/Widget.MyApp.DashboardTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/app_padding"
                 android:paddingTop="@dimen/app_padding"
                 android:paddingEnd="@dimen/app_padding"
-                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:student_name="@{student}"
                 tools:text="Adebisi Yusuf" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/student_rating"
+                style="@style/Widget.MyApp.DashboardTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/app_padding"
                 android:paddingEnd="@dimen/app_padding"
                 android:text="@{@string/rating(rating)}"
-                android:textAppearance="?attr/textAppearanceBody1"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/student_name"
                 tools:text="50 stars" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/student_comments"
+                style="@style/Widget.MyApp.DashboardTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/app_padding"
                 android:paddingEnd="@dimen/app_padding"
                 android:text="@{@string/rating_comment(rating)}"
-                android:textAppearance="?attr/textAppearanceBody1"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/student_rating"
                 tools:text="Successfully completed all assignments with a rating of 50 stars" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/select_reward_tv"

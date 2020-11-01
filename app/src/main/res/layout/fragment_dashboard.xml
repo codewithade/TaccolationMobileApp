@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purple"
+        android:background="?attr/colorPrimaryDark"
         tools:context=".app.ui.home.DashboardFragment">
 
         <View
@@ -113,7 +113,7 @@
             android:paddingStart="@dimen/item_dashboard_margin"
             android:paddingEnd="@dimen/item_dashboard_margin"
             android:text="@string/activities"
-            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
             app:layout_constraintBottom_toTopOf="@id/recycler_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

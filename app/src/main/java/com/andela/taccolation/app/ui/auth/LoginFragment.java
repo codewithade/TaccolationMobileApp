@@ -19,7 +19,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.andela.taccolation.R;
@@ -42,7 +41,6 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = Constants.LOG.getConstant();
     private AuthViewModel mAuthViewModel;
-    private NavController mNavController;
     private FragmentLoginBinding mBinding;
     private TextInputLayout mEmail, mPassword;
     private final TextWatcher mTextWatcher = new TextWatcher() {
@@ -86,7 +84,6 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: LOGIN FRAGMENT CALLED");
-        mNavController = NavHostFragment.findNavController(this);
         mAuthViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
     }
 
@@ -114,7 +111,7 @@ public class LoginFragment extends Fragment {
             if (!isEmpty) signInTeacher();
         });
 
-        mBinding.registerRoute.setOnClickListener(v -> mNavController.navigate(R.id.action_loginFragment_to_registerFragment));
+        mBinding.registerRoute.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_registerFragment));
         mBinding.forgotPassword.setOnClickListener(v -> showResetPasswordDialog());
         closeAppOnBackPressed();
     }
@@ -167,8 +164,8 @@ public class LoginFragment extends Fragment {
                 editor.putBoolean(Constants.USER_AUTHENTICATED.getConstant(), true);
                 editor.apply();
                 // navigate user to dashboard and pop back stack
-                mNavController.popBackStack();
-                // mNavController.navigate(R.id.action_loginFragment_to_workerFragment);
+                // mNavController.popBackStack();
+                NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_workerFragment);
                 mProgressBar.setVisibility(View.GONE);
                 mBinding.loginButton.setEnabled(true);
                 break;
@@ -239,5 +236,11 @@ public class LoginFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: LOGIN FRAGMENT");
     }
 }
