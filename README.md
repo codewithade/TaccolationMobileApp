@@ -1,12 +1,33 @@
 # TaccolationMobileApp
+
+## Brief overview
 The Taccolations app is a mobile-friendly app designed specifically for the Android platform that offers
-teachers the platform to manage students records in an efficient manner. It increases Teacher’s
+*teachers* the platform to manage students records in an efficient manner. It increases Teacher’s
 productivity as usual manual work such as attendance, lecture notes, assessments, reports are now
 digitized and automated. It offers a platform where student’s information can better be managed
 thereby giving the teacher an idea on aspects to improve and also aspects to impact more in the
 student’s life.
 
-Screenshots:
+## Dependencies
+1. Android Navigation Architecture with a single activity design pattern.
+2. Hilt for dependency injection.
+3. Google Cloud Firestore and Storage
+4. Data Binding framework.
+5. Android Material Design.
+
+## App Architecture and design
+1. CLEAN Architecture with a mix of MVVM for the app's Presentation Layer.
+2. SOLID Principles.
+
+### Packages
+1. *App:* contains all UI data including dependency injection, utilities etc
+2. *Presentation:* contains ViewModels
+3. *Domain:* contains the App's usecases and entities. Defines contract for the other layers
+4. *Data:* contains references and defines the contract for the data sources (Remote and Local)
+5. *Remote:* contains retrofit API service, and repository implementations
+6. *Local:* no implementations. Just for backup if the need arise to use local persistence like ROOM DB
+
+## Screenshots
 
 ![onboard](https://user-images.githubusercontent.com/65837990/97706649-4e99bb80-1ab6-11eb-90f1-186cf81a11db.png)
 ![login](https://user-images.githubusercontent.com/65837990/97706639-4b9ecb00-1ab6-11eb-828d-b6ca8fd5edab.png)
