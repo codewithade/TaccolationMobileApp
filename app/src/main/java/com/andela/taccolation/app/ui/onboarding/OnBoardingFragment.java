@@ -19,7 +19,6 @@ import com.andela.taccolation.app.utils.Constants;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-// FIXME: 25/10/2020 change to onBoarding flow
 @AndroidEntryPoint
 public class OnBoardingFragment extends Fragment {
 
@@ -51,7 +50,6 @@ public class OnBoardingFragment extends Fragment {
             SharedPreferences.Editor editor = requireActivity().getPreferences(Context.MODE_PRIVATE).edit();
             editor.putBoolean(Constants.FIRST_RUN.getConstant(), false);
             editor.apply();
-            //NavHostFragment.findNavController(OnBoardingFragment.this).popBackStack(R.id.action_OnBoardingFragment_to_workerFragment, false);
             NavHostFragment.findNavController(this).navigate(R.id.action_OnBoardingFragment_to_workerFragment);
         });
     }

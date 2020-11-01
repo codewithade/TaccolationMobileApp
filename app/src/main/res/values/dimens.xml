@@ -38,7 +38,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">176dp</dimen>
+    <!--
+        <dimen name="nav_header_height">176dp</dimen>
+    -->
+    <dimen name="nav_header_height">100dp</dimen>
     <dimen name="item_dashboard_width">150dp</dimen>
     <dimen name="item_dashboard_height">170dp</dimen>
     <dimen name="item_dashboard_margin">12dp</dimen>
@@ -50,4 +53,5 @@
     <dimen name="teacher_image_fab_radius">60dp</dimen>
     <dimen name="hero_image_height">200dp</dimen>
     <dimen name="reward_app_bar_height">120dp</dimen>
+    <dimen name="app_title_margin">30dp</dimen>
 </resources>

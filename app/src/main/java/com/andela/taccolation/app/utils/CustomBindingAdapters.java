@@ -36,7 +36,7 @@ public class CustomBindingAdapters {
 
     @BindingAdapter(value = {"card_background_color"})
     public static void setBackgroundColor(MaterialCardView cardView, int colorResId) {
-        cardView.setCardBackgroundColor(colorResId);
+        cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(colorResId));
     }
 
     @BindingAdapter(value = {"title_resource"})

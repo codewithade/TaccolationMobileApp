@@ -24,6 +24,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +47,20 @@ public class DashboardActivity extends AppCompatActivity {
         // AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
 
 
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.addHeaderView(getLayoutInflater().inflate(R.layout.drawer_bottom_layout, null));
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setOpenableLayout(drawerLayout)
-                .build();
+        /*mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_profile, R.id.nav_settings)
+                .setOpenableLayout(mDrawerLayout)
+                .build();*/
 
         // Next, connect the DrawerLayout to your navigation graph by passing it to AppBarConfiguration,
         // as shown in the following example:
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
-                .setOpenableLayout(drawerLayout)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setOpenableLayout(mDrawerLayout)
                 .build();
 
 
@@ -70,7 +72,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         // To create a Toolbar with NavigationUI
         mToolbar = findViewById(R.id.dashboard_toolbar);
-        NavigationUI.setupWithNavController(mToolbar, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(mToolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         setUpNavListener();
     }
@@ -105,6 +107,7 @@ public class DashboardActivity extends AppCompatActivity {
    As an example, you might have common UI elements that you intend to show in some areas of your app while hiding them in others.
    Using your own OnDestinationChangedListener, you can selectively show or hide these UI elements based on the target destination,
    as shown in the following example:*/
+    // TODO: 01/11/2020 DrawerLayout should only appear or swipe able on DashboardFragment
     private void setUpNavListener() {
         NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
         controller.addOnDestinationChangedListener((navController, navDestination, arguments) -> {
@@ -114,20 +117,27 @@ public class DashboardActivity extends AppCompatActivity {
                     (id == R.id.addStudent) ||
                     (id == R.id.task) ||
                     (id == R.id.attendance) ||
+                    (id == R.id.nav_home) ||
+                    (id == R.id.nav_profile) ||
+                    (id == R.id.nav_settings) ||
                     (id == R.id.reportSheet) ||
                     (id == R.id.teacherNotes) ||
                     (id == R.id.teacherProfile) ||
                     (id == R.id.lectureAids)) {
                 mToolbar.setVisibility(View.VISIBLE);
                 mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             } else if ((id == R.id.loginFragment) ||
                     (id == R.id.registerFragment) ||
                     (id == R.id.OnBoardingFragment) ||
                     (id == R.id.workerFragment) ||
-                    (id == R.id.studentDetails))
+                    (id == R.id.studentDetails)) {
                 mToolbar.setVisibility(View.GONE);
-            else if (id == R.id.dashboardFragment)
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            } else if (id == R.id.dashboardFragment) {
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 mToolbar.setVisibility(View.VISIBLE);
+            }
 
         });
     }

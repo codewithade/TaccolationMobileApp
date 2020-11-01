@@ -169,4 +169,23 @@
         android:name="com.andela.taccolation.app.ui.teachernotes.LectureAids"
         android:label="@string/lecture_aids"
         tools:layout="@layout/fragment_lecture_aids" />
+
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.andela.taccolation.app.ui.home.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.andela.taccolation.app.ui.home.ui.gallery.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.andela.taccolation.app.ui.home.ui.slideshow.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

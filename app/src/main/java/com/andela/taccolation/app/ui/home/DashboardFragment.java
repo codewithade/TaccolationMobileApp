@@ -15,10 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,7 +66,6 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
             if (!isDataDownloaded)
                 NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_workerFragment);
         });
-        setupAppBar(view);
         initRecyclerView();
         mProfileViewModel.getTeacher().observe(getViewLifecycleOwner(), teacher -> {
             if (teacher.getFirstName() != null) {
@@ -79,14 +75,6 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
         });
 
         mBinding.teacherImageFab.setOnClickListener(v -> startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY));
-    }
-
-    // TODO
-    private void setupAppBar(View view) {
-        NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);*/
     }
 
     @Override
