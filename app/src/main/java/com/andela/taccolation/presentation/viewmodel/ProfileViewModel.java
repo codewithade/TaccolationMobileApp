@@ -1,5 +1,7 @@
 package com.andela.taccolation.presentation.viewmodel;
 
+import android.graphics.Bitmap;
+
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,6 +13,7 @@ import com.andela.taccolation.presentation.model.Course;
 import com.andela.taccolation.presentation.model.Student;
 import com.andela.taccolation.presentation.model.Teacher;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -36,8 +39,11 @@ public class ProfileViewModel extends ViewModel {
         mProfileTask.sendStudentList(students);
     }
 
-    public LiveData<TaskStatus> addStudent(Student student) {
-        return mProfileTask.addStudent(student);
+    public LiveData<TaskStatus> addStudent(Student student, String studentPhotoPath, Bitmap bitmap) {
+        byte[] imageData = null;
+        if (bitmap != null)
+            imageData = getByteArray(bitmap);
+        return mProfileTask.addStudent(student, studentPhotoPath, imageData);
     }
 
     public LiveData<Teacher> getTeacher() {
@@ -74,5 +80,15 @@ public class ProfileViewModel extends ViewModel {
 
     public void setIsDataDownloaded(boolean isDataDownloaded) {
         mIsDataDownloaded.setValue(isDataDownloaded);
+    }
+
+    public LiveData<TaskStatus> saveProfileImage(Bitmap bitmap, Teacher teacher) {
+        return mProfileTask.saveProfileImage(getByteArray(bitmap), teacher);
+    }
+
+    private byte[] getByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 }

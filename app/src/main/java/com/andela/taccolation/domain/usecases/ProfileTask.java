@@ -6,6 +6,7 @@ import com.andela.taccolation.app.utils.TaskStatus;
 import com.andela.taccolation.domain.repository.ProfileRepo;
 import com.andela.taccolation.presentation.model.Course;
 import com.andela.taccolation.presentation.model.Student;
+import com.andela.taccolation.presentation.model.Teacher;
 
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,11 @@ public class ProfileTask {
         return mProfileRepo.getStudentList(courseCodeList);
     }
 
-    public LiveData<TaskStatus> addStudent(Student student) {
-        return mProfileRepo.addStudent(student);
+    public LiveData<TaskStatus> addStudent(Student student, String studentPhotoPath, byte[] imageData) {
+        return mProfileRepo.addStudent(student, studentPhotoPath, imageData);
+    }
+
+    public LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher) {
+        return mProfileRepo.saveProfileImage(imageData, teacher);
     }
 }

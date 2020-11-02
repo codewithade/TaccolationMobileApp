@@ -6,6 +6,7 @@ import com.andela.taccolation.app.utils.TaskStatus;
 import com.andela.taccolation.data.localdata.LocalProfileDataSource;
 import com.andela.taccolation.presentation.model.Course;
 import com.andela.taccolation.presentation.model.Student;
+import com.andela.taccolation.presentation.model.Teacher;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,13 @@ public class LocalProfileImpl implements LocalProfileDataSource {
     }
 
     @Override
-    public LiveData<TaskStatus> addStudent(Student student) {
+    public LiveData<TaskStatus> addStudent(Student student, String studentPhotoPath, byte[] imageData) {
+        return null;
+    }
+
+
+    @Override
+    public LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher) {
         return null;
     }
 }

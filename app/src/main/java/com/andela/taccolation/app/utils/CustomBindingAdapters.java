@@ -1,11 +1,13 @@
 package com.andela.taccolation.app.utils;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.BindingAdapter;
 
 import com.andela.taccolation.R;
@@ -24,9 +26,10 @@ public class CustomBindingAdapters {
 
     @BindingAdapter(value = {"imageSrc"})
     public static void setImageSource(ImageView imageView, String url) {
-        if (url != null) {
-            Glide.with(imageView.getContext()).load(url).into(imageView);
-        }
+        final Context imageViewContext = imageView.getContext();
+        if (url != null) Glide.with(imageViewContext).load(url).into(imageView);
+        else
+            Glide.with(imageViewContext).load(ResourcesCompat.getDrawable(imageViewContext.getResources(), R.drawable.teacher, null)).into(imageView);
     }
 
     @BindingAdapter(value = {"image_resource"})

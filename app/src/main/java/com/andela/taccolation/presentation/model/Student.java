@@ -56,6 +56,10 @@ public class Student {
         this.id = id;
     }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Map<String, StudentStatistics> getStudentDetailsMap() {
         return studentDetailsMap;
     }
