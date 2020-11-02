@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.andela.taccolation">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /><!--
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 
     <application
         android:name=".app.TaccolationApplication"
@@ -12,6 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
+
+        <!--We are using getUriForFile(Context, String, File) which returns a content:// URI.
+        For more recent apps targeting Android 7.0 (API level 24) and higher,
+        passing a file:// URI across a package boundary causes a FileUriExposedException.
+        Therefore, we now present a more generic way of storing images using a FileProvider-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.andela.taccolation.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".app.ui.home.DashboardActivity"
             android:label="@string/app_name"

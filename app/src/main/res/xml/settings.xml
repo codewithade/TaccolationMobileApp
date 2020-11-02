@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="notifications_category"
+        app:title="Customization">
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:icon="@drawable/ic_baseline_brightness_high"
+            app:key="@string/theme_key"
+            app:title="Dark Theme" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="@string/animation_key"
+            app:title="Disable Animation" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Notifications">
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_notifications"
+            app:key="notification_new_message"
+            app:title="New message notification" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="vibrate"
+            app:summary="Vibrate on new notification"
+            app:title="Vibrate" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="help_category"
+        app:title="Help">
+
+        <Preference
+            app:key="feedback"
+            app:summary="Report technical issues or suggest new features"
+            app:title="Send feedback" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="About">
+        <Preference
+            app:selectable="false"
+            app:summary="Taccolation brings out the best int Teachers" />
+
+        <Preference
+            app:selectable="false"
+            app:summary="1.0-alpha"
+            app:title="Version" />
+
+        <Preference
+            app:key="privacy"
+            app:summary="Read how we manage your data"
+            app:title="Privacy">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.google.com" />
+        </Preference>
+
+        <Preference
+            app:key="usage"
+            app:summary="Read our terms of service and get acquainted"
+            app:title="Terms of service">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.google.com" />
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

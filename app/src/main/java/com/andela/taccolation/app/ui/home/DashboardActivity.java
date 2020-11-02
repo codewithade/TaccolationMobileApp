@@ -50,12 +50,6 @@ public class DashboardActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.addHeaderView(getLayoutInflater().inflate(R.layout.drawer_bottom_layout, null));
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        /*mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_settings)
-                .setOpenableLayout(mDrawerLayout)
-                .build();*/
 
         // Next, connect the DrawerLayout to your navigation graph by passing it to AppBarConfiguration,
         // as shown in the following example:

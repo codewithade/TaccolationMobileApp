@@ -86,6 +86,7 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), selectedImage);
+                mProfileViewModel.saveProfileImage(bitmap, mBinding.getTeacher());
                 mBinding.profileImage.setImageBitmap(bitmap);
             } catch (IOException e) {
                 // TODO Auto-generated catch block

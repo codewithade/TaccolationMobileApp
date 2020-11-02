@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--https://developer.android.com/reference/androidx/core/content/FileProvider-->
+<!--https://stackoverflow.com/questions/42516126/fileprovider-illegalargumentexception-failed-to-find-configured-root-->
+<paths>
+    <external-files-path
+        name="my_images"
+        path="." />
+</paths>

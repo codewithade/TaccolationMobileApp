@@ -53,6 +53,8 @@ public class Teacher {
     }
 
     // FIXME: 19/10/2020 delete this security risk
+
+
     @NonNull
     @Override
     public String toString() {
@@ -62,6 +64,7 @@ public class Teacher {
                 ", designation='" + designation + '\'' +
                 ", courseCodeList=" + courseCodeList +
                 ", id='" + id + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 
@@ -87,6 +90,10 @@ public class Teacher {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getEmail() {

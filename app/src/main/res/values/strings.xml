@@ -93,4 +93,13 @@ student’s life.</string>
     <string name="lecture_aids">Lecture Aids</string>
     <string name="teacher">Teacher</string>
     <string name="student_details">Student Details</string>
+    <string name="upload_from_gallery">upload from gallery</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="no_camera_error">No camera application found</string>
+    <string name="error_creating_file">Failed to create image file. Try again</string>
+    <string name="error_accessing_file">Failed to access image from gallery</string>
+
+    <!--Preferences Screen Keys-->
+    <string name="theme_key">theme</string>
+    <string name="animation_key">animation</string>
 </resources>

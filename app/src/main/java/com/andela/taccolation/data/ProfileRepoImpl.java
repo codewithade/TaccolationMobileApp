@@ -8,6 +8,7 @@ import com.andela.taccolation.data.remotedata.RemoteProfileDataSource;
 import com.andela.taccolation.domain.repository.ProfileRepo;
 import com.andela.taccolation.presentation.model.Course;
 import com.andela.taccolation.presentation.model.Student;
+import com.andela.taccolation.presentation.model.Teacher;
 
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,12 @@ public class ProfileRepoImpl implements ProfileRepo {
     }
 
     @Override
-    public LiveData<TaskStatus> addStudent(Student student) {
-        return mRemoteProfileDataSource.addStudent(student);
+    public LiveData<TaskStatus> addStudent(Student student, String studentPhotoPath, byte[] imageData) {
+        return mRemoteProfileDataSource.addStudent(student, studentPhotoPath, imageData);
+    }
+
+    @Override
+    public LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher) {
+        return mRemoteProfileDataSource.saveProfileImage(imageData, teacher);
     }
 }

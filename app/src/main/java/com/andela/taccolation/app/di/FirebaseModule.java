@@ -2,6 +2,7 @@ package com.andela.taccolation.app.di;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import javax.inject.Singleton;
 
@@ -28,5 +29,11 @@ public abstract class FirebaseModule {
     @Provides
     public static FirebaseFirestore provideFirebaseFirestore() {
         return FirebaseFirestore.getInstance();
+    }
+
+    @Singleton
+    @Provides
+    public static FirebaseStorage provideFirebaseStorage() {
+        return FirebaseStorage.getInstance();
     }
 }
