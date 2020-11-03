@@ -38,7 +38,7 @@
     <string name="add_student">Add Student</string>
     <string name="attendance">Attendance</string>
     <string name="report">Report sheet</string>
-    <string name="performance">Student Statistics</string>
+    <string name="leaderboard">Leader Board</string>
     <string name="dashboard_icon_desc">dashboard icon</string>
     <string name="update_profile">update profile</string>
     <string name="first_name">First Name</string>
@@ -102,4 +102,10 @@ student’s life.</string>
     <!--Preferences Screen Keys-->
     <string name="theme_key">theme</string>
     <string name="animation_key">animation</string>
+    <string name="no_notification_message">Looks like you have no notifications for now</string>
+    <string name="rank_title">Rank</string>
+    <string name="username_title">Username</string>
+    <string name="points_earned_title">Points</string>
+    <string name="search_bar_title">Search…</string>
+    <string name="search_no_match">No matches found for \'%s\'</string>
 </resources>

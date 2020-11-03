@@ -95,7 +95,6 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
         }
     }
 
-
     private void initRecyclerView() {
         final int SPAN_COUNT = requireActivity().getResources().getInteger(R.integer.layout_span_count);
         final RecyclerView recyclerView = mBinding.recyclerView;
@@ -107,7 +106,6 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
     }
-
 
     @Override
     public void onItemClick(DashboardItem item) {
@@ -136,6 +134,9 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
             case LECTURE_AIDS:
                 NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_lectureAids);
                 break;
+            case LEADER_BOARD:
+                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_leaderBoard);
+                break;
             default:
                 Snackbar.make(requireView(), getString(item.getItemTitle()) + " under construction", Snackbar.LENGTH_LONG).show();
         }
@@ -146,5 +147,11 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: DASHBOARD FRAGMENT");
     }
 }

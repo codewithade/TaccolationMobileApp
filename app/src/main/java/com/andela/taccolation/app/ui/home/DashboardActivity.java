@@ -1,20 +1,24 @@
 package com.andela.taccolation.app.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.andela.taccolation.R;
+import com.andela.taccolation.app.utils.Constants;
 import com.google.android.material.navigation.NavigationView;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -25,10 +29,16 @@ public class DashboardActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
+    private static final String TAG = Constants.LOG.getConstant();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* popUpToInclusive set to TRUE removes all previous instances of the destination Fragment
+         enabling this with popUpToInclusive(navigating from Worker to Dashboard) set to FALSE, prevents crashes
+         disabling this with popUpToInclusive set to TRUE, prevents crashes
+         setUpThemePreferences();*/
+        Log.i(TAG, "onCreate: ACTIVITY");
         setContentView(R.layout.activity_dashboard);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -43,9 +53,8 @@ public class DashboardActivity extends AppCompatActivity {
          If the destination doesn't use a DrawerLayout, the Navigation button is hidden.
          When the user is on any other destination, the Navigation button appears as an Up button .
          To configure the Navigation button using only the start destination as the top-level destination,
-         create an AppBarConfiguration object, and pass in the corresponding navigation graph, as shown below:*/
-        // AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-
+         create an AppBarConfiguration object, and pass in the corresponding navigation graph, as shown below:
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();*/
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -58,17 +67,28 @@ public class DashboardActivity extends AppCompatActivity {
                 .build();
 
 
-        // To add navigation support to the default action bar,
-        // call setupActionBarWithNavController() from your main activity's onCreate() method, as shown below.
-        // Note that you need to declare your AppBarConfiguration outside of onCreate(),
-        // since you also use it when overriding onSupportNavigateUp():
-        // NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        /* To add navigation support to the default action bar,
+         call setupActionBarWithNavController() from your main activity's onCreate() method, as shown below.
+         Note that you need to declare your AppBarConfiguration outside of onCreate(),
+         since you also use it when overriding onSupportNavigateUp():
+         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);*/
 
-        // To create a Toolbar with NavigationUI
+        /* https://stackoverflow.com/questions/55447697/navigation-drawer-dont-work-with-navigation-component
+         https://developer.android.com/guide/navigation/navigation-ui#action_bar
+         To create a Toolbar with NavigationUI*/
         mToolbar = findViewById(R.id.dashboard_toolbar);
-        NavigationUI.setupWithNavController(mToolbar, navController, mAppBarConfiguration);
+        setSupportActionBar(mToolbar);
+        NavigationUI.setupActionBarWithNavController(this, navController, mDrawerLayout);
+        // NavigationUI.setupWithNavController(mToolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         setUpNavListener();
+    }
+
+    private void setUpThemePreferences() {
+        final boolean isDarkThemeEnabled = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.theme_key), false);
+        if (isDarkThemeEnabled)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     @Override
@@ -81,9 +101,10 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+        return NavigationUI.navigateUp(navController, mDrawerLayout) //mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 
     // If your menu was added via the Activity's onCreateOptionsMenu(),
     // for example, you can associate the menu items with destinations by overriding the Activity's onOptionsItemSelected()
@@ -116,6 +137,8 @@ public class DashboardActivity extends AppCompatActivity {
                     (id == R.id.nav_settings) ||
                     (id == R.id.reportSheet) ||
                     (id == R.id.teacherNotes) ||
+                    (id == R.id.notification) ||
+                    (id == R.id.leaderBoard) ||
                     (id == R.id.teacherProfile) ||
                     (id == R.id.lectureAids)) {
                 mToolbar.setVisibility(View.VISIBLE);
@@ -134,5 +157,11 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: ACTIVITY");
     }
 }

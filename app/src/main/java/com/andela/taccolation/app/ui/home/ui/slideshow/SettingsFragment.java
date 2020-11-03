@@ -1,5 +1,6 @@
 package com.andela.taccolation.app.ui.home.ui.slideshow;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -8,12 +9,13 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.andela.taccolation.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-
+// https://developer.android.com/guide/topics/ui/settings
 @AndroidEntryPoint
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private SwitchPreferenceCompat mThemeSwitch;
 
     /*public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,12 +29,34 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         initPreferences();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.theme_key)))
+            displaySnackBar("Theme changed");
+        else if (key.equals(getString(R.string.animation_key)))
+            displaySnackBar("Animation changed");
+    }
+
     private void initPreferences() {
         mThemeSwitch = findPreference(getString(R.string.theme_key));
-        mThemeSwitch.setOnPreferenceClickListener(preference -> {
-            uiMode();
-            return true;
-        });
+        if (mThemeSwitch != null) {
+            mThemeSwitch.setOnPreferenceClickListener(preference -> {
+                uiMode();
+                return true;
+            });
+        }
     }
 
     // enable/disable dark theme
@@ -70,17 +94,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    /*private void checkForDarkModeCompatibility() {
-        // This darkens my webViews even if I am using a light theme for my app.
-        // How do I only enable this when using a dark theme?
-        // Currently a night theme check around the FORCE_DARK code is the only option to do so.
-        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-            Log.i(TAG, "stackWebSetup: FORCE_DARK Feature Supported");
-            if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
-                //Code to enable force dark and select force dark strategy
-                WebSettingsCompat.setForceDark(mWebView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
-            }
-        } else Log.i(TAG, "stackWebSetup: FORCE_DARK Feature Not Supported");
-    }*/
+    private void displaySnackBar(String message) {
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show();
+    }
 }

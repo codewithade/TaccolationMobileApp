@@ -14,10 +14,12 @@ import com.andela.taccolation.app.utils.OnItemClickListener;
 public abstract class DataBindingAdapter<T> extends ListAdapter<T, DataBindingViewHolder<T>> {
 
     private final OnItemClickListener<T> mOnItemClickListener;
+    private final int layoutResId;
 
-    protected DataBindingAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback, OnItemClickListener<T> listener) {
+    protected DataBindingAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback, OnItemClickListener<T> listener, int layoutResId) {
         super(diffCallback);
         mOnItemClickListener = listener;
+        this.layoutResId = layoutResId;
     }
 
     @NonNull
@@ -30,5 +32,10 @@ public abstract class DataBindingAdapter<T> extends ListAdapter<T, DataBindingVi
     @Override
     public void onBindViewHolder(@NonNull DataBindingViewHolder<T> holder, int position) {
         holder.bind(getItem(position));
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return layoutResId;
     }
 }

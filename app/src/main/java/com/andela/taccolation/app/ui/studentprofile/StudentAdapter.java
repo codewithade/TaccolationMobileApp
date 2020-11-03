@@ -3,7 +3,6 @@ package com.andela.taccolation.app.ui.studentprofile;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.andela.taccolation.R;
 import com.andela.taccolation.app.ui.studentprofile.base.DataBindingAdapter;
 import com.andela.taccolation.app.utils.OnItemClickListener;
 import com.andela.taccolation.presentation.model.Student;
@@ -22,12 +21,12 @@ public class StudentAdapter extends DataBindingAdapter<Student> {
         }
     };
 
-    public StudentAdapter(OnItemClickListener<Student> onItemClickListener) {
-        super(DIFF_UTIL, onItemClickListener);
+    public StudentAdapter(OnItemClickListener<Student> onItemClickListener, int layoutResId) {
+        super(DIFF_UTIL, onItemClickListener, layoutResId);
     }
 
-    @Override
+    /*@Override
     public int getItemViewType(int position) {
         return R.layout.item_student_profile;
-    }
+    }*/
 }

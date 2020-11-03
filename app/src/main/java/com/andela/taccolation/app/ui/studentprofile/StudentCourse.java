@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.Constants;
 import com.andela.taccolation.app.utils.OnItemClickListener;
 import com.andela.taccolation.databinding.FragmentStudentCourseBinding;
@@ -85,7 +86,7 @@ public class StudentCourse extends Fragment implements OnItemClickListener<Stude
 
     private void initRecyclerView() {
         final RecyclerView recyclerView = mBinding.recyclerView;
-        final StudentAdapter adapter = new StudentAdapter(this);
+        final StudentAdapter adapter = new StudentAdapter(this, R.layout.item_student_profile);
         adapter.submitList(mStudentList);
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 1));
         recyclerView.setAdapter(adapter);

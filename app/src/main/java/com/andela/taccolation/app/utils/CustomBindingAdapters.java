@@ -111,4 +111,13 @@ public class CustomBindingAdapters {
         else imageView.setImageResource(R.drawable.pro2);
     }
 
+    /*@BindingAdapter(value = {"recycler_view_adapter", "item_click_listener"})
+    public static void setRecyclerViewAdapter(RecyclerView recyclerView, List<Student> students, OnItemClickListener<Student> itemClickListener) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        StudentAdapter studentAdapter = new StudentAdapter(itemClickListener);
+        studentAdapter.submitList(students);
+        recyclerView.setAdapter(studentAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+    }*/
+
 }
