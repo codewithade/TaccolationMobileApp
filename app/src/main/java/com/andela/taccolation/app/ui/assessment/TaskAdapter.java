@@ -3,7 +3,6 @@ package com.andela.taccolation.app.ui.assessment;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.andela.taccolation.R;
 import com.andela.taccolation.app.ui.studentprofile.base.DataBindingAdapter;
 import com.andela.taccolation.app.utils.OnItemClickListener;
 import com.andela.taccolation.presentation.model.TaskItem;
@@ -21,12 +20,12 @@ public class TaskAdapter extends DataBindingAdapter<TaskItem> {
         }
     };
 
-    protected TaskAdapter(OnItemClickListener<TaskItem> listener) {
-        super(DIFF_CALLBACK, listener);
+    protected TaskAdapter(OnItemClickListener<TaskItem> listener, int layoutResId) {
+        super(DIFF_CALLBACK, listener, layoutResId);
     }
 
-    @Override
+   /* @Override
     public int getItemViewType(int position) {
         return R.layout.item_task;
-    }
+    }*/
 }

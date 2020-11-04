@@ -278,7 +278,7 @@ public class AddStudent extends Fragment {
         for (String courseCode : mCourseCodeList)
             statisticsMap.put(courseCode, new StudentStatistics());
         mBinding.addStudentButton.setEnabled(false);
-        Student student = new Student(firstName, lastName, sex, mCourseCodeList, "http://www.image.com.ng", "", statisticsMap);
+        Student student = new Student(firstName, lastName, sex, mCourseCodeList, "http://www.image.com.ng", "", 0, 0, statisticsMap);
         LiveData<TaskStatus> addStudent;
         if (mPhotoBitmap == null)
             addStudent = mProfileViewModel.addStudent(student, mCurrentPhotoPath, null);

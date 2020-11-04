@@ -6,7 +6,7 @@ public enum DashboardMenu {
     ATTENDANCE,
     STUDENT_PROFILE,
     TEACHER_PROFILE,
-    STUDENT_STATISTICS,
+    LEADER_BOARD,
     REPORT_SHEET,
     TASKS,
     TEACHER_NOTES,

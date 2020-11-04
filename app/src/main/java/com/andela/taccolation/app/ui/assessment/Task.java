@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.DataHelper;
 import com.andela.taccolation.app.utils.OnItemClickListener;
 import com.andela.taccolation.databinding.FragmentTaskBinding;
@@ -58,7 +59,7 @@ public class Task extends Fragment implements OnItemClickListener<TaskItem> {
 
     private void initRecyclerView() {
         final RecyclerView recyclerView = mBinding.recyclerView;
-        final TaskAdapter adapter = new TaskAdapter(this);
+        final TaskAdapter adapter = new TaskAdapter(this, R.layout.item_task);
         adapter.submitList(DataHelper.getTaskItems());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);

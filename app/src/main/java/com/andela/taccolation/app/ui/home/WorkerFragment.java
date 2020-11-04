@@ -11,12 +11,14 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.AuthenticationState;
 import com.andela.taccolation.app.utils.Constants;
+import com.andela.taccolation.presentation.model.Teacher;
 import com.andela.taccolation.presentation.viewmodel.AuthViewModel;
 import com.andela.taccolation.presentation.viewmodel.ProfileViewModel;
 
@@ -94,8 +96,15 @@ public class WorkerFragment extends Fragment {
         });
     }
 
+    private void clearObservers() {
+        final LiveData<Teacher> teacherDetails = mAuthViewModel.getTeacherDetails();
+        if (teacherDetails.hasObservers())
+            teacherDetails.removeObservers(getViewLifecycleOwner());
+    }
+
     @Override
     public void onStop() {
+        clearObservers();
         Log.i(TAG, "onStop: WORKER FRAGMENT");
         super.onStop();
         requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -105,5 +114,11 @@ public class WorkerFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         Log.i(TAG, "onDestroyView: WORKER FRAGMENT");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: WORKER FRAGMENT");
     }
 }

@@ -20,7 +20,7 @@ public class DataHelper {
         dashboardItems.add(new DashboardItem(R.string.teacher_profile, R.drawable.ic_baseline_account_circle_24, R.color.dark_brown, DashboardMenu.TEACHER_PROFILE));
         dashboardItems.add(new DashboardItem(R.string.task_title, R.drawable.ic_task_24, R.color.torque, DashboardMenu.TASKS));
         dashboardItems.add(new DashboardItem(R.string.teacher_notes, R.drawable.ic_note, R.color.pink, DashboardMenu.TEACHER_NOTES));
-        dashboardItems.add(new DashboardItem(R.string.performance, R.drawable.ic_baseline_class_24, R.color.black, DashboardMenu.STUDENT_STATISTICS));
+        dashboardItems.add(new DashboardItem(R.string.leaderboard, R.drawable.trophy_variant, R.color.black, DashboardMenu.LEADER_BOARD));
         dashboardItems.add(new DashboardItem(R.string.report, R.drawable.ic_baseline_assignment_24, R.color.purple, DashboardMenu.REPORT_SHEET));
         return dashboardItems;
     }
