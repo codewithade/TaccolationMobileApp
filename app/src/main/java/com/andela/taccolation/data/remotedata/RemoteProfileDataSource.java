@@ -20,4 +20,6 @@ public interface RemoteProfileDataSource {
     LiveData<Map<String, List<Student>>> getStudentList(List<String> courseCodeList);
 
     LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher);
+
+    LiveData<List<Course>> getCourseList();
 }

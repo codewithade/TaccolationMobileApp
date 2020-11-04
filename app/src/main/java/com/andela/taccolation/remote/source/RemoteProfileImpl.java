@@ -3,6 +3,7 @@ package com.andela.taccolation.remote.source;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -12,8 +13,10 @@ import com.andela.taccolation.data.remotedata.RemoteProfileDataSource;
 import com.andela.taccolation.presentation.model.Course;
 import com.andela.taccolation.presentation.model.Student;
 import com.andela.taccolation.presentation.model.Teacher;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -33,6 +36,7 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
     private final FirebaseFirestore mFirestore;
     private final MutableLiveData<Map<String, List<Student>>> mStudentPerCourseMap = new MutableLiveData<>();
     private final MutableLiveData<TaskStatus> mAddStudentLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Course>> mCoursesLiveData = new MutableLiveData<>();
     private final MutableLiveData<TaskStatus> mUploadTeacherProfileImage = new MutableLiveData<>();
     FirebaseStorage mFirebaseStorage;
 
@@ -146,9 +150,10 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
 
     @Override
     public LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher) {
-        Log.i(TAG, "saveProfileImage: STORAGE REF PATH: " + getImagePath(teacher, null));
-        StorageReference storageReference = mFirebaseStorage.getReference(Constants.TEACHER_IMAGE_PATH.getConstant()).child(getImagePath(teacher, null));
-        UploadTask uploadTask = storageReference.putBytes(imageData);
+        if (imageData != null) {
+            Log.i(TAG, "saveProfileImage: STORAGE REF PATH: " + getImagePath(teacher, null));
+            StorageReference storageReference = mFirebaseStorage.getReference(Constants.TEACHER_IMAGE_PATH.getConstant()).child(getImagePath(teacher, null));
+            UploadTask uploadTask = storageReference.putBytes(imageData);
         /*uploadTask.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 mUploadTeacherProfileImage.setValue(TaskStatus.SUCCESS);
@@ -160,34 +165,56 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
             }
         });*/
 
-        Task<Uri> uriTask = uploadTask.continueWithTask(task -> {
-            if (!task.isSuccessful())
-                throw Objects.requireNonNull(task.getException());
-            return storageReference.getDownloadUrl();
-        }).addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                mUploadTeacherProfileImage.setValue(TaskStatus.FAILED);
-                Log.i(TAG, "onComplete: FAILED. Error: " + task.getException());
-            } else {
-                Uri downloadUri = task.getResult();
-                if (downloadUri != null) {
-                    Log.i(TAG, "onComplete: URI: " + downloadUri);
-                    teacher.setImageUrl(downloadUri.toString());
-                    updateTeacherRecord(teacher);
-                    mUploadTeacherProfileImage.setValue(TaskStatus.SUCCESS);
+            Task<Uri> uriTask = uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful())
+                    throw Objects.requireNonNull(task.getException());
+                return storageReference.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    mUploadTeacherProfileImage.setValue(TaskStatus.FAILED);
+                    Log.i(TAG, "onComplete: FAILED. Error: " + task.getException());
+                } else {
+                    Uri downloadUri = task.getResult();
+                    if (downloadUri != null) {
+                        Log.i(TAG, "onComplete: URI: " + downloadUri);
+                        teacher.setImageUrl(downloadUri.toString());
+                        updateTeacherRecord(teacher);
+                        mUploadTeacherProfileImage.setValue(TaskStatus.SUCCESS);
+                    }
                 }
-            }
-        });
+            });
+        } else updateTeacherRecord(teacher);
         return mUploadTeacherProfileImage;
+    }
+
+    @Override
+    public LiveData<List<Course>> getCourseList() {
+        mFirestore.collection(Constants.COURSES.getConstant()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful())
+                            Log.i(TAG, "onComplete: getCourses failed. Error: " + task.getException());
+                        else {
+                            Log.i(TAG, "onComplete: getCourses successful.");
+                            final List<Course> courses = Objects.requireNonNull(task.getResult()).toObjects(Course.class);
+                            mCoursesLiveData.setValue(courses);
+                        }
+                    }
+                });
+        return mCoursesLiveData;
     }
 
     private void updateTeacherRecord(Teacher teacher) {
         mFirestore.collection(Constants.TEACHER.getConstant()).document(teacher.getId()).set(teacher)
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful())
+                    if (task.isSuccessful()) {
+                        mUploadTeacherProfileImage.setValue(TaskStatus.SUCCESS);
                         Log.i(TAG, "onComplete: updateTeacherRecord successful: Teacher: " + teacher.toString());
-                    else
+                    } else {
+                        mUploadTeacherProfileImage.setValue(TaskStatus.FAILED);
                         Log.i(TAG, "onComplete: updateTeacherRecord failed. error: " + task.getException());
+                    }
                 });
     }
 

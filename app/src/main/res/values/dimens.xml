@@ -54,4 +54,7 @@
     <dimen name="hero_image_height">200dp</dimen>
     <dimen name="reward_app_bar_height">120dp</dimen>
     <dimen name="app_title_margin">30dp</dimen>
+    <dimen name="cardview_margin">24</dimen>
+    <dimen name="drawable_padding">12dp</dimen>
+    <dimen name="upload_margin_top">50dp</dimen>
 </resources>

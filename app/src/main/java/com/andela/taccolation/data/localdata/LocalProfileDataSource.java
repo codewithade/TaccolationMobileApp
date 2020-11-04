@@ -20,4 +20,6 @@ public interface LocalProfileDataSource {
     LiveData<TaskStatus> addStudent(Student student, String studentPhotoPath, byte[] imageData);
 
     LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher);
+
+    LiveData<List<Course>> getCourseList();
 }

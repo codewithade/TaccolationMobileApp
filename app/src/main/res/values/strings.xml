@@ -81,7 +81,9 @@ student’s life.</string>
     <string name="rewards_title">Rewards</string>
     <string name="reward">Reward</string>
     <string name="select_reward">Select Reward:</string>
+    <string name="teacher_update_task_success">Your details has been updated successfully</string>
     <string name="student_add_task_success">Student added successfully</string>
+    <string name="teacher_update_task_failed">An error occurred. please try again</string>
     <string name="student_add_task_failed">An error occurred. please try again</string>
     <string name="reward_student">Reward Student</string>
     <string name="rating_comment">Successfully completed all assignments with a rating of %d stars</string>
@@ -108,4 +110,20 @@ student’s life.</string>
     <string name="points_earned_title">Points</string>
     <string name="search_bar_title">Search…</string>
     <string name="search_no_match">No matches found for \'%s\'</string>
+    <string name="phone_number_hint">Phone Number</string>
+    <string name="designation_tv">Designation</string>
+    <string name="address_text_hint">Address</string>
+    <string name="hello">Hello</string>
+    <string name="messages">Messages</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="leader_board">LeaderBoard</string>
+    <string name="docs_upload">Select the documents from storage</string>
+    <string name="file_types">PNG, JPEG or PDF</string>
+    <string name="upload_text">Upload your Lecture Notes</string>
+    <string name="or">OR</string>
+    <string name="upload_text_next">Paste the link to the Teaching Aids</string>
+    <string name="proceed">Proceed</string>
+    <string name="enter_text">Enter Text</string>
+    <string name="create_new_document">Create new document</string>
+    <string name="create_link">Paste Document Link</string>
 </resources>

@@ -138,6 +138,7 @@ public class DashboardActivity extends AppCompatActivity {
                     (id == R.id.reportSheet) ||
                     (id == R.id.teacherNotes) ||
                     (id == R.id.notification) ||
+                    (id == R.id.editProfile) ||
                     (id == R.id.leaderBoard) ||
                     (id == R.id.teacherProfile) ||
                     (id == R.id.lectureAids)) {

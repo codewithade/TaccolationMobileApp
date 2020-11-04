@@ -21,6 +21,7 @@ public class ProfileViewModel extends ViewModel {
 
     private final ProfileTask mProfileTask;
     private final MutableLiveData<Teacher> mTeacherLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Course>> mCourseLiveData = new MutableLiveData<>();
     private final MutableLiveData<Student> mStudentLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> mIsDataDownloaded = new MutableLiveData<>();
     private final MutableLiveData<Map<String, List<Student>>> mStudentListPerCourse = new MutableLiveData<>();
@@ -58,6 +59,10 @@ public class ProfileViewModel extends ViewModel {
         return mProfileTask.getStudentList(courseCodeList);
     }
 
+    public LiveData<List<Course>> getCourseList() {
+        return mProfileTask.getCourseList();
+    }
+
     public LiveData<Map<String, List<Student>>> getStudentListPerCourse() {
         return mStudentListPerCourse;
     }
@@ -82,8 +87,19 @@ public class ProfileViewModel extends ViewModel {
         mIsDataDownloaded.setValue(isDataDownloaded);
     }
 
+    public LiveData<List<Course>> getCourses() {
+        return mCourseLiveData;
+    }
+
+    public void setCourse(List<Course> courses) {
+        mCourseLiveData.setValue(courses);
+    }
+
     public LiveData<TaskStatus> saveProfileImage(Bitmap bitmap, Teacher teacher) {
-        return mProfileTask.saveProfileImage(getByteArray(bitmap), teacher);
+        byte[] imageData = null;
+        if (bitmap != null)
+            imageData = getByteArray(bitmap);
+        return mProfileTask.saveProfileImage(imageData, teacher);
     }
 
     private byte[] getByteArray(Bitmap bitmap) {

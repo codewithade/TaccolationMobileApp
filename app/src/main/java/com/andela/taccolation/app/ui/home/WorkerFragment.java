@@ -78,6 +78,7 @@ public class WorkerFragment extends Fragment {
     }
 
     private void populateData() {
+        mProfileViewModel.getCourseList().observe(getViewLifecycleOwner(), courses -> mProfileViewModel.setCourse(courses));
         mAuthViewModel.getTeacherDetails().observe(getViewLifecycleOwner(), teacher -> {
             if (teacher.getFirstName() != null) {
                 Log.i(TAG, "processAuthState: Teacher: " + teacher.toString());

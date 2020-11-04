@@ -22,7 +22,11 @@
 
         <action
             android:id="@+id/action_dashboardFragment_to_studentProfile"
-            app:destination="@id/studentProfile" />
+            app:destination="@id/studentProfile"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_dashboardFragment_to_teacherProfile"
             app:destination="@id/teacherProfile" />
@@ -61,7 +65,11 @@
             app:destination="@id/studentCourse" />
         <action
             android:id="@+id/action_studentProfile_to_studentDetails"
-            app:destination="@id/studentDetails" />
+            app:destination="@id/studentDetails"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/workerFragment"
@@ -84,7 +92,11 @@
         android:id="@+id/teacherProfile"
         android:name="com.andela.taccolation.app.ui.teacherprofile.TeacherProfile"
         android:label="@string/teacher_profile"
-        tools:layout="@layout/fragment_teacher_profile" />
+        tools:layout="@layout/fragment_teacher_profile">
+        <action
+            android:id="@+id/action_teacherProfile_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
     <fragment
         android:id="@+id/studentDetails"
         android:name="com.andela.taccolation.app.ui.studentprofile.StudentDetails"
@@ -95,7 +107,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_studentDetails_to_reward"
-            app:destination="@id/reward" />
+            app:destination="@id/reward"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/studentCourse"
@@ -104,7 +120,11 @@
         tools:layout="@layout/fragment_student_course">
         <action
             android:id="@+id/action_studentCourse_to_studentDetails"
-            app:destination="@id/studentDetails" />
+            app:destination="@id/studentDetails"
+            app:enterAnim="@anim/slide_out_left"
+            app:exitAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -113,7 +133,9 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="authemticationState"
             app:argType="com.andela.taccolation.app.utils.AuthenticationState" />
@@ -173,7 +195,6 @@
         android:label="@string/lecture_aids"
         tools:layout="@layout/fragment_lecture_aids" />
 
-
     <fragment
         android:id="@+id/nav_home"
         android:name="com.andela.taccolation.app.ui.home.ui.home.HomeFragment"
@@ -199,6 +220,11 @@
     <fragment
         android:id="@+id/leaderBoard"
         android:name="com.andela.taccolation.app.ui.leaderboard.LeaderBoard"
-        android:label="LeaderBoard"
+        android:label="@string/leader_board"
         tools:layout="@layout/fragment_leader_board" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.andela.taccolation.app.ui.teacherprofile.EditProfile"
+        android:label="@string/edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

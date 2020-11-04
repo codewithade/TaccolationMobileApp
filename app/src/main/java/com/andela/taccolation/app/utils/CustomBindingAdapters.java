@@ -69,6 +69,12 @@ public class CustomBindingAdapters {
         }
     }
 
+    @BindingAdapter(value = {"course_count"})
+    public static void setCourseCount(MaterialTextView textView, Teacher teacher) {
+        if (teacher != null)
+            textView.setText(String.valueOf(teacher.getCourseCodeList().size()));
+    }
+
     @BindingAdapter(value = {"student_name"})
     public static void setStudentName(MaterialTextView textView, Student student) {
         if (student != null)
