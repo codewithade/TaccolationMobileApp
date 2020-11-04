@@ -16,4 +16,5 @@
     <dimen name="item_dashboard_width">150dp</dimen>
     <dimen name="item_dashboard_height">200dp</dimen>
     <dimen name="app_title_margin">50dp</dimen>
+    <dimen name="cardview_margin">40</dimen>
 </resources>

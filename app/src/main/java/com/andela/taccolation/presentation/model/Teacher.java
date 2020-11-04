@@ -16,13 +16,16 @@ public class Teacher {
     private String id;
     private String email;
     private String imageUrl;
+    private String phone;
+    private String sex;
+    private String address;
     @Exclude
     private String password;
 
     public Teacher() {
     }
 
-    public Teacher(String firstName, String lastName, String designation, List<String> courseCodeList, String id, String email, String imageUrl, String password) {
+    public Teacher(String firstName, String lastName, String designation, List<String> courseCodeList, String id, String email, String imageUrl, String phone, String sex, String address, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.designation = designation;
@@ -30,6 +33,9 @@ public class Teacher {
         this.id = id;
         this.email = email;
         this.imageUrl = imageUrl;
+        this.phone = phone;
+        this.sex = sex;
+        this.address = address;
         this.password = password;
     }
 
@@ -53,8 +59,6 @@ public class Teacher {
     }
 
     // FIXME: 19/10/2020 delete this security risk
-
-
     @NonNull
     @Override
     public String toString() {
@@ -64,7 +68,11 @@ public class Teacher {
                 ", designation='" + designation + '\'' +
                 ", courseCodeList=" + courseCodeList +
                 ", id='" + id + '\'' +
+                ", email='" + email + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", phone='" + phone + '\'' +
+                ", sex='" + sex + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 
@@ -102,6 +110,18 @@ public class Teacher {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getSex() {
+        return sex;
     }
 
     @Exclude

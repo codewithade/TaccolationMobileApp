@@ -151,7 +151,7 @@ public class RegisterFragment extends Fragment {
             Snackbar.make(requireView(), getString(R.string.password_mismatch), Snackbar.LENGTH_LONG).show();
         else {
             mProgressBar.setVisibility(View.VISIBLE);
-            Teacher teacher = new Teacher(firstName, lastName, (String) mDesignationSpinner.getSelectedItem(), Arrays.asList("MAT 111", "TCS 407", "ICS 413", "ABE 263"), "", email, "https://www.imageurl.com.ng", password);
+            Teacher teacher = new Teacher(firstName, lastName, (String) mDesignationSpinner.getSelectedItem(), Arrays.asList("MAT 111", "TCS 407", "ICS 413", "ABE 263"), "", email, "https://www.imageurl.com.ng", "234123456789", "male", "address", password);
             Log.i(TAG, "signUpNewTeacher: Teacher: " + teacher.toString());
             mAuthViewModel.signUpTeacher(teacher).observe(getViewLifecycleOwner(), this::processAuthState);
         }

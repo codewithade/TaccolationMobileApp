@@ -50,4 +50,9 @@ public class ProfileRepoImpl implements ProfileRepo {
     public LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher) {
         return mRemoteProfileDataSource.saveProfileImage(imageData, teacher);
     }
+
+    @Override
+    public LiveData<List<Course>> getCourseList() {
+        return mRemoteProfileDataSource.getCourseList();
+    }
 }

@@ -44,4 +44,9 @@ public class LocalProfileImpl implements LocalProfileDataSource {
     public LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher) {
         return null;
     }
+
+    @Override
+    public LiveData<List<Course>> getCourseList() {
+        return null;
+    }
 }

@@ -41,4 +41,8 @@ public class ProfileTask {
     public LiveData<TaskStatus> saveProfileImage(byte[] imageData, Teacher teacher) {
         return mProfileRepo.saveProfileImage(imageData, teacher);
     }
+
+    public LiveData<List<Course>> getCourseList() {
+        return mProfileRepo.getCourseList();
+    }
 }

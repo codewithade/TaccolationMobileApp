@@ -9,6 +9,10 @@
         <variable
             name="teacher"
             type="Teacher" />
+
+        <variable
+            name="studentCount"
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
@@ -17,118 +21,251 @@
         android:background="@drawable/bg"
         tools:context=".app.ui.teacherprofile.TeacherProfile">
 
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/teacher_chip_group"
+        <FrameLayout
+            android:id="@+id/header"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image" />
-
-        <ImageView
-            android:id="@+id/profile_image"
-            style="@style/CircleImageStyle"
-            android:layout_width="@dimen/teacher_image_width"
-            android:layout_height="@dimen/teacher_image_height"
-            android:contentDescription="@string/dashboard_icon_desc"
+            android:layout_height="0dp"
+            android:background="?attr/colorPrimaryDark"
             android:padding="@dimen/app_padding"
-            android:src="@drawable/teacher"
+            app:layout_constraintBottom_toTopOf="@id/content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1.3">
 
-        <Spinner
-            android:id="@+id/designation_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_padding"
-            android:layout_marginEnd="@dimen/app_padding"
-            android:padding="@dimen/spinner_padding"
-            app:layout_constraintBottom_toTopOf="@id/first_name_tv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/teacher_chip_group"
-            app:spinner_adapter="@{@stringArray/designation}" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/first_name_tv"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="@dimen/teacher_image_width"
+                    android:layout_height="@dimen/teacher_image_height"
+                    android:contentDescription="@string/dashboard_icon_desc"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="@dimen/app_padding"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    app:imageSrc="@{teacher.imageUrl}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/teacher" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/hello_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hello"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:layout_constraintBottom_toTopOf="@id/name_tv"
+                    app:layout_constraintStart_toEndOf="@id/profile_image"
+                    app:layout_constraintTop_toTopOf="@id/profile_image"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/name_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceHeadline6"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:layout_constraintBottom_toBottomOf="@id/profile_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/hello_tv"
+                    app:layout_constraintTop_toBottomOf="@id/hello_tv"
+                    app:teacher_name="@{teacher}"
+                    tools:text="Adebisi Yusuf" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/edit_profile_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/icon_description"
+                    android:src="@drawable/ic_edit"
+                    app:fabSize="mini"
+                    app:layout_constraintBottom_toBottomOf="@id/profile_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/profile_image" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_padding"
-            android:layout_marginEnd="0dp"
-            android:text="@string/first_name"
-            android:textAppearance="?textAppearanceHeadline6"
-            app:layout_constraintEnd_toStartOf="@id/last_name_tv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/designation_spinner" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/first_name_et"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="@id/first_name_tv"
-            app:layout_constraintStart_toStartOf="@id/first_name_tv"
-            app:layout_constraintTop_toBottomOf="@id/first_name_tv" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/last_name_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="@dimen/app_padding"
-            android:text="@string/last_name"
-            android:textAppearance="?textAppearanceHeadline6"
+            android:layout_marginStart="@dimen/cardview_margin"
+            android:layout_marginEnd="@dimen/cardview_margin"
+            app:layout_constraintBottom_toBottomOf="@id/header"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/first_name_tv"
-            app:layout_constraintTop_toBottomOf="@id/designation_spinner" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/last_name_et"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="@id/last_name_tv"
-            app:layout_constraintStart_toStartOf="@id/last_name_tv"
-            app:layout_constraintTop_toBottomOf="@id/last_name_tv" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/app_padding">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/update_profile_button"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/messages"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintEnd_toStartOf="@id/t2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Messages" />
+
+                <!--TODO DISPLAY NUMBER OF NOTIFICATIONS-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/photos_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="@id/t1"
+                    app:layout_constraintStart_toStartOf="@id/t1"
+                    app:layout_constraintTop_toBottomOf="@id/t1"
+                    tools:text="29" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintEnd_toStartOf="@id/t3"
+                    app:layout_constraintStart_toEndOf="@id/t1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Students" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/student_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(studentCount) ?? `0`}"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="@id/t2"
+                    app:layout_constraintStart_toStartOf="@id/t2"
+                    app:layout_constraintTop_toBottomOf="@id/t2"
+                    tools:text="239" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/t3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/t2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Courses" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/course_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorPrimaryDark"
+                    app:course_count="@{teacher}"
+                    app:layout_constraintEnd_toEndOf="@id/t3"
+                    app:layout_constraintStart_toStartOf="@id/t3"
+                    app:layout_constraintTop_toBottomOf="@id/t3"
+                    tools:text="2039" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <FrameLayout
+            android:id="@+id/content"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_padding"
-            android:layout_marginEnd="@dimen/app_padding"
-            android:text="@string/update_profile"
+            android:layout_height="0dp"
+            android:layout_marginTop="50dp"
+            android:padding="@dimen/app_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/select_course_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_padding"
-            android:layout_marginTop="@dimen/til_margin_top"
-            android:layout_marginEnd="@dimen/app_padding"
-            android:text="@string/select_course"
-            android:textAppearance="?textAppearanceHeadline6"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/first_name_et" />
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintVertical_weight="3">
 
-        <Spinner
-            android:id="@+id/course_code_list_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_padding"
-            android:layout_marginEnd="@dimen/app_padding"
-            android:padding="@dimen/spinner_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/select_course_tv"
-            app:spinner_adapter="@{@stringArray/course_code_list}" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/email_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="@dimen/drawable_padding"
+                    android:gravity="center_vertical"
+                    android:padding="8dp"
+                    android:text="@{teacher.email}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="adebc007@gmail.com" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/phone_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_baseline_phone_24"
+                    android:drawablePadding="@dimen/drawable_padding"
+                    android:gravity="center_vertical"
+                    android:padding="8dp"
+                    android:text="@{teacher.phone ?? `+234 8090013589`}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/email_tv"
+                    tools:text="+234 8060713589" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/address_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_baseline_house_24"
+                    android:drawablePadding="@dimen/drawable_padding"
+                    android:gravity="center_vertical"
+                    android:padding="8dp"
+                    android:text="@{teacher.address ?? `Lagos, Nigeria`}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/phone_tv"
+                    tools:text="Lagos, Nigeria" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/courses_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_baseline_format_list_bulleted_24"
+                    android:drawablePadding="@dimen/drawable_padding"
+                    android:gravity="center_vertical"
+                    android:padding="8dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:course_codes="@{teacher}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address_tv"
+                    tools:text="MAT 111, CHE 265, TCS 234, SCS 234" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
