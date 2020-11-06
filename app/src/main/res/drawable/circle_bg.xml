@@ -4,10 +4,10 @@
 
     <solid android:color="@android:color/transparent" />
     <size
-        android:width="120dp"
-        android:height="120dp" />
+        android:width="@dimen/circle_bg_width"
+        android:height="@dimen/circle_bg_height" />
 
     <stroke
         android:width="2dp"
-        android:color="?attr/colorPrimaryDark" />
+        android:color="?attr/colorPrimary" />
 </shape>

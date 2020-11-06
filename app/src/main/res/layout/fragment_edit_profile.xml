@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="@dimen/app_padding"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/update_profile_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
@@ -234,6 +234,7 @@
             android:layout_marginStart="@dimen/app_padding"
             android:layout_marginEnd="@dimen/app_padding"
             android:text="@string/update_profile"
+            app:layout_constraintTop_toBottomOf="@id/scroll_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

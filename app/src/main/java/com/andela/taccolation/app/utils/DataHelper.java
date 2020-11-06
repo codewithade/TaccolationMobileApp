@@ -5,6 +5,7 @@ import com.andela.taccolation.presentation.model.DashboardItem;
 import com.andela.taccolation.presentation.model.TaskItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DataHelper {
@@ -35,5 +36,9 @@ public class DataHelper {
         taskItems.add(new TaskItem(6, "Go on excursion"));
         taskItems.add(new TaskItem(7, "Visit the Orphanage"));
         return taskItems;
+    }
+
+    public static List<String> getCourseCodeList() {
+        return Arrays.asList("MAT 111", "TCS 401", "ICS 413", "ELE 201", "GSE 245", "CSC 234", "ENG 231", "ICS 201", "SOC 102", "SOC 101", "CHE 256", "MAT 251", "CHE 264", "TCS 111");
     }
 }

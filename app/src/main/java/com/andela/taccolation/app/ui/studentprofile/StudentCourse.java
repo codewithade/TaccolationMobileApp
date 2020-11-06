@@ -90,6 +90,8 @@ public class StudentCourse extends Fragment implements OnItemClickListener<Stude
         adapter.submitList(mStudentList);
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 1));
         recyclerView.setAdapter(adapter);
+        if (adapter.getCurrentList().isEmpty()) mBinding.noStudentTv.setVisibility(View.VISIBLE);
+        else mBinding.noStudentTv.setVisibility(View.GONE);
     }
 
     @Override

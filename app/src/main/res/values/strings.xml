@@ -20,7 +20,6 @@
     <string name="resend_email">Kindly check your mailbox to verify your email</string>
     <string name="failed_authentication">An error occurred. please try again</string>
     <string name="unauthenticated_user">Login with your credentials or register if you haven\'t</string>
-    <string name="email_confirmed">Email confirmed. Login to proceed</string>
     <string name="register_route_button_text">Don\'t have an account? Register</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="send_password_recovery">Send Link</string>
@@ -50,14 +49,13 @@
     <string name="exam_mark">Exam Mark</string>
     <string name="bonus_mark">Bonus Mark</string>
     <string name="rewards_received">Rewards Received</string>
-    <string name="snack_bar_email_confirmed_msg">Email confirmed</string>
     <string name="reg_success">Registration successful!</string>
     <string name="app_sub_title">Become the best as a teacher</string>
     <string name="let_s_go">Tap to Proceed</string>
     <string name="app_summary_text">Taccolation offers
 teachers the platform to manage students records in an efficient manner. It increases Teacher’s
-productivity as usual manual work such as attendance, lecture notes, assessments, reports are now
-digitized and automated. It offers a platform where student’s information can better be managed
+productivity as usual manual work such as attendance, lecture notes, assessments, reports are now automated.
+        It offers a platform where student’s information can better be managed
 thereby giving the teacher an idea on aspects to improve and also aspects to impact more in the
 student’s life.</string>
     <string name="hero_image">Hero image</string>
@@ -118,12 +116,22 @@ student’s life.</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="leader_board">LeaderBoard</string>
     <string name="docs_upload">Select the documents from storage</string>
-    <string name="file_types">PNG, JPEG or PDF</string>
-    <string name="upload_text">Upload your Lecture Notes</string>
+    <string name="file_types">PNG, JPEG, DOC or PDF</string>
+    <string name="upload_text">Create/Upload your Lecture Notes</string>
     <string name="or">OR</string>
     <string name="upload_text_next">Paste the link to the Teaching Aids</string>
     <string name="proceed">Proceed</string>
     <string name="enter_text">Enter Text</string>
     <string name="create_new_document">Create new document</string>
     <string name="create_link">Paste Document Link</string>
+    <string name="delete_button">Delete button</string>
+    <string name="upload_button">File Upload Button</string>
+    <string name="link_upload_button">Link Upload Button</string>
+    <string name="create_new_document_button">Create New Document Button</string>
+    <string name="select_the_course_associated_with_this_file">Select the course associated with this file</string>
+    <string name="students">Students</string>
+    <string name="courses">Courses</string>
+    <string name="no_user_record">No records found. Please register if you haven\'t</string>
+    <string name="select_course_hint">Select at least a course you teach</string>
+    <string name="no_student_has_registered_for_this_course">No student has registered for this course</string>
 </resources>

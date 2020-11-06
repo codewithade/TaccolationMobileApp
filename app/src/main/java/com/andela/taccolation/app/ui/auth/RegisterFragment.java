@@ -1,6 +1,7 @@
 
 package com.andela.taccolation.app.ui.auth;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,13 +23,17 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.AuthenticationState;
 import com.andela.taccolation.app.utils.Constants;
+import com.andela.taccolation.app.utils.DataHelper;
 import com.andela.taccolation.databinding.FragmentRegisterBinding;
 import com.andela.taccolation.presentation.model.Teacher;
 import com.andela.taccolation.presentation.viewmodel.AuthViewModel;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -40,6 +45,7 @@ public class RegisterFragment extends Fragment {
 
     private FragmentRegisterBinding mBinding;
     private AuthViewModel mAuthViewModel;
+    private final List<String> mCourseCodeList = new ArrayList<>();
     private NavController mNavController;
     private TextInputLayout mFirstName, mLastName, mEmail, mPassword, mConfirmPassword;
     private final TextWatcher mTextWatcher = new TextWatcher() {
@@ -79,14 +85,13 @@ public class RegisterFragment extends Fragment {
     }
 
     private Spinner mDesignationSpinner;
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mBinding = FragmentRegisterBinding.inflate(inflater);
-        return mBinding.getRoot();
-    }
+    private final ChipGroup.OnClickListener mChangeListener = view -> {
+        Chip chip = (Chip) view;
+        final String courseCode = chip.getText().toString();
+        if (chip.isChecked()) mCourseCodeList.add(courseCode);
+        else mCourseCodeList.remove(courseCode);
+        Log.i(TAG, "Course code content: " + mCourseCodeList.toString());
+    };
 
     private ProgressBar mProgressBar;
 
@@ -94,23 +99,14 @@ public class RegisterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNavController = NavHostFragment.findNavController(this);
-        // setUpNavGraphScopedViewModel();da
         mAuthViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        bindViews();
-        setUpSpinner();
-        addTextWatcher();
-
-        mBinding.loginRoute.setOnClickListener(v -> mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED)));
-
-        mBinding.registerButton.setOnClickListener(v -> {
-            addTextChangeListener();
-            if (!isEmpty) signUpNewTeacher();
-        });
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mBinding = FragmentRegisterBinding.inflate(inflater);
+        return mBinding.getRoot();
     }
 
     private void setUpSpinner() {
@@ -140,6 +136,23 @@ public class RegisterFragment extends Fragment {
         mConfirmPassword.addOnEditTextAttachedListener(mTextAttachedListener);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        bindViews();
+        setUpSpinner();
+        addTextWatcher();
+        createCourseCodeChips(DataHelper.getCourseCodeList());
+        mBinding.loginRoute.setOnClickListener(v -> mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED)));
+
+        mBinding.registerButton.setOnClickListener(v -> {
+            addTextChangeListener();
+            if (!isEmpty) if (mCourseCodeList.isEmpty())
+                sendSnackbar(getString(R.string.select_course_hint));
+            else signUpNewTeacher();
+        });
+    }
+
     private void signUpNewTeacher() {
         String firstName = Objects.requireNonNull(mFirstName.getEditText()).getText().toString();
         String lastName = Objects.requireNonNull(mLastName.getEditText()).getText().toString();
@@ -151,9 +164,24 @@ public class RegisterFragment extends Fragment {
             Snackbar.make(requireView(), getString(R.string.password_mismatch), Snackbar.LENGTH_LONG).show();
         else {
             mProgressBar.setVisibility(View.VISIBLE);
-            Teacher teacher = new Teacher(firstName, lastName, (String) mDesignationSpinner.getSelectedItem(), Arrays.asList("MAT 111", "TCS 407", "ICS 413", "ABE 263"), "", email, "https://www.imageurl.com.ng", "234123456789", "male", "address", password);
+            mBinding.registerButton.setEnabled(false);
+            mBinding.group.setEnabled(false);
+            Teacher teacher = new Teacher(firstName, lastName, (String) mDesignationSpinner.getSelectedItem(), mCourseCodeList, "", email, "https://www.imageurl.com.ng", "234123456789", "male", "address", password);
             Log.i(TAG, "signUpNewTeacher: Teacher: " + teacher.toString());
             mAuthViewModel.signUpTeacher(teacher).observe(getViewLifecycleOwner(), this::processAuthState);
+        }
+    }
+
+    private void createCourseCodeChips(List<String> courseCode) {
+        if (!courseCode.isEmpty()) {
+            LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            for (String code : courseCode) {
+                Chip chip = (Chip) layoutInflater.inflate(R.layout.item_chip, null);
+                chip.setText(code);
+                chip.setOnClickListener(mChangeListener);
+                mBinding.chipGroup.addView(chip);
+            }
         }
     }
 
@@ -161,25 +189,34 @@ public class RegisterFragment extends Fragment {
     private void processAuthState(AuthenticationState authenticationState) {
         switch (authenticationState) {
             case AUTHENTICATED:
-            case EMAIL_CONFIRMED:
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
                 // navigate user to dashboard and pop back stack
-                sendSnackbar(getString(R.string.snack_bar_email_confirmed_msg));
                 mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(authenticationState));
                 break;
             case EMAIL_UNCONFIRMED:
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
                 // navigate user to login screen and inform user to confirm email
                 sendSnackbar(getString(R.string.reg_success));
                 mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(authenticationState));
                 break;
-            case UNAUTHENTICATED:
-                // navigate user to login screen if user is registered
+            case NETWORK_ERROR:
+                sendSnackbar(getString(R.string.internet_error));
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
+                mBinding.registerButton.setEnabled(true);
+                mBinding.group.setEnabled(true);
                 break;
             case FAILED:
                 // update user of failure to register
                 sendSnackbar(getString(R.string.failed_authentication));
+                mBinding.registerButton.setEnabled(true);
+                mBinding.group.setEnabled(true);
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
                 break;
         }
-        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     private void bindViews() {

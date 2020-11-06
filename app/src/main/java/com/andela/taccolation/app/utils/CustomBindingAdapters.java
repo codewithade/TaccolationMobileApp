@@ -27,7 +27,8 @@ public class CustomBindingAdapters {
     @BindingAdapter(value = {"imageSrc"})
     public static void setImageSource(ImageView imageView, String url) {
         final Context imageViewContext = imageView.getContext();
-        if (url != null) Glide.with(imageViewContext).load(url).into(imageView);
+        if (url != null)
+            Glide.with(imageViewContext).load(url).placeholder(R.drawable.teacher).error(R.drawable.teacher).into(imageView);
         else
             Glide.with(imageViewContext).load(ResourcesCompat.getDrawable(imageViewContext.getResources(), R.drawable.teacher, null)).into(imageView);
     }

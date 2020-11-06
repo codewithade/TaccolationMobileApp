@@ -15,7 +15,7 @@ public class Student {
     private String id;
     private int points;
     private int rank;
-    private Map<String, StudentStatistics> studentDetailsMap; //map of course code to statistics for the course code for this student
+    private Map<String, StudentStatistics> studentDetailsMap; // map of course code to statistics for the course code for this student
 
     public Student(String firstName, String lastName, String sex, List<String> courseCodeList, String imageUrl, String id, int points, int rank, Map<String, StudentStatistics> studentDetailsMap) {
         this.firstName = firstName;

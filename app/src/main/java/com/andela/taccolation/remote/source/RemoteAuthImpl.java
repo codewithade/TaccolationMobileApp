@@ -32,8 +32,6 @@ public class RemoteAuthImpl implements RemoteAuthDataSource {
     public RemoteAuthImpl(FirebaseAuth firebaseAuth, FirebaseFirestore firestore) {
         mFirebaseAuth = firebaseAuth;
         mFirestore = firestore;
-//        userAuthState.setValue(AuthenticationState.UNAUTHENTICATED);
-//        status.setValue(TaskStatus.PENDING);
     }
 
     @Override
@@ -83,23 +81,18 @@ public class RemoteAuthImpl implements RemoteAuthDataSource {
                             userAuthState.setValue(AuthenticationState.FAILED);
                         }
                     });
-        } else {
-            Log.i(TAG, "sendConfirmationEmail: email is verified.");
-            userAuthState.setValue(AuthenticationState.EMAIL_CONFIRMED);
         }
     }
 
     @Override
     public LiveData<AuthenticationState> signInTeacher(String email, String password) {
+        userAuthState.setValue(AuthenticationState.PENDING);
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         if (user != null) {
             user.reload();
             if (!user.isEmailVerified())
                 userAuthState.setValue(AuthenticationState.EMAIL_UNCONFIRMED);
-            else {
-                userAuthState.setValue(AuthenticationState.EMAIL_CONFIRMED);
-                signInWithEmailAndPassword(email, password);
-            }
+            else signInWithEmailAndPassword(email, password);
         } else signInWithEmailAndPassword(email, password);
         return userAuthState;
     }
@@ -144,6 +137,7 @@ public class RemoteAuthImpl implements RemoteAuthDataSource {
     public LiveData<Teacher> getTeacherDetails() {
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         if (user != null) {
+            Log.i(TAG, "getTeacherDetails: User email: " + user.getEmail());
             mFirestore.collection(Constants.TEACHER.getConstant()).whereEqualTo("email", user.getEmail()).get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -168,6 +162,8 @@ public class RemoteAuthImpl implements RemoteAuthDataSource {
                             userAuthState.setValue(AuthenticationState.INVALID_CREDENTIALS);
                         else if (errorMessage.contains("network"))
                             userAuthState.setValue(AuthenticationState.NETWORK_ERROR);
+                        else if (errorMessage.contains("no user record"))
+                            userAuthState.setValue(AuthenticationState.NO_USER_RECORD);
                         else userAuthState.setValue(AuthenticationState.FAILED);
                     } else {
                         Log.i(TAG, "signInTeacher: successful");
