@@ -46,15 +46,13 @@ public class TeacherFile {
         if (this == o) return true;
         if (!(o instanceof TeacherFile)) return false;
         TeacherFile that = (TeacherFile) o;
-        return getId().equals(that.getId()) &&
-                getTitle().equals(that.getTitle()) &&
-                Objects.equals(getUrl(), that.getUrl()) &&
-                Objects.equals(getCourseCode(), that.getCourseCode());
+        return getTitle().equals(that.getTitle()) &&
+                getCourseCode().equals(that.getCourseCode());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getUrl(), getCourseCode());
+        return Objects.hash(getTitle(), getCourseCode());
     }
 
     @NonNull
