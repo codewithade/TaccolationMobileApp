@@ -15,15 +15,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryDark"
+        android:background="?attr/colorPrimary"
         tools:context=".app.ui.home.DashboardFragment">
 
-        <View
+        <ImageView
             android:id="@+id/white_bg"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/view_margin_top"
-            android:background="@drawable/curved_bg"
+            android:background="@drawable/bgt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +86,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textStyle="bold"
             android:textAppearance="?attr/textAppearanceCaption"
             app:course_codes="@{teacher}"
             app:layout_constraintEnd_toEndOf="parent"

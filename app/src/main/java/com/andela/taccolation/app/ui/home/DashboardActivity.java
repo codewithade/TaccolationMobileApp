@@ -2,6 +2,7 @@ package com.andela.taccolation.app.ui.home;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,6 +22,8 @@ import androidx.preference.PreferenceManager;
 
 import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.Constants;
+import com.andela.taccolation.databinding.DrawerBottomLayoutBinding;
+import com.andela.taccolation.presentation.viewmodel.ProfileViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -29,6 +34,7 @@ public class DashboardActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
+    private ProfileViewModel mProfileViewModel;
     private static final String TAG = Constants.LOG.getConstant();
 
     @Override
@@ -41,6 +47,8 @@ public class DashboardActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate: ACTIVITY");
         setContentView(R.layout.activity_dashboard);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        mProfileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
         /* NavigationUI uses an AppBarConfiguration object to manage the behavior of the Navigation
          button in the upper-left corner of your app's display area.
@@ -58,7 +66,12 @@ public class DashboardActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.addHeaderView(getLayoutInflater().inflate(R.layout.drawer_bottom_layout, null));
+        DrawerBottomLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.drawer_bottom_layout, null, false);
+        mProfileViewModel.getTeacher().observe(this, teacher -> {
+            if (teacher != null)
+                binding.setTeacher(teacher);
+        });
+        navigationView.addHeaderView(binding.getRoot());
 
         // Next, connect the DrawerLayout to your navigation graph by passing it to AppBarConfiguration,
         // as shown in the following example:

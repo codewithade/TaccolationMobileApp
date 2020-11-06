@@ -164,19 +164,17 @@ public class LoginFragment extends Fragment {
                 editor.putBoolean(Constants.USER_AUTHENTICATED.getConstant(), true);
                 editor.apply();
                 // navigate user to dashboard and pop back stack
-                // mNavController.popBackStack();
-                NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_workerFragment);
-                mProgressBar.setVisibility(View.GONE);
+                NavHostFragment.findNavController(this).popBackStack();
+                // NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_workerFragment);
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
                 mBinding.loginButton.setEnabled(true);
-                break;
-            case EMAIL_CONFIRMED:
-                // inform user to login since email is confirmed
-                sendSnackbar(getString(R.string.email_confirmed));
                 break;
             case EMAIL_UNCONFIRMED:
                 // inform user to confirm email
                 Snackbar.make(requireView(), getString(R.string.resend_email), Snackbar.LENGTH_LONG).setAction("Resend", view -> mAuthViewModel.sendVerificationEmail()).show();
-                mProgressBar.setVisibility(View.GONE);
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
                 mBinding.loginButton.setEnabled(true);
                 break;
             case UNAUTHENTICATED:
@@ -186,18 +184,27 @@ public class LoginFragment extends Fragment {
                 break;
             case NETWORK_ERROR:
                 sendSnackbar(getString(R.string.internet_error));
-                mProgressBar.setVisibility(View.GONE);
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
                 mBinding.loginButton.setEnabled(true);
                 break;
             case INVALID_CREDENTIALS:
                 sendSnackbar(getString(R.string.invalid_credentials));
-                mProgressBar.setVisibility(View.GONE);
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
+                mBinding.loginButton.setEnabled(true);
+                break;
+            case NO_USER_RECORD:
+                sendSnackbar(getString(R.string.no_user_record));
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
                 mBinding.loginButton.setEnabled(true);
                 break;
             case FAILED:
                 // update user of failure to login
                 sendSnackbar(getString(R.string.failed_authentication));
-                mProgressBar.setVisibility(View.GONE);
+                if (mProgressBar != null)
+                    mProgressBar.setVisibility(View.GONE);
                 mBinding.loginButton.setEnabled(true);
                 break;
         }

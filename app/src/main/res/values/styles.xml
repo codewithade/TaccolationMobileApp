@@ -53,7 +53,7 @@
     </style>
 
     <style name="Widget.MyApp.MaterialTextView.NavDrawer">
-        <item name="android:textColor">?attr/colorPrimaryDark</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textAppearance">?attr/textAppearanceButton</item>
         <item name="android:textSize">30sp</item>
     </style>
@@ -87,10 +87,10 @@
 
     <style name="Widget.MyApp.NavigationView" parent="Widget.MaterialComponents.NavigationView">
         <item name="android:background">@drawable/bg</item>
-        <item name="itemIconTint">?attr/colorPrimaryDark</item>
+        <item name="itemIconTint">?attr/colorPrimary</item>
         <item name="itemShapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="itemTextAppearance">?attr/textAppearanceButton</item>
-        <item name="itemTextColor">?attr/colorPrimaryDark</item>
+        <item name="itemTextColor">?attr/colorPrimary</item>
     </style>
 
 </resources>

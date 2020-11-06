@@ -3,7 +3,6 @@ package com.andela.taccolation.remote.source;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,10 +12,10 @@ import com.andela.taccolation.data.remotedata.RemoteProfileDataSource;
 import com.andela.taccolation.presentation.model.Course;
 import com.andela.taccolation.presentation.model.Student;
 import com.andela.taccolation.presentation.model.Teacher;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -33,6 +32,7 @@ import javax.inject.Inject;
 
 public class RemoteProfileImpl implements RemoteProfileDataSource {
     private static final String TAG = Constants.LOG.getConstant();
+    private final FirebaseAuth mFirebaseAuth;
     private final FirebaseFirestore mFirestore;
     private final MutableLiveData<Map<String, List<Student>>> mStudentPerCourseMap = new MutableLiveData<>();
     private final MutableLiveData<TaskStatus> mAddStudentLiveData = new MutableLiveData<>();
@@ -41,7 +41,8 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
     private final FirebaseStorage mFirebaseStorage;
 
     @Inject
-    public RemoteProfileImpl(FirebaseFirestore firestore, FirebaseStorage storage) {
+    public RemoteProfileImpl(FirebaseAuth firebaseAuth, FirebaseFirestore firestore, FirebaseStorage storage) {
+        mFirebaseAuth = firebaseAuth;
         mFirestore = firestore;
         mFirebaseStorage = storage;
     }
@@ -189,10 +190,10 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
 
     @Override
     public LiveData<List<Course>> getCourseList() {
-        mFirestore.collection(Constants.COURSES.getConstant()).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        if (user != null) {
+            mFirestore.collection(Constants.COURSES.getConstant()).get()
+                    .addOnCompleteListener(task -> {
                         if (!task.isSuccessful())
                             Log.i(TAG, "onComplete: getCourses failed. Error: " + task.getException());
                         else {
@@ -200,8 +201,8 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
                             final List<Course> courses = Objects.requireNonNull(task.getResult()).toObjects(Course.class);
                             mCoursesLiveData.setValue(courses);
                         }
-                    }
-                });
+                    });
+        }
         return mCoursesLiveData;
     }
 

@@ -61,7 +61,7 @@
                 android:gravity="center"
                 android:text="@string/or"
                 android:textAppearance="?textAppearanceHeadline6"
-                android:textColor="?attr/colorPrimaryDark"
+                android:textColor="?attr/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@id/links_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
