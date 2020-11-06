@@ -118,12 +118,19 @@ student’s life.</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="leader_board">LeaderBoard</string>
     <string name="docs_upload">Select the documents from storage</string>
-    <string name="file_types">PNG, JPEG or PDF</string>
-    <string name="upload_text">Upload your Lecture Notes</string>
+    <string name="file_types">PNG, JPEG, DOC or PDF</string>
+    <string name="upload_text">Create/Upload your Lecture Notes</string>
     <string name="or">OR</string>
     <string name="upload_text_next">Paste the link to the Teaching Aids</string>
     <string name="proceed">Proceed</string>
     <string name="enter_text">Enter Text</string>
     <string name="create_new_document">Create new document</string>
     <string name="create_link">Paste Document Link</string>
+    <string name="delete_button">Delete button</string>
+    <string name="upload_button">File Upload Button</string>
+    <string name="link_upload_button">Link Upload Button</string>
+    <string name="create_new_document_button">Create New Document Button</string>
+    <string name="select_the_course_associated_with_this_file">Select the course associated with this file</string>
+    <string name="students">Students</string>
+    <string name="courses">Courses</string>
 </resources>

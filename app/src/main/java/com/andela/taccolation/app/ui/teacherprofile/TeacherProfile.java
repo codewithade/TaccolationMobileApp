@@ -50,6 +50,7 @@ public class TeacherProfile extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mBinding.editProfileFab.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_teacherProfile_to_editProfile));
         mProfileViewModel.getStudentListPerCourse().observe(getViewLifecycleOwner(), this::getStudentCount);
+        mProfileViewModel.getTeacher().observe(getViewLifecycleOwner(), teacher -> mBinding.setTeacher(teacher));
     }
 
     @Override

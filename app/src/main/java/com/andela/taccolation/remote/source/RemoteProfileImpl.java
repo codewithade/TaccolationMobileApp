@@ -38,7 +38,7 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
     private final MutableLiveData<TaskStatus> mAddStudentLiveData = new MutableLiveData<>();
     private final MutableLiveData<List<Course>> mCoursesLiveData = new MutableLiveData<>();
     private final MutableLiveData<TaskStatus> mUploadTeacherProfileImage = new MutableLiveData<>();
-    FirebaseStorage mFirebaseStorage;
+    private final FirebaseStorage mFirebaseStorage;
 
     @Inject
     public RemoteProfileImpl(FirebaseFirestore firestore, FirebaseStorage storage) {

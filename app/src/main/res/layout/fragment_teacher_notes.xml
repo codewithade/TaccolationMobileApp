@@ -9,113 +9,150 @@
         android:padding="@dimen/app_padding"
         tools:context=".app.ui.teachernotes.TeacherNotes">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/notes_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/upload_margin_top"
-            android:gravity="center"
-            android:text="@string/upload_text"
-            android:textAppearance="?attr/textAppearanceButton"
-            app:layout_constraintBottom_toTopOf="@id/or_tv"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/margin_top"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/divider"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/or_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/or"
-            android:textAppearance="?textAppearanceHeadline5"
-            android:textColor="?attr/colorPrimaryDark"
-            app:layout_constraintBottom_toTopOf="@id/links_tv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/notes_tv" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/links_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/upload_text_next"
-            android:textAppearance="?attr/textAppearanceButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/or_tv" />
-
-        <ImageButton
-            android:id="@+id/upload_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle_bg"
-            android:src="@drawable/ic_baseline_cloud_upload_24"
-            app:layout_constraintBottom_toTopOf="@id/image"
-            app:layout_constraintEnd_toStartOf="@id/link_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            tools:listitem="@layout/item_teacher_file"
+            tools:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/link_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle_bg"
-            android:src="@drawable/ic_baseline_link_24"
-            app:layout_constraintBottom_toBottomOf="@id/upload_button"
-            app:layout_constraintEnd_toStartOf="@id/new_doc_button"
-            app:layout_constraintStart_toEndOf="@id/upload_button"
-            app:layout_constraintTop_toTopOf="@id/upload_button"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <ImageButton
-            android:id="@+id/new_doc_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circle_bg"
-            android:src="@drawable/ic_baseline_note_add_24"
-            app:layout_constraintBottom_toBottomOf="@id/upload_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/link_button"
-            app:layout_constraintTop_toTopOf="@id/upload_button"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/upload_tv"
+        <View
+            android:id="@+id/divider"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/docs_upload"
-            android:textAppearance="?attr/textAppearanceBody2"
-            app:layout_constraintBottom_toTopOf="@id/file_types_tv"
+            android:layout_height="2dp"
+            android:background="?attr/colorPrimaryDark"
+            app:layout_constraintBottom_toTopOf="@id/footer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintTop_toTopOf="@id/image"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/file_types_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/file_types"
-            app:layout_constraintBottom_toBottomOf="@id/image"
-            app:layout_constraintEnd_toEndOf="@id/upload_tv"
-            app:layout_constraintStart_toStartOf="@id/upload_tv"
-            app:layout_constraintTop_toBottomOf="@id/upload_tv" />
-
-        <ImageButton
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_padding"
-            android:layout_marginTop="@dimen/upload_margin_top"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_library_books_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/upload_tv"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/upload_button" />
+            app:layout_constraintTop_toBottomOf="@id/recycler_view" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/footer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/notes_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/upload_text"
+                android:textAppearance="?attr/textAppearanceButton"
+                app:layout_constraintBottom_toTopOf="@id/or_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/or_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/or"
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textColor="?attr/colorPrimaryDark"
+                app:layout_constraintBottom_toTopOf="@id/links_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/notes_tv" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/links_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/upload_text_next"
+                android:textAppearance="?attr/textAppearanceButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/or_tv" />
+
+            <ImageButton
+                android:id="@+id/upload_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_bg"
+                android:contentDescription="@string/upload_button"
+                android:src="@drawable/ic_baseline_cloud_upload_24"
+                app:layout_constraintBottom_toTopOf="@id/image"
+                app:layout_constraintEnd_toStartOf="@id/link_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/links_tv"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <ImageButton
+                android:id="@+id/link_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_bg"
+                android:contentDescription="@string/link_upload_button"
+                android:src="@drawable/ic_baseline_link_24"
+                app:layout_constraintBottom_toBottomOf="@id/upload_button"
+                app:layout_constraintEnd_toStartOf="@id/new_doc_button"
+                app:layout_constraintStart_toEndOf="@id/upload_button"
+                app:layout_constraintTop_toTopOf="@id/upload_button"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <ImageButton
+                android:id="@+id/new_doc_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_bg"
+                android:contentDescription="@string/create_new_document_button"
+                android:src="@drawable/ic_baseline_note_add_24"
+                app:layout_constraintBottom_toBottomOf="@id/upload_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/link_button"
+                app:layout_constraintTop_toTopOf="@id/upload_button"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/upload_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/docs_upload"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintBottom_toTopOf="@id/file_types_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintTop_toTopOf="@id/image"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/file_types_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/file_types"
+                app:layout_constraintBottom_toBottomOf="@id/image"
+                app:layout_constraintEnd_toEndOf="@id/upload_tv"
+                app:layout_constraintStart_toStartOf="@id/upload_tv"
+                app:layout_constraintTop_toBottomOf="@id/upload_tv" />
+
+            <ImageButton
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/upload_margin_top"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_library_books_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/upload_tv"
+                app:layout_constraintStart_toStartOf="@id/upload_button"
+                app:layout_constraintTop_toBottomOf="@id/upload_button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
