@@ -129,7 +129,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.andela.taccolation.app.ui.auth.LoginFragment"
-        android:label="LoginFragment"
+        android:label="@string/login_fragment_label"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -150,7 +150,7 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.andela.taccolation.app.ui.auth.RegisterFragment"
-        android:label="RegisterFragment"
+        android:label="@string/register_fragment_label"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"

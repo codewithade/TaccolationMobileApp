@@ -134,4 +134,8 @@ student’s life.</string>
     <string name="no_user_record">No records found. Please register if you haven\'t</string>
     <string name="select_course_hint">Select at least a course you teach</string>
     <string name="no_student_has_registered_for_this_course">No student has registered for this course</string>
+    <string name="email_in_use">The email address is already in use by another account</string>
+    <string name="login_fragment_label">LoginFragment</string>
+    <string name="register_fragment_label">RegisterFragment</string>
+    <string name="password_too_short">Password should be at least 6 characters</string>
 </resources>

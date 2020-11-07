@@ -12,7 +12,7 @@
             android:id="@+id/hero_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/side_nav_bar"
+            android:background="?attr/colorPrimary"
             android:contentDescription="@string/student_profile"
             android:src="@drawable/student"
             app:layout_constraintBottom_toTopOf="@id/profile_image"

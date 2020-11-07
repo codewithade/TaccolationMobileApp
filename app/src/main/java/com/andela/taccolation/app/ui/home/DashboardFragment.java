@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -109,33 +110,43 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
 
     @Override
     public void onItemClick(DashboardItem item) {
+        final NavController navController = NavHostFragment.findNavController(this);
         switch (item.getDashboardMenu()) {
             case STUDENT_PROFILE:
-                NavHostFragment.findNavController(this).navigate(DashboardFragmentDirections.actionDashboardFragmentToStudentProfile());
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(DashboardFragmentDirections.actionDashboardFragmentToStudentProfile());
                 break;
             case TEACHER_PROFILE:
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_teacherProfile);
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(R.id.action_dashboardFragment_to_teacherProfile);
                 break;
             case TEACHER_NOTES:
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_teacherNotes);
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(R.id.action_dashboardFragment_to_teacherNotes);
                 break;
             case REPORT_SHEET:
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_reportSheet);
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(R.id.action_dashboardFragment_to_reportSheet);
                 break;
             case ATTENDANCE:
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_attendance);
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(R.id.action_dashboardFragment_to_attendance);
                 break;
             case ADD_STUDENT:
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_addStudent);
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(R.id.action_dashboardFragment_to_addStudent);
                 break;
             case TASKS:
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_task);
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(R.id.action_dashboardFragment_to_task);
                 break;
             case LECTURE_AIDS:
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_lectureAids);
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(R.id.action_dashboardFragment_to_lectureAids);
                 break;
             case LEADER_BOARD:
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboardFragment_to_leaderBoard);
+                if (navController.getCurrentDestination().getId() == R.id.dashboardFragment)
+                    navController.navigate(R.id.action_dashboardFragment_to_leaderBoard);
                 break;
             default:
                 Snackbar.make(requireView(), getString(item.getItemTitle()) + " under construction", Snackbar.LENGTH_LONG).show();

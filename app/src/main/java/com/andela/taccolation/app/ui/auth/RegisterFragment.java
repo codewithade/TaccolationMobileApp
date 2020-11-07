@@ -187,36 +187,46 @@ public class RegisterFragment extends Fragment {
 
     // fixme do i really need a live data? why not navigate to loginFragment after registration and show a toast message for user to confirm email address
     private void processAuthState(AuthenticationState authenticationState) {
+        Log.i(TAG, "processAuthState: AuthState: " + authenticationState);
         switch (authenticationState) {
             case AUTHENTICATED:
-                if (mProgressBar != null)
-                    mProgressBar.setVisibility(View.GONE);
+                resetViews();
                 // navigate user to dashboard and pop back stack
-                mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(authenticationState));
+                if (mNavController.getCurrentDestination().getId() == R.id.registerFragment)
+                    mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(authenticationState));
                 break;
             case EMAIL_UNCONFIRMED:
-                if (mProgressBar != null)
-                    mProgressBar.setVisibility(View.GONE);
+                resetViews();
                 // navigate user to login screen and inform user to confirm email
                 sendSnackbar(getString(R.string.reg_success));
-                mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(authenticationState));
+                if (mNavController.getCurrentDestination().getId() == R.id.registerFragment)
+                    mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(authenticationState));
+                break;
+            case EMAIL_ALREADY_IN_USE:
+                sendSnackbar(getString(R.string.email_in_use));
+                resetViews();
+                break;
+            case PASSWORD_TOO_SHORT:
+                sendSnackbar(getString(R.string.password_too_short));
+                resetViews();
                 break;
             case NETWORK_ERROR:
                 sendSnackbar(getString(R.string.internet_error));
-                if (mProgressBar != null)
-                    mProgressBar.setVisibility(View.GONE);
-                mBinding.registerButton.setEnabled(true);
-                mBinding.group.setEnabled(true);
+                resetViews();
                 break;
             case FAILED:
                 // update user of failure to register
                 sendSnackbar(getString(R.string.failed_authentication));
-                mBinding.registerButton.setEnabled(true);
-                mBinding.group.setEnabled(true);
-                if (mProgressBar != null)
-                    mProgressBar.setVisibility(View.GONE);
+                resetViews();
                 break;
         }
+    }
+
+    private void resetViews() {
+        if (mProgressBar != null)
+            mProgressBar.setVisibility(View.GONE);
+        mBinding.registerButton.setEnabled(true);
+        mBinding.group.setEnabled(true);
     }
 
     private void bindViews() {

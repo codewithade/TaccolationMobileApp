@@ -66,10 +66,13 @@ public class WorkerFragment extends Fragment {
         // TODO: 27/10/2020 Reset this when user or Teacher decides to log out
         boolean isUserAuthenticated = requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(Constants.USER_AUTHENTICATED.getConstant(), false);
 
-        if (isFirstRun)
-            NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_OnBoardingFragment);
-        else if (!isUserAuthenticated)
-            NavHostFragment.findNavController(this).navigate(WorkerFragmentDirections.actionWorkerFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED));
+        if (isFirstRun) {
+            if (NavHostFragment.findNavController(this).getCurrentDestination().getId() == R.id.workerFragment)
+                NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_OnBoardingFragment);
+        } else if (!isUserAuthenticated) {
+            if (NavHostFragment.findNavController(this).getCurrentDestination().getId() == R.id.workerFragment)
+                NavHostFragment.findNavController(this).navigate(WorkerFragmentDirections.actionWorkerFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED));
+        }
     }
 
     private void initViewModel() {
@@ -90,7 +93,8 @@ public class WorkerFragment extends Fragment {
                         mProfileViewModel.setTeacher(teacher);
                         // update the isDataDownloaded field
                         mProfileViewModel.setIsDataDownloaded(true);
-                        NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_dashboardFragment);
+                        if (NavHostFragment.findNavController(this).getCurrentDestination().getId() == R.id.workerFragment)
+                            NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_dashboardFragment);
                     }
                 });
             }

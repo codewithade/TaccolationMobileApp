@@ -37,8 +37,10 @@ public class OnBoardingFragment extends Fragment {
         // checks if its first time app was ran, navigates to onBoarding page
         // its weird. onCreateView gets called but not onCreate when popBackStack is invoked by LoginFragment
         boolean isFirstRun = requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(Constants.FIRST_RUN.getConstant(), true);
-        if (!isFirstRun)
-            NavHostFragment.findNavController(this).navigate(R.id.action_OnBoardingFragment_to_workerFragment);
+        if (!isFirstRun) {
+            if (NavHostFragment.findNavController(this).getCurrentDestination().getId() == R.id.OnBoardingFragment)
+                NavHostFragment.findNavController(this).navigate(R.id.action_OnBoardingFragment_to_workerFragment);
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_onboarding, container, false);
     }
@@ -50,7 +52,8 @@ public class OnBoardingFragment extends Fragment {
             SharedPreferences.Editor editor = requireActivity().getPreferences(Context.MODE_PRIVATE).edit();
             editor.putBoolean(Constants.FIRST_RUN.getConstant(), false);
             editor.apply();
-            NavHostFragment.findNavController(this).navigate(R.id.action_OnBoardingFragment_to_workerFragment);
+            if (NavHostFragment.findNavController(this).getCurrentDestination().getId() == R.id.OnBoardingFragment)
+                NavHostFragment.findNavController(this).navigate(R.id.action_OnBoardingFragment_to_workerFragment);
         });
     }
 

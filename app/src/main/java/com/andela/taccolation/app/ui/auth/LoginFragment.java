@@ -164,7 +164,11 @@ public class LoginFragment extends Fragment {
                 editor.putBoolean(Constants.USER_AUTHENTICATED.getConstant(), true);
                 editor.apply();
                 // navigate user to dashboard and pop back stack
-                NavHostFragment.findNavController(this).popBackStack();
+                final CharSequence currentDestination = NavHostFragment.findNavController(this).getCurrentDestination().getLabel();
+
+                Log.i(TAG, "LoginFragment: currentDestination: " + currentDestination);
+                if (NavHostFragment.findNavController(this).getCurrentDestination().getId() == R.id.loginFragment)
+                    NavHostFragment.findNavController(this).popBackStack();
                 // NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_workerFragment);
                 if (mProgressBar != null)
                     mProgressBar.setVisibility(View.GONE);
