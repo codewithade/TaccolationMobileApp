@@ -47,6 +47,7 @@ student’s life.
 ![edit_teacher_profile](https://user-images.githubusercontent.com/65837990/98487431-1a936880-2223-11eb-9fa2-fd22d4ddffcb.png)
 ![tasks](https://user-images.githubusercontent.com/65837990/98487432-1b2bff00-2223-11eb-8c34-4d40df501fa6.png)
 ![student_profile](https://user-images.githubusercontent.com/65837990/98487433-1bc49580-2223-11eb-90e8-59d727df0108.png)
+![student_profile](https://user-images.githubusercontent.com/65837990/97706666-52c5d900-1ab6-11eb-862a-8e9074e767d1.png)
 ![leaderboard](https://user-images.githubusercontent.com/65837990/98487434-1bc49580-2223-11eb-97e4-6d67be5ba838.png)
 ![settings](https://user-images.githubusercontent.com/65837990/98487426-19623b80-2223-11eb-9484-1f2b131d2151.png)
 ![notifications](https://user-images.githubusercontent.com/65837990/98487421-17987800-2223-11eb-92e1-44fc134b1ff6.png)
