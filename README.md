@@ -37,7 +37,6 @@ student’s life.
 ![register2](https://user-images.githubusercontent.com/65837990/97706655-50fc1580-1ab6-11eb-9a53-010073555d55.png)
 ![resendlink](https://user-images.githubusercontent.com/65837990/97706659-5194ac00-1ab6-11eb-945e-ac2e4036ff85.png)
 ![loading](https://user-images.githubusercontent.com/65837990/97706629-46da1700-1ab6-11eb-82ee-69f1f2b42ec1.png)
-
 ![dashboard](https://user-images.githubusercontent.com/65837990/98487423-18310e80-2223-11eb-92ce-7f5edb883279.png)
 ![dashboard2](https://user-images.githubusercontent.com/65837990/98487418-15ceb480-2223-11eb-8520-48a4ead2d1f9.png)
 ![navigation](https://user-images.githubusercontent.com/65837990/98487424-18c9a500-2223-11eb-8cbb-b1a1e8a418bc.png)
@@ -51,4 +50,5 @@ student’s life.
 ![leaderboard](https://user-images.githubusercontent.com/65837990/98487434-1bc49580-2223-11eb-97e4-6d67be5ba838.png)
 ![settings](https://user-images.githubusercontent.com/65837990/98487426-19623b80-2223-11eb-9484-1f2b131d2151.png)
 ![notifications](https://user-images.githubusercontent.com/65837990/98487421-17987800-2223-11eb-92e1-44fc134b1ff6.png)
-![under_construction](https://user-images.githubusercontent.com/65837990/97706613-417ccc80-1ab6-11eb-828f-bca1afdf2121.png)
+![report_sheet](https://user-images.githubusercontent.com/65837990/98487552-e10f2d00-2223-11eb-94b5-603783cf5a8b.png)
+
