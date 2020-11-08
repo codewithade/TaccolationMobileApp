@@ -12,8 +12,9 @@ student’s life.
 1. Android Navigation Architecture with a single activity design pattern.
 2. Hilt for dependency injection.
 3. Google Cloud Firestore and Storage
-4. Data Binding framework.
-5. Android Material Design.
+4. Room Database
+5. Data Binding framework.
+6. Android Material Design.
 
 ## App Architecture and design
 1. CLEAN Architecture with a mix of MVVM for the app's Presentation Layer.
