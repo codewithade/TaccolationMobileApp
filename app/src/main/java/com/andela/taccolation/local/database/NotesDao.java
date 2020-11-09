@@ -15,7 +15,7 @@ import java.util.List;
 public interface NotesDao {
 
     @Query("SELECT * FROM notes")
-    LiveData<List<Notes>> getAll();
+    LiveData<List<Notes>> getAllNotes();
 
     @Query("SELECT * FROM notes WHERE uid IN (:userIds)")
     LiveData<List<Notes>> loadAllByIds(int[] userIds);
@@ -24,7 +24,7 @@ public interface NotesDao {
     LiveData<Notes> getNoteByTitle(String title, String courseCode);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Notes... teacherNotes);
+    void insertAllNotes(Notes... teacherNotes);
 
     @Delete
     void delete(Notes teacherNotes);

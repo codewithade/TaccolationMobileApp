@@ -7,9 +7,11 @@
 
         <import type="com.andela.taccolation.presentation.model.TeacherFile" />
 
+        <import type="com.andela.taccolation.local.entities.Notes" />
+
         <variable
             name="item"
-            type="TeacherFile" />
+            type="Notes" />
 
         <variable
             name="itemClickListener"

@@ -33,8 +33,8 @@ import com.andela.taccolation.app.utils.TaskStatus;
 import com.andela.taccolation.databinding.DialogTeacherCourseListBinding;
 import com.andela.taccolation.databinding.EnterTextBinding;
 import com.andela.taccolation.databinding.FragmentTeacherNotesBinding;
+import com.andela.taccolation.local.entities.Notes;
 import com.andela.taccolation.presentation.model.Teacher;
-import com.andela.taccolation.presentation.model.TeacherFile;
 import com.andela.taccolation.presentation.viewmodel.ProfileViewModel;
 import com.andela.taccolation.presentation.viewmodel.TeacherNotesViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -42,23 +42,23 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class TeacherNotes extends Fragment implements OnItemClickListener<TeacherFile> {
+public class TeacherNotes extends Fragment implements OnItemClickListener<Notes> {
 
     private static final int FIND_FILE_REQUEST_CODE = 70;
     private static final int CREATE_FILE_REQUEST_CODE = 80;
     private static final String TAG = Constants.LOG.getConstant();
     private FragmentTeacherNotesBinding mBinding;
     private AlertDialog mAlertDialog;
-    private final List<TeacherFile> mTeacherFiles = new ArrayList<>();
     private ProfileViewModel mProfileViewModel;
     private TeacherNotesViewModel mTeacherNotesViewModel;
     private Teacher mTeacher;
     private String mSelectedCourseCode = null;
-    private NotesAdapter mAdapter;
+    private NotesAdapter mNotesAdapter;
 
     public TeacherNotes() {
         // Required empty public constructor
@@ -80,15 +80,16 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Teache
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProfileViewModel.getTeacher().observe(getViewLifecycleOwner(), teacher -> {
-            if (teacher.getFirstName() != null) {
-                mTeacher = teacher;
-            }
-        });
+        mProfileViewModel.getTeacher().observe(getViewLifecycleOwner(), teacher -> mTeacher = teacher);
         initRecyclerView();
         mBinding.uploadButton.setOnClickListener(v -> displaySelectCourseDialog());
         mBinding.newDocButton.setOnClickListener(v -> createNewDocumentDialog(false));
         mBinding.linkButton.setOnClickListener(v -> createNewDocumentDialog(true));
+        mTeacherNotesViewModel.getAllNotes().observe(getViewLifecycleOwner(), notes -> {
+            mNotesAdapter.submitList(notes);
+            if (notes.isEmpty()) mBinding.recyclerView.setVisibility(View.GONE);
+            else mBinding.recyclerView.setVisibility(View.VISIBLE);
+        });
     }
 
     @Override
@@ -98,42 +99,50 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Teache
         Bitmap bitmap;
         List<String> pathList = new ArrayList<>();
         List<String> fileNames = new ArrayList<>();
+        Notes[] notes;
         // Detects request codes
         if (requestCode == FIND_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            ClipData clipData = data.getClipData();
-            if (clipData == null) { // occurs when user selects only a file
-                pathList.add(data.getData().toString());
-                fileNames.add(getQueryName(data.getData()));
-            } else { // occurs when user selects multiple files
-                for (int i = 0; i < clipData.getItemCount(); i++) {
-                    ClipData.Item item = clipData.getItemAt(i);
-                    Uri uri = item.getUri();
-                    processUri(uri);
-                    pathList.add(uri.toString());
-                    fileNames.add(getQueryName(uri));
+            if (data != null) {
+                ClipData clipData = data.getClipData();
+                if (clipData == null) { // occurs when user selects only a file
+                    notes = new Notes[1];
+                    // notes[0] = new Notes(getQueryName(data.getData()), mSelectedCourseCode, Objects.requireNonNull(data.getData()).toString());
+                    notes[0] = new Notes();
+                    notes[0].setCourseCode(mSelectedCourseCode);
+                    notes[0].setFilePath(Objects.requireNonNull(data.getData()).toString());
+                    notes[0].setTitle(getQueryName(data.getData()));
+                    pathList.add(Objects.requireNonNull(data.getData()).toString());
+                    fileNames.add(getQueryName(data.getData()));
+                } else { // occurs when user selects multiple files
+                    notes = new Notes[clipData.getItemCount()];
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        ClipData.Item item = clipData.getItemAt(i);
+                        Uri uri = item.getUri();
+                        processUri(uri);
+                        pathList.add(uri.toString());
+                        fileNames.add(getQueryName(uri));
+                        // notes[i] = new Notes(getQueryName(uri), mSelectedCourseCode, uri.toString());
+                        notes[i] = new Notes();
+                        notes[i].setCourseCode(mSelectedCourseCode);
+                        notes[i].setFilePath(uri.toString());
+                        notes[i].setTitle(getQueryName(uri));
+                    }
+                }
+                if (!pathList.isEmpty() && !fileNames.isEmpty() && pathList.size() == fileNames.size()) { // mapping of fileNames to their respective Uri
+                    mTeacherNotesViewModel.uploadTeacherFiles(mTeacher, pathList, fileNames, mSelectedCourseCode).observe(getViewLifecycleOwner(), this::processTaskStatus);
+                    mTeacherNotesViewModel.insertAllNotes(notes);
+                    mBinding.recyclerView.setVisibility(View.VISIBLE);
                 }
             }
-            if (!pathList.isEmpty() && !fileNames.isEmpty() && pathList.size() == fileNames.size()) {
-                mTeacherNotesViewModel.uploadTeacherFiles(mTeacher, pathList, fileNames, mSelectedCourseCode).observe(getViewLifecycleOwner(), this::processTaskStatus);
-                populateFile(fileNames);
-            }
         } else if (requestCode == CREATE_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            fileUri = data.getData();
-            Log.i(TAG, "onActivityResult: URI: " + fileUri);
+            if (data != null) {
+                fileUri = data.getData();
+                Log.i(TAG, "onActivityResult: URI: " + fileUri);
+            }
         }
     }
 
-    private void populateFile(List<String> fileNames) {
-        for (String file : fileNames) {
-            mTeacherFiles.add(new TeacherFile(file, mSelectedCourseCode));
-            Log.i(TAG, "populateFile: FileName: " + file + " CourseCode: " + mSelectedCourseCode);
-        }
-        mBinding.recyclerView.setVisibility(View.VISIBLE);
-        mAdapter.submitList(mTeacherFiles);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
+    /*@Override
     public void onItemClick(TeacherFile teacherFile) {
         final List<TeacherFile> currentList = mAdapter.getCurrentList();
         for (int i = 0; i < currentList.size(); i++) {
@@ -143,7 +152,7 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Teache
                 break;
             }
         }
-    }
+    }*/
 
     @Override
     public void onDestroyView() {
@@ -153,11 +162,10 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Teache
 
     private void initRecyclerView() {
         RecyclerView recyclerView = mBinding.recyclerView;
-        mAdapter = new NotesAdapter(this);
+        mNotesAdapter = new NotesAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
-        mAdapter.submitList(mTeacherFiles);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mNotesAdapter);
     }
 
     private void createNewDocumentDialog(boolean isLink) {
@@ -171,7 +179,7 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Teache
             binding.dialogTitle.setText(R.string.create_link);
         }
         binding.proceedButton.setOnClickListener(v -> {
-            if (!binding.textTil.getEditText().getText().toString().isEmpty() && !isLink)
+            if (!Objects.requireNonNull(binding.textTil.getEditText()).getText().toString().isEmpty() && !isLink)
                 dispatchNewDocumentIntent(binding.textTil.getEditText().getText().toString());
             else if (!binding.textTil.getEditText().getText().toString().isEmpty() && isLink)
                 uploadLink();
@@ -261,12 +269,15 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Teache
          * move to the first row in the Cursor, get the data,
          * and display it.
          */
-        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-        returnCursor.moveToFirst();
-        Log.i(TAG, "processUri: " + returnCursor.getString(nameIndex));
-        Log.i(TAG, "processUri: " + returnCursor.getLong(sizeIndex));
-        returnCursor.close();
+        if (returnCursor != null) {
+            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+            returnCursor.moveToFirst();
+            Log.i(TAG, "processUri: Uri: " + returnUri.toString());
+            Log.i(TAG, "processUri: " + returnCursor.getString(nameIndex));
+            Log.i(TAG, "processUri: " + returnCursor.getLong(sizeIndex));
+            returnCursor.close();
+        }
     }
 
     private String getQueryName(Uri uri) {
@@ -279,5 +290,10 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Teache
             returnCursor.close();
         }
         return name;
+    }
+
+    @Override
+    public void onItemClick(Notes note) {
+        mTeacherNotesViewModel.deleteNote(note);
     }
 }

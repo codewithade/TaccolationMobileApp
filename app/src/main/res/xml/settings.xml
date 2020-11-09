@@ -46,7 +46,7 @@
     <PreferenceCategory app:title="About">
         <Preference
             app:selectable="false"
-            app:summary="Taccolation brings out the best int Teachers" />
+            app:summary="Taccolation brings out the best in Teachers" />
 
         <Preference
             app:selectable="false"
