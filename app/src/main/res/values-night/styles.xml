@@ -77,7 +77,9 @@
         <item name="boxCornerRadiusBottomStart">@dimen/box_corner_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/box_corner_radius</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/box_corner_radius</item>
-        <item name="boxStrokeColor">?attr/colorAccent</item>
+        <item name="boxStrokeColor">@color/outline_stroke_color</item>
+        <item name="hintTextColor">@color/outline_stroke_color</item>
+        <item name="android:textColorHint">@color/indicator_text_color</item>
     </style>
 
     <style name="Widget.MyApp.DashboardTextView" parent="Widget.MaterialComponents.TextView">
@@ -88,10 +90,19 @@
 
     <style name="Widget.MyApp.NavigationView" parent="Widget.MaterialComponents.NavigationView">
         <item name="android:background">@drawable/bg</item>
-        <item name="itemIconTint">?attr/colorPrimary</item>
+        <item name="itemIconTint">?attr/colorOnPrimary</item>
         <item name="itemShapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="itemTextAppearance">?attr/textAppearanceButton</item>
-        <item name="itemTextColor">?attr/colorPrimary</item>
+        <item name="itemTextColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="Widget.MyApp.MaterialTextView.Drawable" parent="Widget.MaterialComponents.TextView">
+        <item name="drawableTint">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="Widget.MyApp.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
 </resources>

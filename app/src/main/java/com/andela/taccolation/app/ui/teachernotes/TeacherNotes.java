@@ -169,7 +169,7 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Notes>
     }
 
     private void createNewDocumentDialog(boolean isLink) {
-        mAlertDialog = new MaterialAlertDialogBuilder(requireContext()).create();
+        mAlertDialog = new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MaterialComponents_DayNight_Dialog_Alert).create();
         EnterTextBinding binding = DataBindingUtil.inflate(LayoutInflater.from(requireContext()), R.layout.enter_text, null, false);
         if (!isLink) {
             binding.textTil.setHint("Document title");
@@ -189,7 +189,7 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Notes>
     }
 
     private void displaySelectCourseDialog() {
-        mAlertDialog = new MaterialAlertDialogBuilder(requireContext()).create();
+        mAlertDialog = new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MaterialComponents_DayNight_Dialog_Alert).create();
         DialogTeacherCourseListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(requireContext()), R.layout.dialog_teacher_course_list, null, false);
         final RadioGroup radioGroup = binding.radioGroup;
         if (mTeacher != null) {

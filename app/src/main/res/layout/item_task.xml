@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/til_margin_top">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MyApp.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="start"

@@ -14,6 +14,7 @@ import dagger.hilt.android.components.ApplicationComponent;
 @InstallIn(ApplicationComponent.class)
 @Module
 public abstract class FirebaseModule {
+
     // @Provides tell Dagger how to create instances of the type that this function
     // returns (i.e. FirebaseAuth.getInstance()).
     // Function parameters are the dependencies of this type (No dependencies in this case).
@@ -36,4 +37,5 @@ public abstract class FirebaseModule {
     public static FirebaseStorage provideFirebaseStorage() {
         return FirebaseStorage.getInstance();
     }
+
 }

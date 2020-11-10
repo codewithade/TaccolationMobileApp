@@ -58,7 +58,7 @@
     </style>
 
     <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@color/status_bar_color</item>
         <!--<item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
         <item name="android:navigationBarColor" tools:ignore="NewApi">?android:attr/colorBackground</item>-->
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
@@ -72,7 +72,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.MyApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.MyApp.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="Theme.MyApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.MyApp.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>

@@ -39,6 +39,8 @@
     <!--information on color palettes and their application color -->
     <!--theme attributes, see https://www.youtube.com/watch?v=Owkf8DhAOSo-->
 
+    <color name="status_bar_color">#0e4375</color>
+
     <!--Color palette-->
     <color name="blue_100">#0e4375</color>
     <color name="blue_200">#287fc1</color>

@@ -10,21 +10,20 @@ import com.andela.taccolation.local.entities.Notes;
 import com.andela.taccolation.presentation.model.Teacher;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
 public class LocalTeacherNotesImpl implements LocalTeacherNotesDataSource {
 
     private final NotesDao mNotesDao;
+    private final Executor mExecutor;
     private static final String TAG = Constants.LOG.getConstant();
-    private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     @Inject
-    public LocalTeacherNotesImpl(NotesDao notesDao) {
+    public LocalTeacherNotesImpl(NotesDao notesDao, Executor executor) {
         mNotesDao = notesDao;
+        mExecutor = executor;
     }
 
     @Override
@@ -44,6 +43,7 @@ public class LocalTeacherNotesImpl implements LocalTeacherNotesDataSource {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     public LiveData<Notes> getNoteByTitle(String title, String courseCode) {
+
         return mNotesDao.getNoteByTitle(title, courseCode);
     }
 
@@ -51,11 +51,11 @@ public class LocalTeacherNotesImpl implements LocalTeacherNotesDataSource {
     // that you're not doing any long running operations on the main thread, blocking the UI.
     @Override
     public void insertAllNotes(Notes... teacherNotes) {
-        databaseWriteExecutor.execute(() -> mNotesDao.insertAllNotes(teacherNotes));
+        mExecutor.execute(() -> mNotesDao.insertAllNotes(teacherNotes));
     }
 
     @Override
     public void deleteNote(Notes teacherNotes) {
-        databaseWriteExecutor.execute(() -> mNotesDao.delete(teacherNotes));
+        mExecutor.execute(() -> mNotesDao.delete(teacherNotes));
     }
 }

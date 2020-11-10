@@ -1,5 +1,6 @@
 package com.andela.taccolation.app.ui.home;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,6 @@ public class DashboardActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
-    private ProfileViewModel mProfileViewModel;
     private static final String TAG = Constants.LOG.getConstant();
 
     @Override
@@ -42,13 +42,13 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         /* popUpToInclusive set to TRUE removes all previous instances of the destination Fragment
          enabling this with popUpToInclusive(navigating from Worker to Dashboard) set to FALSE, prevents crashes
-         disabling this with popUpToInclusive set to TRUE, prevents crashes
-         setUpThemePreferences();*/
+         disabling this with popUpToInclusive set to TRUE, prevents crashes*/
+        setUpThemePreferences();
         Log.i(TAG, "onCreate: ACTIVITY");
         setContentView(R.layout.activity_dashboard);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        mProfileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
         /* NavigationUI uses an AppBarConfiguration object to manage the behavior of the Navigation
          button in the upper-left corner of your app's display area.
@@ -67,7 +67,7 @@ public class DashboardActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         DrawerBottomLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.drawer_bottom_layout, null, false);
-        mProfileViewModel.getTeacher().observe(this, teacher -> {
+        profileViewModel.getTeacher().observe(this, teacher -> {
             if (teacher != null)
                 binding.setTeacher(teacher);
         });
@@ -78,7 +78,6 @@ public class DashboardActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setOpenableLayout(mDrawerLayout)
                 .build();
-
 
         /* To add navigation support to the default action bar,
          call setupActionBarWithNavController() from your main activity's onCreate() method, as shown below.
@@ -98,10 +97,14 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void setUpThemePreferences() {
-        final boolean isDarkThemeEnabled = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.theme_key), false);
-        if (isDarkThemeEnabled)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) // Follow system default for Android 9 and above
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        else {
+            final boolean isDarkThemeEnabled = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.theme_key), false);
+            if (isDarkThemeEnabled)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     @Override
