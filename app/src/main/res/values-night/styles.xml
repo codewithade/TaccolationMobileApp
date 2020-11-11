@@ -80,6 +80,7 @@
         <item name="boxStrokeColor">@color/outline_stroke_color</item>
         <item name="hintTextColor">@color/outline_stroke_color</item>
         <item name="android:textColorHint">@color/indicator_text_color</item>
+        <item name="startIconTint">?attr/colorOnPrimary</item>
     </style>
 
     <style name="Widget.MyApp.DashboardTextView" parent="Widget.MaterialComponents.TextView">
