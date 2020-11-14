@@ -1,5 +1,6 @@
 package com.andela.taccolation.app.ui.teachernotes;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
@@ -23,12 +24,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andela.taccolation.R;
 import com.andela.taccolation.app.utils.Constants;
-import com.andela.taccolation.app.utils.OnItemClickListener;
+import com.andela.taccolation.app.utils.OnViewClickListener;
 import com.andela.taccolation.app.utils.TaskStatus;
 import com.andela.taccolation.databinding.DialogTeacherCourseListBinding;
 import com.andela.taccolation.databinding.EnterTextBinding;
@@ -47,7 +48,7 @@ import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class TeacherNotes extends Fragment implements OnItemClickListener<Notes> {
+public class TeacherNotes extends Fragment implements OnViewClickListener<Notes, View> {
 
     private static final int FIND_FILE_REQUEST_CODE = 70;
     private static final int CREATE_FILE_REQUEST_CODE = 80;
@@ -161,9 +162,10 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Notes>
     }
 
     private void initRecyclerView() {
+        final int SPAN_COUNT = 1;
         RecyclerView recyclerView = mBinding.recyclerView;
         mNotesAdapter = new NotesAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), SPAN_COUNT));
         recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(mNotesAdapter);
     }
@@ -292,8 +294,57 @@ public class TeacherNotes extends Fragment implements OnItemClickListener<Notes>
         return name;
     }
 
+
     @Override
-    public void onItemClick(Notes note) {
-        mTeacherNotesViewModel.deleteNote(note);
+    public void onViewClicked(Notes note, View view) {
+        int id = view.getId();
+        if (id == R.id.share_button)
+            shareNote(note);
+        else if (id == R.id.delete_button)
+            deleteNote(note);
+        else if (id == R.id.open_button)
+            openNote(note);
+    }
+
+    private void deleteNote(Notes note) {
+        new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MaterialComponents_DayNight_Dialog_Alert)
+                .setMessage("Are you sure you want to delete\n" + "'" + note.getTitle() + "' ?")
+                .setTitle("Confirm Delete")
+                .setIcon(android.R.drawable.ic_delete)
+                .setPositiveButton("YES", (dialogInterface, i) -> mTeacherNotesViewModel.deleteNote(note))
+                .setNegativeButton("NO", (dialogInterface, i) -> dialogInterface.dismiss()).show();
+    }
+
+    @SuppressLint("QueryPermissionsNeeded")
+    private void shareNote(Notes note) {
+        // Get URI and MIME type of file
+        Uri uri = Uri.parse(note.getFilePath());
+        String mime = requireActivity().getContentResolver().getType(uri);
+
+        Intent intent = new Intent();
+        intent.setType(mime);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setAction(Intent.ACTION_SEND);
+        Log.i(TAG, "shareNote: File Path: " + note.getFilePath());
+        // Verify that the intent will resolve to an activity
+        if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
+            startActivity(intent);
+        else sendSnackBar(getString(R.string.no_app_found_intent));
+    }
+
+    @SuppressLint("QueryPermissionsNeeded")
+    private void openNote(Notes note) {
+        // Get URI and MIME type of file
+        Uri uri = Uri.parse(note.getFilePath());
+        String mime = requireActivity().getContentResolver().getType(uri);
+
+        // Open file with user selected app
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, mime);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
+            startActivity(intent);
+        else sendSnackBar(getString(R.string.no_app_found_intent));
     }
 }

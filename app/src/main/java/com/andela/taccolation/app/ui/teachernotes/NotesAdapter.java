@@ -1,6 +1,7 @@
 package com.andela.taccolation.app.ui.teachernotes;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andela.taccolation.app.utils.OnItemClickListener;
+import com.andela.taccolation.app.utils.OnViewClickListener;
 import com.andela.taccolation.databinding.ItemTeacherFileBinding;
 import com.andela.taccolation.local.entities.Notes;
 
@@ -25,11 +26,12 @@ public class NotesAdapter extends ListAdapter<Notes, NotesAdapter.NotesViewHolde
             return oldItem.equals(newItem);
         }
     };
-    private final OnItemClickListener<Notes> mOnItemClickListener;
 
-    protected NotesAdapter(OnItemClickListener<Notes> listener) {
+    private final OnViewClickListener<Notes, View> mOnViewClickListener;
+
+    protected NotesAdapter(OnViewClickListener<Notes, View> onViewClickListener) {
         super(DIFF_CALLBACK);
-        mOnItemClickListener = listener;
+        mOnViewClickListener = onViewClickListener;
     }
 
     @NonNull
@@ -55,7 +57,7 @@ public class NotesAdapter extends ListAdapter<Notes, NotesAdapter.NotesViewHolde
 
         void bind(Notes item) {
             mItemTeacherFileBinding.setItem(item);
-            mItemTeacherFileBinding.setItemClickListener(mOnItemClickListener);
+            mItemTeacherFileBinding.setViewClickListener(mOnViewClickListener);
             mItemTeacherFileBinding.executePendingBindings();
         }
     }

@@ -138,4 +138,10 @@ student’s life.</string>
     <string name="login_fragment_label">LoginFragment</string>
     <string name="register_fragment_label">RegisterFragment</string>
     <string name="password_too_short">Password should be at least 6 characters</string>
+    <string name="updating_profile_tv">Updating…</string>
+    <string name="no_changes_made">No changes was made</string>
+    <string name="chooser_title">Open this file with</string>
+    <string name="no_app_found_intent">No application found to open this file</string>
+    <string name="share_button">Share Button</string>
+    <string name="open_button">Open Button</string>
 </resources>

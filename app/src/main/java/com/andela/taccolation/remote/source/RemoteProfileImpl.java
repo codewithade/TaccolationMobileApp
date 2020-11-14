@@ -127,25 +127,26 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
 
     @Override
     public LiveData<Map<String, List<Student>>> getStudentList(List<String> courseCodeList) {
-        mFirestore.collection(Constants.STUDENTS.getConstant()).whereArrayContainsAny("courseCodeList", courseCodeList).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Map<String, List<Student>> studentListPerCourse = new HashMap<>();
-                        final List<Student> studentListResult = Objects.requireNonNull(task.getResult()).toObjects(Student.class);
-                        Log.i(TAG, "getStudentList Result: " + studentListResult.toString());
+        if (!courseCodeList.isEmpty())
+            mFirestore.collection(Constants.STUDENTS.getConstant()).whereArrayContainsAny("courseCodeList", courseCodeList).get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Map<String, List<Student>> studentListPerCourse = new HashMap<>();
+                            final List<Student> studentListResult = Objects.requireNonNull(task.getResult()).toObjects(Student.class);
+                            Log.i(TAG, "getStudentList Result: " + studentListResult.toString());
 
-                        for (String courseCode : courseCodeList) {
-                            List<Student> studentList = new ArrayList<>();
-                            for (Student student : studentListResult) {
-                                if (student.getCourseCodeList().contains(courseCode))
-                                    studentList.add(student);
+                            for (String courseCode : courseCodeList) {
+                                List<Student> studentList = new ArrayList<>();
+                                for (Student student : studentListResult) {
+                                    if (student.getCourseCodeList().contains(courseCode))
+                                        studentList.add(student);
+                                }
+                                studentListPerCourse.put(courseCode, studentList);
                             }
-                            studentListPerCourse.put(courseCode, studentList);
-                        }
-                        mStudentPerCourseMap.setValue(studentListPerCourse);
-                    } else
-                        Log.i(TAG, "getStudentList: failed. Error: " + Objects.requireNonNull(task.getException()).getMessage());
-                });
+                            mStudentPerCourseMap.setValue(studentListPerCourse);
+                        } else
+                            Log.i(TAG, "getStudentList: failed. Error: " + Objects.requireNonNull(task.getException()).getMessage());
+                    });
         return mStudentPerCourseMap;
     }
 
@@ -180,7 +181,7 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
                         Log.i(TAG, "onComplete: URI: " + downloadUri);
                         teacher.setImageUrl(downloadUri.toString());
                         updateTeacherRecord(teacher);
-                        mUploadTeacherProfileImage.setValue(TaskStatus.SUCCESS);
+                        mUploadTeacherProfileImage.setValue(TaskStatus.PENDING);
                     }
                 }
             });
@@ -207,6 +208,7 @@ public class RemoteProfileImpl implements RemoteProfileDataSource {
     }
 
     private void updateTeacherRecord(Teacher teacher) {
+        mUploadTeacherProfileImage.setValue(TaskStatus.PENDING);
         mFirestore.collection(Constants.TEACHER.getConstant()).document(teacher.getId()).set(teacher)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

@@ -9,9 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -84,7 +82,6 @@ public class RegisterFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private Spinner mDesignationSpinner;
     private final ChipGroup.OnClickListener mChangeListener = view -> {
         Chip chip = (Chip) view;
         final String courseCode = chip.getText().toString();
@@ -109,17 +106,6 @@ public class RegisterFragment extends Fragment {
         return mBinding.getRoot();
     }
 
-    private void setUpSpinner() {
-        mDesignationSpinner = mBinding.designationSpinner;
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.designation, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        mDesignationSpinner.setAdapter(adapter);
-    }
-
     private void addTextWatcher() {
         Objects.requireNonNull(mFirstName.getEditText()).addTextChangedListener(mTextWatcher);
         Objects.requireNonNull(mLastName.getEditText()).addTextChangedListener(mTextWatcher);
@@ -140,11 +126,10 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bindViews();
-        setUpSpinner();
         addTextWatcher();
         createCourseCodeChips(DataHelper.getCourseCodeList());
         mBinding.loginRoute.setOnClickListener(v -> mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED)));
-
+        mBinding.registerToolbar.setNavigationOnClickListener(v -> mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED)));
         mBinding.registerButton.setOnClickListener(v -> {
             addTextChangeListener();
             if (!isEmpty) if (mCourseCodeList.isEmpty())
@@ -166,7 +151,7 @@ public class RegisterFragment extends Fragment {
             mProgressBar.setVisibility(View.VISIBLE);
             mBinding.registerButton.setEnabled(false);
             mBinding.group.setEnabled(false);
-            Teacher teacher = new Teacher(firstName, lastName, (String) mDesignationSpinner.getSelectedItem(), mCourseCodeList, "", email, "https://www.imageurl.com.ng", "234123456789", "male", "address", password);
+            Teacher teacher = new Teacher(firstName, lastName, (String) mBinding.designationSpinner.getSelectedItem(), mCourseCodeList, "", email, "https://www.imageurl.com.ng", "234123456789", (String) mBinding.sexSpinner.getSelectedItem(), "address", password);
             Log.i(TAG, "signUpNewTeacher: Teacher: " + teacher.toString());
             mAuthViewModel.signUpTeacher(teacher).observe(getViewLifecycleOwner(), this::processAuthState);
         }
@@ -192,14 +177,14 @@ public class RegisterFragment extends Fragment {
             case AUTHENTICATED:
                 resetViews();
                 // navigate user to dashboard and pop back stack
-                if (mNavController.getCurrentDestination().getId() == R.id.registerFragment)
+                if (Objects.requireNonNull(mNavController.getCurrentDestination()).getId() == R.id.registerFragment)
                     mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(authenticationState));
                 break;
             case EMAIL_UNCONFIRMED:
                 resetViews();
                 // navigate user to login screen and inform user to confirm email
                 sendSnackbar(getString(R.string.reg_success));
-                if (mNavController.getCurrentDestination().getId() == R.id.registerFragment)
+                if (Objects.requireNonNull(mNavController.getCurrentDestination()).getId() == R.id.registerFragment)
                     mNavController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment(authenticationState));
                 break;
             case EMAIL_ALREADY_IN_USE:
