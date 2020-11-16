@@ -198,7 +198,13 @@
         android:id="@+id/teacherNotes"
         android:name="com.andela.taccolation.app.ui.teachernotes.TeacherNotes"
         android:label="@string/teacher_notes"
-        tools:layout="@layout/fragment_teacher_notes" />
+        tools:layout="@layout/fragment_teacher_notes">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:action="ACTION_SEND"
+            app:mimeType="image/*"
+            app:uri="@string/uri" />
+    </fragment>
     <fragment
         android:id="@+id/lectureAids"
         android:name="com.andela.taccolation.app.ui.teachernotes.LectureAids"

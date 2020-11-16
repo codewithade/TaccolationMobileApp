@@ -1,5 +1,9 @@
 package com.andela.taccolation.app.ui.home;
 
+import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,12 +20,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDeepLinkRequest;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.andela.taccolation.R;
+import com.andela.taccolation.app.ui.teachernotes.NotesBroadcastReceiver;
 import com.andela.taccolation.app.utils.Constants;
 import com.andela.taccolation.databinding.DrawerBottomLayoutBinding;
 import com.andela.taccolation.presentation.viewmodel.ProfileViewModel;
@@ -40,12 +46,18 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         /* popUpToInclusive set to TRUE removes all previous instances of the destination Fragment
          enabling this with popUpToInclusive(navigating from Worker to Dashboard) set to FALSE, prevents crashes
          disabling this with popUpToInclusive set to TRUE, prevents crashes*/
         setUpThemePreferences();
         Log.i(TAG, "onCreate: ACTIVITY");
         setContentView(R.layout.activity_dashboard);
+
+        Intent intent = getIntent();
+        if (intent.getType() != null)
+            handleIntent(intent);
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
@@ -94,6 +106,50 @@ public class DashboardActivity extends AppCompatActivity {
         // NavigationUI.setupWithNavController(mToolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         setUpNavListener();
+    }
+
+    private void handleIntent(Intent intent) {
+        String type = intent.getType();
+        String action = intent.getAction();
+        Log.i(TAG, "handleIntent: TYPE: " + type);
+        Log.i(TAG, "handleIntent: ACTION: " + action);
+        Uri uri = intent.getData();
+        if (uri != null)
+            Log.i(TAG, "handleIntent: URI: " + uri.toString());
+        else {
+            final NavDeepLinkRequest request = NavDeepLinkRequest.Builder
+                    .fromUri(Uri.parse(getString(R.string.uri)))
+                    .setAction(Intent.ACTION_SEND)
+                    .setMimeType("image/*")
+                    .build();
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(request);
+        }
+
+
+    }
+
+    private void registerReceiver() {
+        BroadcastReceiver mReceiver = new NotesBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        // https://stackoverflow.com/questions/12901763/broadcast-receiver-action-send-does-not-show-up
+        intentFilter.addAction(Intent.ACTION_SEND);
+        //intentFilter.addAction(Intent.ACTION_SEND_MULTIPLE);
+        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+        try {
+            intentFilter.addDataType("application/pdf");
+            intentFilter.addDataType("application/vnd.google.panorama360+jpg");
+            intentFilter.addDataType("image/*");
+            intentFilter.addDataType("application/pdf");
+            intentFilter.addDataType("application/doc");
+            intentFilter.addDataType("text/csv");
+            intentFilter.addDataType("text/comma-separated-values");
+            intentFilter.addDataType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        } catch (IntentFilter.MalformedMimeTypeException e) {
+            e.printStackTrace();
+        }
+
+
+        registerReceiver(mReceiver, intentFilter);
     }
 
     private void setUpThemePreferences() {
@@ -178,6 +234,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        // unregisterReceiver(mReceiver);
         super.onDestroy();
         Log.i(TAG, "onDestroy: ACTIVITY");
     }

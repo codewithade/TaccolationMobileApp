@@ -71,7 +71,7 @@
             android:contentDescription="@string/share_button"
             android:onClick="@{() -> viewClickListener.onViewClicked(item, shareButton)}"
             android:padding="@dimen/view_margin"
-            android:src="@drawable/ic_menu_share"
+            android:src="@drawable/ic_baseline_share_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/delete_button"
             app:layout_constraintTop_toTopOf="parent" />
