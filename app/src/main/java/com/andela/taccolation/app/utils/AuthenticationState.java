@@ -7,6 +7,8 @@ public enum AuthenticationState {
     UNAUTHENTICATED,
     FAILED,
     NETWORK_ERROR,
+    EMAIL_ALREADY_IN_USE,
+    PASSWORD_TOO_SHORT,
     NO_USER_RECORD,
     INVALID_CREDENTIALS
 }

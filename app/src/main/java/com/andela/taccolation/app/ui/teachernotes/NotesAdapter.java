@@ -1,6 +1,7 @@
 package com.andela.taccolation.app.ui.teachernotes;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -8,28 +9,29 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andela.taccolation.app.utils.OnItemClickListener;
+import com.andela.taccolation.app.utils.OnViewClickListener;
 import com.andela.taccolation.databinding.ItemTeacherFileBinding;
-import com.andela.taccolation.presentation.model.TeacherFile;
+import com.andela.taccolation.local.entities.Notes;
 
-public class NotesAdapter extends ListAdapter<TeacherFile, NotesAdapter.NotesViewHolder> {
+public class NotesAdapter extends ListAdapter<Notes, NotesAdapter.NotesViewHolder> {
 
-    private static final DiffUtil.ItemCallback<TeacherFile> DIFF_CALLBACK = new DiffUtil.ItemCallback<TeacherFile>() {
+    private static final DiffUtil.ItemCallback<Notes> DIFF_CALLBACK = new DiffUtil.ItemCallback<Notes>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TeacherFile oldItem, @NonNull TeacherFile newItem) {
-            return oldItem.getId().equals(newItem.getId());
+        public boolean areItemsTheSame(@NonNull Notes oldItem, @NonNull Notes newItem) {
+            return oldItem.getFilePath().equals(newItem.getFilePath());
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TeacherFile oldItem, @NonNull TeacherFile newItem) {
+        public boolean areContentsTheSame(@NonNull Notes oldItem, @NonNull Notes newItem) {
             return oldItem.equals(newItem);
         }
     };
-    private final OnItemClickListener<TeacherFile> mOnItemClickListener;
 
-    protected NotesAdapter(OnItemClickListener<TeacherFile> listener) {
+    private final OnViewClickListener<Notes, View> mOnViewClickListener;
+
+    protected NotesAdapter(OnViewClickListener<Notes, View> onViewClickListener) {
         super(DIFF_CALLBACK);
-        mOnItemClickListener = listener;
+        mOnViewClickListener = onViewClickListener;
     }
 
     @NonNull
@@ -53,9 +55,9 @@ public class NotesAdapter extends ListAdapter<TeacherFile, NotesAdapter.NotesVie
             mItemTeacherFileBinding = teacherFileBinding;
         }
 
-        void bind(TeacherFile item) {
+        void bind(Notes item) {
             mItemTeacherFileBinding.setItem(item);
-            mItemTeacherFileBinding.setItemClickListener(mOnItemClickListener);
+            mItemTeacherFileBinding.setViewClickListener(mOnViewClickListener);
             mItemTeacherFileBinding.executePendingBindings();
         }
     }

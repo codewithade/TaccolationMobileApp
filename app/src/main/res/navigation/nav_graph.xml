@@ -95,7 +95,11 @@
         tools:layout="@layout/fragment_teacher_profile">
         <action
             android:id="@+id/action_teacherProfile_to_editProfile"
-            app:destination="@id/editProfile" />
+            app:destination="@id/editProfile"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/studentDetails"
@@ -121,15 +125,15 @@
         <action
             android:id="@+id/action_studentCourse_to_studentDetails"
             app:destination="@id/studentDetails"
-            app:enterAnim="@anim/slide_out_left"
-            app:exitAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.andela.taccolation.app.ui.auth.LoginFragment"
-        android:label="LoginFragment"
+        android:label="@string/login_fragment_label"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -150,15 +154,13 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.andela.taccolation.app.ui.auth.RegisterFragment"
-        android:label="RegisterFragment"
+        android:label="@string/register_fragment_label"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="false" />
     </fragment>

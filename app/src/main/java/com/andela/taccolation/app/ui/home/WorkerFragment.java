@@ -23,6 +23,7 @@ import com.andela.taccolation.presentation.viewmodel.AuthViewModel;
 import com.andela.taccolation.presentation.viewmodel.ProfileViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -66,10 +67,13 @@ public class WorkerFragment extends Fragment {
         // TODO: 27/10/2020 Reset this when user or Teacher decides to log out
         boolean isUserAuthenticated = requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(Constants.USER_AUTHENTICATED.getConstant(), false);
 
-        if (isFirstRun)
-            NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_OnBoardingFragment);
-        else if (!isUserAuthenticated)
-            NavHostFragment.findNavController(this).navigate(WorkerFragmentDirections.actionWorkerFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED));
+        if (isFirstRun) {
+            if (Objects.requireNonNull(NavHostFragment.findNavController(this).getCurrentDestination()).getId() == R.id.workerFragment)
+                NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_OnBoardingFragment);
+        } else if (!isUserAuthenticated) {
+            if (Objects.requireNonNull(NavHostFragment.findNavController(this).getCurrentDestination()).getId() == R.id.workerFragment)
+                NavHostFragment.findNavController(this).navigate(WorkerFragmentDirections.actionWorkerFragmentToLoginFragment(AuthenticationState.UNAUTHENTICATED));
+        }
     }
 
     private void initViewModel() {
@@ -90,7 +94,8 @@ public class WorkerFragment extends Fragment {
                         mProfileViewModel.setTeacher(teacher);
                         // update the isDataDownloaded field
                         mProfileViewModel.setIsDataDownloaded(true);
-                        NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_dashboardFragment);
+                        if (Objects.requireNonNull(NavHostFragment.findNavController(this).getCurrentDestination()).getId() == R.id.workerFragment)
+                            NavHostFragment.findNavController(this).navigate(R.id.action_workerFragment_to_dashboardFragment);
                     }
                 });
             }
@@ -105,7 +110,7 @@ public class WorkerFragment extends Fragment {
 
     @Override
     public void onStop() {
-        clearObservers();
+        //clearObservers();
         Log.i(TAG, "onStop: WORKER FRAGMENT");
         super.onStop();
         requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);

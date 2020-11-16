@@ -25,7 +25,7 @@
             android:id="@+id/header"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="?attr/colorPrimaryDark"
+            android:background="@color/status_bar_color"
             android:padding="@dimen/app_padding"
             app:layout_constraintBottom_toTopOf="@id/content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
                     android:textAppearance="?textAppearanceHeadline6"
                     android:textColor="?attr/colorOnPrimary"
                     app:layout_constraintBottom_toBottomOf="@id/profile_image"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/edit_profile_fab"
                     app:layout_constraintStart_toStartOf="@id/hello_tv"
                     app:layout_constraintTop_toBottomOf="@id/hello_tv"
                     app:teacher_name="@{teacher}"
@@ -80,6 +80,7 @@
                     android:id="@+id/edit_profile_fab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/view_margin"
                     android:contentDescription="@string/icon_description"
                     android:src="@drawable/ic_edit"
                     app:fabSize="mini"
@@ -112,6 +113,7 @@
                     android:gravity="center"
                     android:text="@string/messages"
                     android:textAppearance="?attr/textAppearanceBody1"
+                    android:textColor="?attr/colorPrimary"
                     app:layout_constraintEnd_toStartOf="@id/t2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -139,6 +141,7 @@
                     android:gravity="center"
                     android:text="@string/students"
                     android:textAppearance="?attr/textAppearanceBody1"
+                    android:textColor="?attr/colorPrimary"
                     app:layout_constraintEnd_toStartOf="@id/t3"
                     app:layout_constraintStart_toEndOf="@id/t1"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -164,6 +167,7 @@
                     android:gravity="center"
                     android:text="@string/courses"
                     android:textAppearance="?attr/textAppearanceBody1"
+                    android:textColor="?attr/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/t2"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -203,6 +207,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/email_tv"
+                    style="@style/Widget.MyApp.MaterialTextView.Drawable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_baseline_email_24"
@@ -218,6 +223,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/phone_tv"
+                    style="@style/Widget.MyApp.MaterialTextView.Drawable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -234,6 +240,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/address_tv"
+                    style="@style/Widget.MyApp.MaterialTextView.Drawable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -250,6 +257,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/courses_tv"
+                    style="@style/Widget.MyApp.MaterialTextView.Drawable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

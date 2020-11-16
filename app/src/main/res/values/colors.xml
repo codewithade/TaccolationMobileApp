@@ -39,7 +39,13 @@
     <!--information on color palettes and their application color -->
     <!--theme attributes, see https://www.youtube.com/watch?v=Owkf8DhAOSo-->
 
+    <color name="status_bar_color">#0e4375</color>
+    <color name="background_color_50">#ffffff</color>
+
     <!--Color palette-->
+    <color name="blue_100">#0e4375</color>
+    <color name="blue_200">#287fc1</color>
+    <color name="blue_300">#1f85ad</color>
 
     <color name="purple_200">#bb86fc</color> <!--Color primary (dark)-->
     <color name="purple_500">#6200ee</color> <!--Color primary (light)-->
@@ -68,10 +74,10 @@
     <color name="torque">#00796B</color>
     <color name="pink">#F50057</color>
     <color name="green">#388E3C</color>
-    <color name="dark_blue">#6200ee</color>
+    <color name="dark_blue">#662d91</color>
     <color name="dark_brown">#EC653D</color>
     <color name="black">#1565C0</color>
-    <color name="purple">#bb86fc</color>
+    <color name="purple">#890005</color>
 
     <!--<color name="black">#0091EA</color>-->
 

@@ -19,6 +19,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
+            style="@style/Widget.MyApp.AppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
@@ -215,15 +216,6 @@
 
                 </com.google.android.material.chip.ChipGroup>
 
-                <!--<Spinner
-                    android:id="@+id/course_code_list_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/spinner_padding"
-                    app:layout_constraintStart_toStartOf="@id/course_code_tv"
-                    app:layout_constraintTop_toBottomOf="@id/course_code_tv"
-                    app:spinner_adapter="@{@stringArray/course_code_list}" />-->
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
@@ -234,9 +226,52 @@
             android:layout_marginStart="@dimen/app_padding"
             android:layout_marginEnd="@dimen/app_padding"
             android:text="@string/update_profile"
-            app:layout_constraintTop_toBottomOf="@id/scroll_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scroll_view" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.7"
+            android:background="@color/black_800"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/loading_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/updating_profile_tv"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="?attr/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_margin"
+            app:layout_constraintBottom_toTopOf="@id/loading_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:constraint_referenced_ids="view, loading_tv, progress_bar"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

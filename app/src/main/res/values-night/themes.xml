@@ -16,8 +16,10 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--Top level DayNight theme to be used in AndroidManifest.xml-->
+    <!--FIXME: FOR SOME REASONS THIS themes.xml for night has no effect. You need to provide the two color variants (day and night) for any effect to show for DarkTheme-->
     <style name="Theme.MyApp" parent="Base.Theme.MyApp">
         <!--Material color attributes (dark theme) -->
+
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_600</item>
         <item name="colorSecondary">@color/green_200</item>

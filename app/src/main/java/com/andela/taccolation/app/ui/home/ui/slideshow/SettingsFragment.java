@@ -2,6 +2,7 @@ package com.andela.taccolation.app.ui.home.ui.slideshow;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -52,10 +53,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private void initPreferences() {
         mThemeSwitch = findPreference(getString(R.string.theme_key));
         if (mThemeSwitch != null) {
-            mThemeSwitch.setOnPreferenceClickListener(preference -> {
-                uiMode();
-                return true;
-            });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) // disable change theme for android 9 and above. responds to system default settings
+                mThemeSwitch.setEnabled(false);
+            else {
+                mThemeSwitch.setOnPreferenceClickListener(preference -> {
+                    uiMode();
+                    return true;
+                });
+            }
         }
     }
 

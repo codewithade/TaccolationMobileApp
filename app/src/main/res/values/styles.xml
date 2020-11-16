@@ -77,6 +77,7 @@
         <item name="boxCornerRadiusBottomStart">@dimen/box_corner_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/box_corner_radius</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/box_corner_radius</item>
+        <item name="startIconTint">?attr/colorPrimary</item>
     </style>
 
     <style name="Widget.MyApp.DashboardTextView" parent="Widget.MaterialComponents.TextView">
@@ -91,6 +92,23 @@
         <item name="itemShapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="itemTextAppearance">?attr/textAppearanceButton</item>
         <item name="itemTextColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.MyApp.TabLayout" parent="Widget.MaterialComponents.TabLayout.Colored">
+        <item name="android:background">@color/status_bar_color</item>
+    </style>
+
+    <style name="Widget.MyApp.MaterialTextView.Drawable" parent="Widget.MaterialComponents.TextView">
+        <item name="drawableTint">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.MyApp.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Primary">
+        <item name="android:background">@color/status_bar_color</item>
+    </style>
+
+    <style name="Widget.MyApp.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/status_bar_color</item>
+        <item name="android:textColor">@color/mtrl_text_btn_text_color_selector</item>
     </style>
 
 </resources>

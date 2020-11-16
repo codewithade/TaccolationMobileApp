@@ -164,6 +164,10 @@ public class RemoteAuthImpl implements RemoteAuthDataSource {
                             userAuthState.setValue(AuthenticationState.NETWORK_ERROR);
                         else if (errorMessage.contains("no user record"))
                             userAuthState.setValue(AuthenticationState.NO_USER_RECORD);
+                        else if (errorMessage.contains("already in use"))
+                            userAuthState.setValue(AuthenticationState.EMAIL_ALREADY_IN_USE);
+                        else if (errorMessage.contains("least 6 characters"))
+                            userAuthState.setValue(AuthenticationState.PASSWORD_TOO_SHORT);
                         else userAuthState.setValue(AuthenticationState.FAILED);
                     } else {
                         Log.i(TAG, "signInTeacher: successful");
