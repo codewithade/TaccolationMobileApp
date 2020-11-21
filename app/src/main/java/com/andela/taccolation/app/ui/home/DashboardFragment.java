@@ -51,6 +51,9 @@ public class DashboardFragment extends Fragment implements OnItemClickListener<D
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate: DASHBOARD FRAGMENT");
         mProfileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+        final Intent intent = requireActivity().getIntent();
+        if (intent.getClipData() != null)
+            Log.i(TAG, "onCreate: Got some data: " + intent.getClipData().toString());
     }
 
     @Override

@@ -3,8 +3,6 @@
     package="com.andela.taccolation">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 
     <application
         android:name=".app.TaccolationApplication"
@@ -15,10 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
 
-        <!--We are using getUriForFile(Context, String, File) which returns a content:// URI.
+        <!--
+        We are using getUriForFile(Context, String, File) which returns a content:// URI.
         For more recent apps targeting Android 7.0 (API level 24) and higher,
         passing a file:// URI across a package boundary causes a FileUriExposedException.
-        Therefore, we now present a more generic way of storing images using a FileProvider-->
+        Therefore, we now present a more generic way of storing images using a FileProvider
+        -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.andela.taccolation.fileprovider"
@@ -27,9 +27,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-
-        <!--fixme-->
+        </provider> <!-- fixme -->
         <activity
             android:name=".app.ui.home.DashboardActivity"
             android:configChanges="orientation"
@@ -41,6 +39,31 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!--https://developer.android.com/training/sharing/receive.html-->
+            <!-- This activity also handles "SEND" and "SEND_MULTIPLE" with media data -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/vnd.google.panorama360+jpg" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/pdf" />
+                <data android:mimeType="application/vnd.google.panorama360+jpg" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="application/doc" />
+                <data android:mimeType="text/csv" />
+                <data android:mimeType="text/comma-separated-values" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+            </intent-filter>
+
+            <nav-graph android:value="@navigation/nav_graph" />
         </activity>
     </application>
 

@@ -1,5 +1,6 @@
 package com.andela.taccolation.local.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -21,6 +22,7 @@ public class Notes {
     @ColumnInfo(name = "file_path")
     private String filePath;
 
+    @NonNull
     @Override
     public String toString() {
         return "Notes{" +

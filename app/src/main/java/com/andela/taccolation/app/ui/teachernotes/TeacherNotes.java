@@ -36,6 +36,7 @@ import com.andela.taccolation.databinding.EnterTextBinding;
 import com.andela.taccolation.databinding.FragmentTeacherNotesBinding;
 import com.andela.taccolation.local.entities.Notes;
 import com.andela.taccolation.presentation.model.Teacher;
+import com.andela.taccolation.presentation.viewmodel.AuthViewModel;
 import com.andela.taccolation.presentation.viewmodel.ProfileViewModel;
 import com.andela.taccolation.presentation.viewmodel.TeacherNotesViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -57,10 +58,10 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
     private AlertDialog mAlertDialog;
     private ProfileViewModel mProfileViewModel;
     private TeacherNotesViewModel mTeacherNotesViewModel;
+    private AuthViewModel mAuthViewModel;
     private Teacher mTeacher;
     private String mSelectedCourseCode = null;
     private NotesAdapter mNotesAdapter;
-
     public TeacherNotes() {
         // Required empty public constructor
     }
@@ -70,6 +71,8 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
         super.onCreate(savedInstanceState);
         mProfileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         mTeacherNotesViewModel = new ViewModelProvider(requireActivity()).get(TeacherNotesViewModel.class);
+        mAuthViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
+
     }
 
     @Override
@@ -81,9 +84,16 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final Intent intent = requireActivity().getIntent();
+        if (intent != null)
+            if (intent.getClipData() != null) {
+                disableViews();
+                populateData();
+            }
+
         mProfileViewModel.getTeacher().observe(getViewLifecycleOwner(), teacher -> mTeacher = teacher);
         initRecyclerView();
-        mBinding.uploadButton.setOnClickListener(v -> displaySelectCourseDialog());
+        mBinding.uploadButton.setOnClickListener(v -> displaySelectCourseDialog(null));
         mBinding.newDocButton.setOnClickListener(v -> createNewDocumentDialog(false));
         mBinding.linkButton.setOnClickListener(v -> createNewDocumentDialog(true));
         mTeacherNotesViewModel.getAllNotes().observe(getViewLifecycleOwner(), notes -> {
@@ -116,24 +126,9 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
                     fileNames.add(getQueryName(data.getData()));
                 } else { // occurs when user selects multiple files
                     notes = new Notes[clipData.getItemCount()];
-                    for (int i = 0; i < clipData.getItemCount(); i++) {
-                        ClipData.Item item = clipData.getItemAt(i);
-                        Uri uri = item.getUri();
-                        processUri(uri);
-                        pathList.add(uri.toString());
-                        fileNames.add(getQueryName(uri));
-                        // notes[i] = new Notes(getQueryName(uri), mSelectedCourseCode, uri.toString());
-                        notes[i] = new Notes();
-                        notes[i].setCourseCode(mSelectedCourseCode);
-                        notes[i].setFilePath(uri.toString());
-                        notes[i].setTitle(getQueryName(uri));
-                    }
+                    processUriData(pathList, fileNames, notes, clipData);
                 }
-                if (!pathList.isEmpty() && !fileNames.isEmpty() && pathList.size() == fileNames.size()) { // mapping of fileNames to their respective Uri
-                    mTeacherNotesViewModel.uploadTeacherFiles(mTeacher, pathList, fileNames, mSelectedCourseCode).observe(getViewLifecycleOwner(), this::processTaskStatus);
-                    mTeacherNotesViewModel.insertAllNotes(notes);
-                    mBinding.recyclerView.setVisibility(View.VISIBLE);
-                }
+                uploadData(pathList, fileNames, notes);
             }
         } else if (requestCode == CREATE_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
@@ -143,22 +138,65 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
         }
     }
 
-    /*@Override
-    public void onItemClick(TeacherFile teacherFile) {
-        final List<TeacherFile> currentList = mAdapter.getCurrentList();
-        for (int i = 0; i < currentList.size(); i++) {
-            if (currentList.get(i).equals(teacherFile)) {
-                mTeacherFiles.remove(i);
-                mAdapter.notifyItemRemoved(i);
-                break;
-            }
-        }
-    }*/
+    @Override
+    public void onViewClicked(Notes note, View view) {
+        int id = view.getId();
+        if (id == R.id.share_button)
+            shareNote(note);
+        else if (id == R.id.delete_button)
+            deleteNote(note);
+        else if (id == R.id.open_button)
+            openNote(note);
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
+    }
+
+    private void populateData() {
+        mProfileViewModel.getCourseList().observe(getViewLifecycleOwner(), courses -> mProfileViewModel.setCourse(courses));
+        mAuthViewModel.getTeacherDetails().observe(getViewLifecycleOwner(), teacher -> {
+            if (teacher.getFirstName() != null) {
+                Log.i(TAG, "TeacherNotes: Teacher: " + teacher.toString());
+                final List<String> courseCodeList = teacher.getCourseCodeList();
+                mProfileViewModel.getStudentList(courseCodeList).observe(getViewLifecycleOwner(), studentListPerCourse -> {
+                    if (!studentListPerCourse.isEmpty()) {
+                        Log.i(TAG, "TeacherNotes: studentListPerCourse: " + studentListPerCourse.toString());
+                        mProfileViewModel.setStudentListPerCourse(studentListPerCourse);
+                        mProfileViewModel.setTeacher(teacher);
+                        // update the isDataDownloaded field
+                        mProfileViewModel.setIsDataDownloaded(true);
+                        enableViews();
+                        displaySelectCourseDialog(requireActivity().getIntent().getClipData());
+                    }
+                });
+            }
+        });
+    }
+
+    private void uploadData(List<String> pathList, List<String> fileNames, Notes[] notes) {
+        if (!pathList.isEmpty() && !fileNames.isEmpty() && pathList.size() == fileNames.size()) { // mapping of fileNames to their respective Uri
+            mTeacherNotesViewModel.uploadTeacherFiles(mTeacher, pathList, fileNames, mSelectedCourseCode).observe(getViewLifecycleOwner(), this::processTaskStatus);
+            mTeacherNotesViewModel.insertAllNotes(notes);
+            mBinding.recyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void processUriData(List<String> pathList, List<String> fileNames, Notes[] notes, ClipData clipData) {
+        for (int i = 0; i < clipData.getItemCount(); i++) {
+            ClipData.Item item = clipData.getItemAt(i);
+            Uri uri = item.getUri();
+            processUri(uri);
+            pathList.add(uri.toString());
+            fileNames.add(getQueryName(uri));
+            // notes[i] = new Notes(getQueryName(uri), mSelectedCourseCode, uri.toString());
+            notes[i] = new Notes();
+            notes[i].setCourseCode(mSelectedCourseCode);
+            notes[i].setFilePath(uri.toString());
+            notes[i].setTitle(getQueryName(uri));
+        }
     }
 
     private void initRecyclerView() {
@@ -190,7 +228,7 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
         mAlertDialog.show();
     }
 
-    private void displaySelectCourseDialog() {
+    private void displaySelectCourseDialog(@Nullable ClipData clipData) {
         mAlertDialog = new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MaterialComponents_DayNight_Dialog_Alert).create();
         DialogTeacherCourseListBinding binding = DataBindingUtil.inflate(LayoutInflater.from(requireContext()), R.layout.dialog_teacher_course_list, null, false);
         final RadioGroup radioGroup = binding.radioGroup;
@@ -211,12 +249,12 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
                     mSelectedCourseCode = ((AppCompatRadioButton) radioGroup.getChildAt(i)).getText().toString();
                     break;
                 }
-
             }
             if (isAnyButtonChecked) {
                 if (mAlertDialog != null)
                     mAlertDialog.dismiss();
-                uploadFileFromStorage();
+                if (clipData != null) uploadFileFromIntent(clipData);
+                else uploadFileFromStorage();
             } else sendSnackBar("You have to select a course to proceed");
         });
         mAlertDialog.setView(binding.getRoot());
@@ -249,6 +287,14 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
         startActivityForResult(fileIntent, FIND_FILE_REQUEST_CODE);
     }
 
+    private void uploadFileFromIntent(ClipData clipData) {
+        List<String> pathList = new ArrayList<>();
+        List<String> fileNames = new ArrayList<>();
+        Notes[] notes = new Notes[clipData.getItemCount()];
+        processUriData(pathList, fileNames, notes, clipData);
+        uploadData(pathList, fileNames, notes);
+    }
+
     private void processTaskStatus(TaskStatus status) {
         switch (status) {
             case SUCCESS:
@@ -276,8 +322,8 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
             int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
             returnCursor.moveToFirst();
             Log.i(TAG, "processUri: Uri: " + returnUri.toString());
-            Log.i(TAG, "processUri: " + returnCursor.getString(nameIndex));
-            Log.i(TAG, "processUri: " + returnCursor.getLong(sizeIndex));
+            Log.i(TAG, "processUri: File Name: " + returnCursor.getString(nameIndex));
+            Log.i(TAG, "processUri: File Size: " + returnCursor.getLong(sizeIndex));
             returnCursor.close();
         }
     }
@@ -294,25 +340,13 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
         return name;
     }
 
-
-    @Override
-    public void onViewClicked(Notes note, View view) {
-        int id = view.getId();
-        if (id == R.id.share_button)
-            shareNote(note);
-        else if (id == R.id.delete_button)
-            deleteNote(note);
-        else if (id == R.id.open_button)
-            openNote(note);
-    }
-
     private void deleteNote(Notes note) {
         new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MaterialComponents_DayNight_Dialog_Alert)
-                .setMessage("Are you sure you want to delete\n" + "'" + note.getTitle() + "' ?")
-                .setTitle("Confirm Delete")
+                .setMessage(getString(R.string.are_you_sure, note.getTitle()))
+                .setTitle(getString(R.string.confirm_delete))
                 .setIcon(android.R.drawable.ic_delete)
-                .setPositiveButton("YES", (dialogInterface, i) -> mTeacherNotesViewModel.deleteNote(note))
-                .setNegativeButton("NO", (dialogInterface, i) -> dialogInterface.dismiss()).show();
+                .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> mTeacherNotesViewModel.deleteNote(note))
+                .setNegativeButton(getString(R.string.no), (dialogInterface, i) -> dialogInterface.dismiss()).show();
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -326,9 +360,10 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setAction(Intent.ACTION_SEND);
         Log.i(TAG, "shareNote: File Path: " + note.getFilePath());
+        Intent chooserIntent = Intent.createChooser(intent, getString(R.string.share_file_chooser_title));
         // Verify that the intent will resolve to an activity
         if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
-            startActivity(intent);
+            startActivity(chooserIntent);
         else sendSnackBar(getString(R.string.no_app_found_intent));
     }
 
@@ -346,5 +381,21 @@ public class TeacherNotes extends Fragment implements OnViewClickListener<Notes,
         if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
             startActivity(intent);
         else sendSnackBar(getString(R.string.no_app_found_intent));
+    }
+
+    private void disableViews() {
+        mBinding.uploadButton.setEnabled(false);
+        mBinding.linkButton.setEnabled(false);
+        mBinding.newDocButton.setEnabled(false);
+        mBinding.group.setVisibility(View.VISIBLE);
+        mBinding.recyclerView.setVisibility(View.INVISIBLE);
+    }
+
+    private void enableViews() {
+        mBinding.uploadButton.setEnabled(true);
+        mBinding.linkButton.setEnabled(true);
+        mBinding.newDocButton.setEnabled(true);
+        mBinding.group.setVisibility(View.GONE);
+        mBinding.recyclerView.setVisibility(View.VISIBLE);
     }
 }

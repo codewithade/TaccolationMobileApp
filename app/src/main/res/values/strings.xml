@@ -144,4 +144,10 @@ student’s life.</string>
     <string name="no_app_found_intent">No application found to open this file</string>
     <string name="share_button">Share Button</string>
     <string name="open_button">Open Button</string>
+    <string name="are_you_sure">Are you sure you want to delete\n\'%s\' ?</string>
+    <string name="confirm_delete">Confirm Delete</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="share_file_chooser_title">Share file with:</string>
+    <string name="uri">android://collocation.com</string>
 </resources>
